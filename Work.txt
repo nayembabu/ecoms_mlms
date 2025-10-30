@@ -1,0 +1,15 @@
+register => view/front/register
+Profile => view/user/profile  Route => /user/profile
+
+
+allProduct =>  view/user/product_by_cats   Route => /user/allProduct
+single_product => view/user/single_product  Route => /user/singleProduct?id=20
+myWallet    => view/user/single_product Route => /user/myWallet
+
+<?php
+
+    echo "<pre>";
+    print_r ($single_product);
+    echo "</pre>";
+
+?>

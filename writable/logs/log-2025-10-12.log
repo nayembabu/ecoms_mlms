@@ -1,0 +1,105 @@
+CRITICAL - 2025-10-12 20:58:01 --> CodeIgniter\Exceptions\FrameworkException: Your zlib.output_compression ini directive is turned on. This will not work well with output buffers.
+[Method: GET, Route: /]
+in APPPATH/Config/Events.php on line 29.
+ 1 APPPATH/Config/Events.php(29): CodeIgniter\Exceptions\FrameworkException::forEnabledZlibOutputCompression()
+ 2 SYSTEMPATH/Events/Events.php(152): CodeIgniter\Events\Events::Config\{closure}()
+ 3 SYSTEMPATH/CodeIgniter.php(339): CodeIgniter\Events\Events::trigger()
+ 4 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-10-12 20:59:23 --> Error: Class "Services" not found
+[Method: GET, Route: /]
+in APPPATH/Config/Routes.php on line 4.
+ 1 SYSTEMPATH/Router/RouteCollection.php(339): require()
+ 2 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-10-12 20:59:27 --> Error: Class "Services" not found
+[Method: GET, Route: /]
+in APPPATH/Config/Routes.php on line 4.
+ 1 SYSTEMPATH/Router/RouteCollection.php(339): require()
+ 2 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-10-12 21:00:20 --> Error: Class "Services" not found
+[Method: GET, Route: /]
+in APPPATH/Config/Routes.php on line 4.
+ 1 SYSTEMPATH/Router/RouteCollection.php(339): require()
+ 2 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-10-12 21:01:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:02:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-10-12 21:02:28 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'szfjjtji_demo'@'localhost' (using password: YES) in /home/szfjjtji/mlm_ecom/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /home/szfjjtji/mlm_ecom/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /home/szfjjtji/mlm_ecom/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/szfjjtji/mlm_ecom/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/szfjjtji/mlm_ecom/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/szfjjtji/mlm_ecom/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/szfjjtji/mlm_ecom/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 /home/szfjjtji/mlm_ecom/app/Controllers/Auth.php(39): CodeIgniter\BaseModel->first()
+#7 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(933): App\Controllers\Auth->login_check()
+#8 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/szfjjtji/mlm_ecom/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 /home/szfjjtji/mlm_ecom/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/szfjjtji/mlm_ecom/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/szfjjtji/mlm_ecom/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /home/szfjjtji/mlm_ecom/system/Database/BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/szfjjtji/mlm_ecom/system/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/szfjjtji/mlm_ecom/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/szfjjtji/mlm_ecom/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/szfjjtji/mlm_ecom/system/BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 /home/szfjjtji/mlm_ecom/app/Controllers/Auth.php(39): CodeIgniter\BaseModel->first()
+#6 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(933): App\Controllers\Auth->login_check()
+#7 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/szfjjtji/mlm_ecom/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/szfjjtji/mlm_ecom/system/Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 /home/szfjjtji/mlm_ecom/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/szfjjtji/mlm_ecom/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2025-10-12 21:02:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: POST, Route: login_check]
+in SYSTEMPATH/Database/BaseConnection.php on line 465.
+ 1 SYSTEMPATH/Database/BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Controllers/Auth.php(39): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Auth->login_check()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-10-12 21:03:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:03:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:03:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:03:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:23:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:43:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-12 21:43:35 --> TypeError: App\Controllers\Home::index(): Return value must be of type string, null returned
+[Method: GET, Route: /]
+in APPPATH/Controllers/Home.php on line 16.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-10-12 21:47:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-12 21:48:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
