@@ -45,6 +45,10 @@ class Home extends BaseController
 
     public function login()
     {
-        return $this->template->front('front/login');
+        if ($this->session->get('isLoggedIn')) {
+            return redirect()->to('/user/dashboard');
+        }else {
+            return $this->template->front('front/login');
+        }
     }
 }

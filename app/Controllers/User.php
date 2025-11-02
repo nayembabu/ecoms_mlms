@@ -32,6 +32,13 @@ class User extends BaseController
     {
         return $this->template->front('user/dashboard');
     }
+    public function dashboard()
+    {
+        $data['daily_profit'] = $this->db->table('daily_profit_checkbox')
+                                    ->get()
+                                    ->getResult();
+        return $this->template->front('user/dashboard', $data);
+    }
     public function profile()
     {
         $userId = $this->session->get('userInfoId');
@@ -42,7 +49,7 @@ class User extends BaseController
         ];
         return $this->template->front('user/profile',$data);
     }
-    public function editProfile(){
+    public function editProfile() {
         $user_id = $this->request->getPost('user_id');
         $user_full_name = $this->request->getPost('user_full_name');
         $user_address = $this->request->getPost('user_full_address');

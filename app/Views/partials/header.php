@@ -21,6 +21,7 @@
 
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="inc/assets/css/vendors/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- wow css -->
     <link rel="stylesheet" href="inc/assets/css/animate.min.css">
@@ -31,6 +32,24 @@
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="inc/assets/css/style.css">
+
+    <?php $session = $session ?? \Config\Services::session(); if ($session->get('isLoggedIn')) { ?>
+        <style>
+            body {background: #f7f9fc;font-family: 'Times New Roman';}
+            .navbar {background: linear-gradient(90deg, #0d6efd, #2563eb);box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+            .navbar-brand, .navbar-nav .nav-link {color: #fff !important; transition: 0.3s ease;}
+            .navbar-nav .nav-link:hover {color: #ffe082 !important;}
+            .user-info {display: flex; align-items: center; gap: 10px; color: #fff;}
+            .user-info img {width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;}
+            .user-info small {display: block; line-height: 1.1;}
+            .content-section {padding: 60px 0; animation: fadeIn 0.6s ease-in-out;}
+            .card {border: none; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); transition: transform .2s ease;}
+            .card:hover {transform: translateY(-5px);}
+            .kpi-icon {font-size: 2rem; color: #0d6efd; background: #eef5ff; border-radius: 10px; padding: 12px;}
+            .footer {background:#fff; padding:20px 0; box-shadow:0 -3px 10px rgba(0,0,0,0.05);}
+            @keyframes fadeIn {from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:none;}}
+        </style>
+    <?php } ?>
 
         <!-- jQuery Connect  -->
     <script src="inc/plugin/jq3.min.js"></script>

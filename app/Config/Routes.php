@@ -16,6 +16,7 @@
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {
+        $routes->get('dashboard', 'User::dashboard');
         $routes->get('profile', 'User::profile');
         $routes->post('edit-profile','User::editProfile');
         $routes->get('allProduct', 'User::show_product_by_cats');

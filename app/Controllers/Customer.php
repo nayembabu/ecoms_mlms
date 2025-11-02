@@ -89,9 +89,6 @@ class Customer extends BaseController
 
     public function buy_a_single_product_with_id()
     {
-        // userInfoId
-        // userRole
-
         $product_id = $this->request->getPost('product_id');
         $user_id = $this->session->get('userInfoId');
         echo $product_id;

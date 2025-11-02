@@ -27,8 +27,13 @@ class Auth extends BaseController
     }
 
     public function register()
-    {   
-        return $this->template->front('front/register');
+    {
+        $session = session();
+        if ($session->get('isLoggedIn')) {
+            return redirect()->to('/user/dashboard');
+        }else {
+            return $this->template->front('front/register');
+        }
     }
     public function register_user()
     {
@@ -39,7 +44,6 @@ class Auth extends BaseController
         $user_phone_no     = $this->request->getPost('user_phone');
         $user_name         = $this->request->getPost('userNam');
         $user_password     = $this->request->getPost('user_password');
-
 
         $user_pro_pic_paths = null;
         $file = $this->request->getFile('profile_pic');
@@ -54,11 +58,13 @@ class Auth extends BaseController
             return redirect()->to('/register')->with('error', 'Please fill in all required fields.');
         }
         $userData = [
-            'user_full_name'     => $user_full_name,
-            'user_full_address'  => $user_full_address,
-            'user_email_no'      => $user_email_no,
-            'user_phone_no'      => $user_phone_no,
-            'user_pro_pic_paths' => $user_pro_pic_paths,
+            'user_full_name'            => $user_full_name,
+            'user_full_address'         => $user_full_address,
+            'user_email_no'             => $user_email_no,
+            'user_phone_no'             => $user_phone_no,
+            'user_pro_pic_paths'        => $user_pro_pic_paths,
+            'user_reffer_code_times'    => time(),
+            'sts'                       => 0,
         ];
 
         $loginData = [
@@ -141,6 +147,6 @@ class Auth extends BaseController
                 'logout_dates' => date('Y-m-d')
             ]);
         $session->destroy();
-        return redirect()->to('/login')->with('success', 'Logged out successfully');
+        return redirect()->to('/')->with('success', 'Logged out successfully');
     }
 }

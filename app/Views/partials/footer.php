@@ -1,5 +1,12 @@
 
 
+  <!-- Footer -->
+  <footer class="footer text-center text-muted">
+    <div class="container">
+      <p class="mb-0">© 2025 MLM Pro — ডিজাইন স্মুথ ভার্সন Bootstrap 5</p>
+    </div>
+  </footer>
+
     <!-- Bootstrap js-->
     <script src="inc/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="inc/assets/js/bootstrap/bootstrap-notify.min.js"></script>
