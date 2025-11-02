@@ -1,8 +1,7 @@
 
-<?php 
+<?php
     $ps = $products[0];
     $day = date('d');
-
 ?>
 
     <!-- Product Section Start -->
@@ -134,3 +133,7 @@
         </div>
     </div>
     <!-- Tap to top and theme setting button end -->
+
+
+
+<!-- gh -->

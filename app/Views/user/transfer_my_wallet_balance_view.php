@@ -23,7 +23,7 @@
 </style>
 
 
-<div class="container py-5">
+<div class="container py-5 pt-5 mt-5 text-center bg-white shadow-sm ">
     <div class="row justify-content-center g-4">
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm border-0">

@@ -118,7 +118,8 @@
 </style>
 
 
-<section class="py-5 container-fluid-lg">
+
+<section class="pt-5 mt-5 text-center bg-white shadow-sm  py-5 container-fluid-lg">
   <?php 
   // ===================== Group Products by Category =====================
   $grouped = [];

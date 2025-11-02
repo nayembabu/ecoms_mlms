@@ -110,7 +110,7 @@
 </style>
 
 
-<section class="single-view">
+<section class="single-view pt-5 mt-5 text-center bg-white shadow-sm ">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10 col-md-11">

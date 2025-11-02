@@ -13,7 +13,8 @@
   .swal2-popup{border-radius:1rem!important}
 </style>
 
-<div class="container-fluid-lg py-4">
+<div class="container-fluid-lg py-4 pt-5 mt-5 text-center bg-white shadow-sm ">
+  
   <div class="row justify-content-center">
     <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-11 col-12">
       <div class="card profile-card">

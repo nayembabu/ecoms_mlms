@@ -211,22 +211,24 @@
   }
 </style>
 
-<div class="container team_container">
+<section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
+  <div class="container team_container">
 
-  <ul class="team_main_list_ul">
-    <li class="team_list_1 team_list_li " >
-      <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
-      <ul>
-        <?php foreach ($ref_users as $sng) { ?>
-          <li class="team_list_2 team_list_li " >
-            <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
-          </li>
-        <?php } ?>
-      </ul>
-    </li>
-  </ul>
+    <ul class="team_main_list_ul">
+      <li class="team_list_1 team_list_li " >
+        <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
+        <ul>
+          <?php foreach ($ref_users as $sng) { ?>
+            <li class="team_list_2 team_list_li " >
+              <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
+            </li>
+          <?php } ?>
+        </ul>
+      </li>
+    </ul>
 
-</div>
+  </div>
+</section>
 
 
 <br><br><br><br><br><br><br><br>
@@ -235,7 +237,7 @@
 
 <script>
   $(document).on('click', '.person_cls', function (e) {
-      
+
     const $a   = $(this);
     const $li  = $a.closest('.team_list_li'); // parent() নয়, closest() নিরাপদ
     const person_id   = $a.attr('person_id');
