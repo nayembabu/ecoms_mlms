@@ -152,5 +152,24 @@ class Customer extends BaseController
         }
     }
 
+    public function get_my_wallet_amount()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
+        echo json_encode($data['current_wallet_balance']);
+    }
+
 
 }

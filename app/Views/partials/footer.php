@@ -41,6 +41,25 @@
     <!-- script js -->
     <script src="inc/assets/js/script.js"></script>
 
+
+
+    <script>
+      assign_wallet_balance();
+      function assign_wallet_balance() {
+        $.ajax({
+          type: "post",
+          url: "user/amountWallet",
+          data: "",
+          dataType: "json",
+          success: function (res) {
+            $('.this_wallet_amount').text(res);
+          }
+        });
+      }
+    </script>
+
+
+
 </body>
 
 </html>

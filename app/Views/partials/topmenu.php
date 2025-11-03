@@ -138,6 +138,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#"><i class="bi bi-diagram-3-fill me-2"></i><?= $setting->vendor_name; ?></a>
+                <div class="navbar-w-250 me-auto d-flex align-items-center">
+                    <div class="btn-group align-items-center">
+                        <button class="bg-light btn btn-sm btn-light d-flex align-items-center rounded" title="Wallet">
+                            <i class="fas fa-hand-holding-usd fs-3 me-3"></i>
+                            <div class="text-start">
+                                <small class="d-block fs-6 ">Balance</small>
+                                <strong class="d-block fs-5 ">৳ <span class="this_wallet_amount " >0</span></strong>
+                            </div>
+                        </button>
+                    </div>
+                </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
