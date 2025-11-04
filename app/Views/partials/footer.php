@@ -1,11 +1,11 @@
 
 
-  <!-- Footer -->
+  <!-- Footer 
   <footer class="footer text-center text-muted">
     <div class="container">
       <p class="mb-0">© 2025 MLM Pro — ডিজাইন স্মুথ ভার্সন Bootstrap 5</p>
     </div>
-  </footer>
+  </footer>-->
 
     <!-- Bootstrap js-->
     <script src="inc/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
@@ -41,6 +41,17 @@
     <!-- script js -->
     <script src="inc/assets/js/script.js"></script>
 
+    <script>
+        $(function() {
+          $(".date_pick").datepicker({
+            dateFormat: "yy-mm-dd",     // ফরম্যাট yyyy-mm-dd
+            changeMonth: true,          // মাস পরিবর্তন করা যাবে
+            changeYear: true,           // বছর পরিবর্তন করা যাবে
+            showButtonPanel: true,      // Today ও Done বাটন
+            showAnim: "slideDown"       // খোলার সময় অ্যানিমেশন
+          });
+        });
+    </script>
 
 
     <script>

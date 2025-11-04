@@ -6,10 +6,18 @@
     <div class="row mb-4">
       <!-- Balance Card -->
       <div class="col-md-6 mb-3">
-        <div class="card shadow-sm border-0">
-          <div class="card-body">
-            <h6 class="text-muted">Available Balance</h6>
-            <h2 class="fw-bold text-success fs-3 ">৳3,250.50</h2>
+        <div class="card shadow-sm border-0 ">
+          <div class="card-body row">
+            <div class="col-6 col-md-5 text-center ">
+              <h6 class="text-muted">Available Balance</h6>
+              <h2 class="fw-bold text-success fs-3 ">৳<?= $current_wallet_balance; ?></h2>
+            </div>
+            <div class="col-3 col-md-3">
+              <a href="user/deposites" class="btn btn-primary bg-success text-white ">Deposite</a>
+            </div>
+            <div class="col-3 col-md-3">
+              <a href="" class="btn btn-primary bg-danger text-white ">Withdraw</a>
+            </div>
           </div>
         </div>
       </div>
@@ -21,7 +29,7 @@
             <div class="card text-center border-0 shadow-sm">
               <div class="card-body">
                 <h6>Total Income</h6>
-                <p class="text-success fw-bold">৳5,420</p>
+                <p class="text-success fw-bold">৳<?= $user_added_wallet; ?></p>
               </div>
             </div>
           </div>
@@ -29,7 +37,7 @@
             <div class="card text-center border-0 shadow-sm">
               <div class="card-body">
                 <h6>Total Expense</h6>
-                <p class="text-danger fw-bold">৳2,170</p>
+                <p class="text-danger fw-bold">৳<?= $user_used_wallet; ?></p>
               </div>
             </div>
           </div>
@@ -54,24 +62,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Nov 1, 2025</td>
-                <td>Freelance Project</td>
-                <td>Upwork</td>
-                <td class="text-success fw-bold">+$450</td>
-              </tr>
-              <tr>
-                <td>Oct 25, 2025</td>
-                <td>Salary Payment</td>
-                <td>Company ABC</td>
-                <td class="text-success fw-bold">+$3,000</td>
-              </tr>
-              <tr>
-                <td>Oct 10, 2025</td>
-                <td>Stock Dividend</td>
-                <td>Robinhood</td>
-                <td class="text-success fw-bold">+$150</td>
-              </tr>
+              <?php foreach ($added_amounts as $add) { ?>
+                <tr>
+                  <td><?= date('F d, Y', $add->times_stamps); ?></td>
+                  <td><?= $add->payment_description; ?></td>
+                  <td><?= $add->amount_perpose; ?></td>
+                  <td class="text-success fw-bold">৳<?= $add->added_amount; ?></td>
+                </tr>
+              <?php } ?>
             </tbody>
           </table>
         </div>
@@ -93,52 +91,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Nov 2, 2025</td>
-                <td>Grocery Shopping</td>
-                <td>Food</td>
-                <td class="text-danger fw-bold">-$75</td>
-              </tr>
-              <tr>
-                <td>Oct 28, 2025</td>
-                <td>Electric Bill</td>
-                <td>Utilities</td>
-                <td class="text-danger fw-bold">-$120</td>
-              </tr>
-              <tr>
-                <td>Oct 15, 2025</td>
-                <td>Netflix Subscription</td>
-                <td>Entertainment</td>
-                <td class="text-danger fw-bold">-$15</td>
-              </tr>
+              <?php foreach ($used_amounts as $cut) { ?>
+                <tr>
+                  <td><?= date('F d, Y', $cut->time_stamps); ?></td>
+                  <td><?= $cut->cut_descs; ?></td>
+                  <td><?= $cut->cutting_perpose; ?></td>
+                  <td class="text-danger fw-bold">৳ <?= $cut->cutting_amounts; ?></td>
+                </tr>
+              <?php } ?>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-
-<?php 
-
-    
-    echo "<pre>";
-    // পুরো তথ্য 
-    print_r ($user_info);
-
-    // এই ভ্যারিয়েবলে তার বর্তমান ওয়ালেট ব্যালেন্স আছে। 
-    print_r ($current_wallet_balance);
-
-
-    // এই লোকের টাকা লোড করার সব ডাটা একসাথে আছে। 
-    print_r ($added_amounts);
-
-
-    // এখানে wallet থেকে কাটা টাকার সব ডাটা আছে। 
-    print_r ($used_amounts);
-    echo "</pre>";
-
-
-?>
 
 
     </div>

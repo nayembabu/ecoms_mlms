@@ -28,6 +28,7 @@
         $routes->get('balanceTransfer', 'Customer::transfer_my_wallet_balance');
         $routes->post('getUserByPhone', 'Customer::get_person_details_by_person_phone_email');
         $routes->post('amountWallet', 'Customer::get_my_wallet_amount');
+        $routes->get('deposites', 'Customer::deposite_my_account');
     });
 
 

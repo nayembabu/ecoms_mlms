@@ -70,19 +70,19 @@ class Customer extends BaseController
                                     ->get()
                                     ->getResult();
 
-        $user_added_wallet = $this->db->table('user_added_amounts')
+        $data['user_added_wallet'] = $this->db->table('user_added_amounts')
                                     ->selectSum('added_amount')
                                     ->where('user_info_id_addeds', $userInfoId)
                                     ->get()
                                     ->getRow()
                                     ->added_amount;
-        $user_used_wallet = $this->db->table('user_cutted_amnt')
+        $data['user_used_wallet'] = $this->db->table('user_cutted_amnt')
                                     ->selectSum('cutting_amounts')
                                     ->where('user_cut_user_idd', $userInfoId)
                                     ->get()
                                     ->getRow()
                                     ->cutting_amounts;
-        $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
+        $data['current_wallet_balance'] = $data['user_added_wallet'] - $data['user_used_wallet'];
 
         $this->template->front('user/my_wallet', $data);
     }
@@ -169,6 +169,16 @@ class Customer extends BaseController
                                     ->cutting_amounts;
         $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
         echo json_encode($data['current_wallet_balance']);
+    }
+
+    public function deposite_my_account()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data_ref_users = $this->db->table('user_recharge_history')
+                                    ->where('user_info_idsq', $userInfoId)
+                                    ->get()
+                                    ->getResult();
+        $this->template->front('user/deposite_my_wallet_balance_view');
     }
 
 
