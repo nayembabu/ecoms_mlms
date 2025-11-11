@@ -10,13 +10,13 @@
           <div class="card-body row">
             <div class="col-6 col-md-5 text-center ">
               <h6 class="text-muted">Available Balance</h6>
-              <h2 class="fw-bold text-success fs-3 ">৳<?= $current_wallet_balance; ?></h2>
+              <h2 class="fw-bold text-success fs-3 ">৳<?php echo number_format($current_wallet_balance, 2); ?></h2>
             </div>
             <div class="col-3 col-md-3">
-              <a href="user/deposites" class="btn btn-primary bg-success text-white ">Deposite</a>
+              <a class="btn btn-primary bg-success text-white " data-bs-toggle="modal" data-bs-target="#depositeModals" >Deposite</a>
             </div>
             <div class="col-3 col-md-3">
-              <a href="" class="btn btn-primary bg-danger text-white ">Withdraw</a>
+              <a href="user/withdraw" class="btn btn-primary bg-danger text-white ">Withdraw</a>
             </div>
           </div>
         </div>
@@ -105,7 +105,24 @@
       </div>
     </div>
 
-
-
     </div>
 </section>
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="depositeModals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white ">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body mb-5 mt-5 ">
+          <center><h1> Join our Telegram Group and recharge. </h1></center>
+        </div>
+      </div>
+    </div>
+  </div>

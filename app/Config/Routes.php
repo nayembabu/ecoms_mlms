@@ -18,18 +18,31 @@
     $routes->group('user', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'User::dashboard');
         $routes->get('profile', 'User::profile');
-        $routes->post('edit-profile','User::editProfile');
         $routes->get('allProduct', 'User::show_product_by_cats');
         $routes->get('singleProduct', 'Customer::get_single_products_by_id');
-        $routes->post('buySingleProduct', 'Customer::buy_a_single_product');
         $routes->get('myWallet', 'Customer::my_wallet_view');
         $routes->get('fullTeams', 'Customer::view_my_full_teams');
-        $routes->post('getRefferById', 'Customer::get_person_reffer_details_by_person_id');
         $routes->get('balanceTransfer', 'Customer::transfer_my_wallet_balance');
+        $routes->get('deposites', 'Customer::deposite_my_account');
+        $routes->get('withdraw', 'Customer::withdraw_my_wallet_balance');
+        $routes->get('set_account_number', 'Customer::set_account_number');
+        $routes->get('referrals', 'Customer::my_referrals_list');
+        $routes->get('add_referral', 'Customer::add_new_referral_view');
+
+
+        $routes->post('edit-profile','User::editProfile');
+        $routes->post('buySingleProduct', 'Customer::buy_a_single_product');
+        $routes->post('getRefferById', 'Customer::get_person_reffer_details_by_person_id');
         $routes->post('getUserByPhone', 'Customer::get_person_details_by_person_phone_email');
         $routes->post('amountWallet', 'Customer::get_my_wallet_amount');
-        $routes->get('deposites', 'Customer::deposite_my_account');
+        $routes->post('withdraw_req', 'Customer::withdraw_request');
+        $routes->post('set_account_number_action', 'Customer::set_account_number_action');
+        $routes->post('add_new_referral', 'Customer::add_new_referrals');
     });
 
 
     // Additional routing can be added here
+
+
+
+

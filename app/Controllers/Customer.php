@@ -181,5 +181,168 @@ class Customer extends BaseController
         $this->template->front('user/deposite_my_wallet_balance_view');
     }
 
+    public function withdraw_my_wallet_balance()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
+        $data['user_info'] = $this->db->table('user_full_info')
+                                    ->where('user_full_info_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow();
+        $data['withdraw_history'] = $this->db->table('user_withdraw_request')
+                                    ->where('user_id_unp', $userInfoId)
+                                    ->where('approve_status', 0)
+                                    ->get()
+                                    ->getResult();
+        $this->template->front('user/withdraw_my_account_balanced', $data);
+    }
+
+    public function withdraw_request() 
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $withdraw_amount = $this->request->getPost('withdraw_amount');
+        $additional_notes = $this->request->getPost('additional_notes');
+
+        $data = [
+            'user_id_unp' => $userInfoId,
+            'requ_amount_taka' => $withdraw_amount,
+            'additional_notes' => $additional_notes,
+            'approve_status' => 0,
+            'date_today' => date('Y-m-d'),
+            'today_times' => time()
+        ];
+        $this->db->table('user_withdraw_request')->insert($data);
+        $last = $this->db->insertID();
+
+        $data = [
+            'user_cut_user_idd' => $userInfoId,
+            'cutting_amounts' => $withdraw_amount,
+            'cut_descs'     => $additional_notes,
+            'cutting_perpose' => 'withdraw_request',
+            'time_stamps' => time(),
+            'cut_any_idd' => $last
+        ];
+        $this->db->table('user_cutted_amnt')->insert($data);
+
+        return redirect()->to('/user/withdraw')->with('success', 'Your withdrawal request has been submitted successfully.');
+    }
+
+    public function set_account_number()
+    {
+        $this->template->front('user/set_account_number_view');
+    }
+
+    public function set_account_number_action()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $bank_name = $this->request->getPost('bank_name');
+        $account_number = $this->request->getPost('account_number');
+        $account_holder_name = $this->request->getPost('account_holder_name');
+
+        $data = [
+            'user_withdraw_method' => $bank_name,
+            'user_withdraw_nos' => $account_number,
+            'payments_names' => $account_holder_name
+        ];
+
+        $this->db->table('user_full_info')->where('user_full_info_idd', $userInfoId)->update($data);
+        return redirect()->to('/user/dashboard')->with('success', 'Your account details have been saved successfully.');
+    }
+
+    public function my_referrals_list()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['ref_users'] = $this->db->table('user_reffer')
+                                    ->where('reffer_main_idd', $userInfoId)
+                                    ->join('user_full_info', 'user_reffer.reffer_ref_user_idd = user_full_info.user_full_info_idd', 'left')
+                                    ->get()
+                                    ->getResult();
+        $data['batch_users'] = $this->db->table('user_badge_s')
+                                    ->where('batch_user_inf_ids', $userInfoId)
+                                    ->join('batch_details', 'batch_details.batch_detail_idd = user_badge_s.batch_b_detail_idds', 'left')
+                                    ->get()
+                                    ->getRow();
+
+        $this->template->front('user/my_referrals_list_view', $data);
+    }
+
+    public function add_new_referral_view()
+    {
+        $this->template->front('user/add_new_referral_view');
+    }
+
+    public function add_new_referral_action()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+    }
+
+    public function add_new_referrals()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+
+        $full_name = $this->request->getPost('fullname');
+        $username = $this->request->getPost('username');
+        $email_no = $this->request->getPost('email');
+        $phone = $this->request->getPost('phone');
+        $address = $this->request->getPost('address');
+        $password = $this->request->getPost('password');
+        $confirm_password = $this->request->getPost('confirm_password');
+
+        // Insert into user_full_info
+        $data_user = [
+            'user_full_name'        => $full_name,
+            'user_full_address'     => $address,
+            'user_email_no'         => $email_no,
+            'user_phone_no'         => $phone,
+            'sts'                   => 0,
+            'user_reffer_code_times'=> time(),
+            'join_date'             => date('Y-m-d'),
+            'join_timming'          => time(),
+        ];
+        $this->db->table('user_full_info')->insert($data_user);
+        $new_user_id = $this->db->insertID();
+        // Insert into user_login_details
+        $data_login = [
+            'user_name'      => $username,
+            'user_emails'    => $email_no,
+            'user_password'  => password_hash($password, PASSWORD_BCRYPT),
+            'password_show'  => $password,
+            'status'         => 1,
+            'login_user_idd' => $userInfoId
+        ];
+        $this->db->table('user_login_details')->insert($data_login);
+
+        $data_reffer = [
+            'ref_reffer_user_idd'   => $userInfoId,
+            'rreffer_main_id'       => $new_user_id,
+            'entry_times'           => time()
+        ];
+        $this->db->table('temp_user_reffer')->insert($data_reffer);
+
+        $data_reffer = [
+            'role_user_idd'   => $userInfoId,
+            'role_role_idd'   => $new_user_id
+        ];
+        $this->db->table('temp_user_reffer')->insert($data_reffer);
+
+        return redirect()->to('/user/referrals')->with('success', 'New referral added successfully.');
+    }
+
+
+
+
+
 
 }

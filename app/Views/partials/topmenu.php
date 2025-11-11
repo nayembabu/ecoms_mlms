@@ -16,7 +16,7 @@
 
 <body>
 
-    <!-- Loader Start -->
+    <!-- Loader Start 
     <div class="fullpage-loader">
         <span></span>
         <span></span>
@@ -24,7 +24,7 @@
         <span></span>
         <span></span>
         <span></span>
-    </div>
+    </div>-->
     <!-- Loader End -->
 
 <?php if (!$session->get('isLoggedIn')) { ?>
@@ -140,13 +140,13 @@
             <a class="navbar-brand fw-bold" href="#"><i class="bi bi-diagram-3-fill me-2"></i><?= $setting->vendor_name; ?></a>
                 <div class="navbar-w-250 me-auto d-flex align-items-center">
                     <div class="btn-group align-items-center">
-                        <button class="bg-light btn btn-sm btn-light d-flex align-items-center rounded" title="Wallet">
+                        <a href="user/myWallet" class="bg-light btn btn-sm btn-light d-flex align-items-center rounded" title="Wallet">
                             <i class="fas fa-hand-holding-usd fs-3 me-3"></i>
                             <div class="text-start">
                                 <small class="d-block fs-6 ">Balance</small>
                                 <strong class="d-block fs-5 ">৳ <span class="this_wallet_amount " >0</span></strong>
                             </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
@@ -154,11 +154,11 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/myWallet">ওয়ালেট</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#referrals">রেফারেল</a></li>
+                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#payouts">পেআউট</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#settings">সেটিংস</a></li>
+                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/withdraw">Withdraw</a></li>
+                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                     <!-- Logged-in User Info -->
                     <li class="nav-item ms-lg-4">
                         <div class="user-info">
@@ -171,6 +171,7 @@
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
