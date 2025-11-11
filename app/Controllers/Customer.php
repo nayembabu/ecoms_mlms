@@ -293,7 +293,7 @@ class Customer extends BaseController
         $userInfoId = $this->session->get('userInfoId');
 
         $full_name = $this->request->getPost('fullname');
-        $username = $this->request->getPost('username');
+        $username = $this->request->getPost('user_name');
         $email_no = $this->request->getPost('email');
         $phone = $this->request->getPost('phone');
         $address = $this->request->getPost('address');
@@ -332,8 +332,8 @@ class Customer extends BaseController
         $this->db->table('temp_user_reffer')->insert($data_reffer);
 
         $data_reffer = [
-            'role_user_idd'   => $userInfoId,
-            'role_role_idd'   => $new_user_id
+            'rreffer_main_id'       => $userInfoId,
+            'ref_reffer_user_idd'   => $new_user_id
         ];
         $this->db->table('temp_user_reffer')->insert($data_reffer);
 

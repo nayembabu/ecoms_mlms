@@ -51,4 +51,32 @@ class Home extends BaseController
             return $this->template->front('front/login');
         }
     }
+
+    public function register_new_referral($refId = null)
+    {
+        if(!$refId){
+            return redirect()->to('/register');
+        }else{
+            if ($this->session->get('isLoggedIn')) {
+                return redirect()->to('/user/add_referral');
+            }else {
+                $data['user_info'] = $this->db
+                                          ->table('user_full_info')
+                                          ->where('user_reffer_code_times', $refId)
+                                          ->get()
+                                          ->getRow();
+                if ($data['user_info']) {
+                    // User information found
+                    $data['referral_id'] = $refId;
+                    return view('front/register_new_user_referral', $data);
+                }else {
+                    // No user found with the given referral code
+                    return redirect()->to('/register');
+                }
+            }
+        }
+    }
+
+
+
 }

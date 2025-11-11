@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="inc/assets/css/bulk-style.css">
     <link rel="stylesheet" type="text/css" href="inc/assets/css/vendors/animate.css">
     <link rel="stylesheet" href="inc/plugin/jqui/jquery-ui.min.css">
+    <link rel="stylesheet" href="inc/plugin/toastr/build/toastr.min.css">
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="inc/assets/css/style.css">

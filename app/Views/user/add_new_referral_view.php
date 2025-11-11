@@ -205,12 +205,12 @@
                             <h4 class="mb-2" style="font-weight:700; color:#0f172a;">Register Referral</h4>
                             <p class="text-muted small mb-4">Fill the information below to register a new referral into the system.</p>
 
-                            <form id="referralForm" action="add_new_referral" method="post" novalidate>
+                            <form id="referralForm" action="user/add_new_referral" method="post" novalidate>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small">Full Name</label>
                                         <div class="input-anim">
-                                            <input type="text" name="fullname" class="form-control form-control-lg" placeholder="Jane Doe" required>
+                                            <input type="text" name="fullname" class="form-control form-control-lg" placeholder="full name" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please enter a full name.</div>
@@ -219,7 +219,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Username</label>
                                         <div class="input-anim">
-                                            <input type="text" name="username" class="form-control form-control-lg" placeholder="janedoe" required>
+                                            <input type="text" name="user_name" class="form-control form-control-lg" placeholder="username" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please choose a username.</div>
@@ -228,7 +228,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Email</label>
                                         <div class="input-anim">
-                                            <input type="email" name="email" class="form-control form-control-lg" placeholder="you@example.com" required>
+                                            <input type="email" name="email" class="form-control form-control-lg" placeholder="type your email" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please provide a valid email.</div>
@@ -237,14 +237,14 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Phone</label>
                                         <div class="input-anim">
-                                            <input type="tel" name="phone" class="form-control form-control-lg" placeholder="01712345678" required>
+                                            <input type="tel" name="phone" class="form-control form-control-lg" placeholder="mobile no (01712345678)" required>
                                             <span class="focus-line"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label small">Address</label>
                                         <div class="input-anim">
-                                            <input type="text" name="address" class="form-control form-control-lg" placeholder="123 Main St, City, Country" required>
+                                            <input type="text" name="address" class="form-control form-control-lg" placeholder="full address" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please enter a valid address.</div>

@@ -37,6 +37,9 @@
       <script src="inc/assets/js/wow.min.js"></script>
       <script src="inc/assets/js/custom-wow.js"></script>
 
+      <!-- toastr js  -->
+      <script src="inc/plugin/toastr/build/toastr.min.js"></script>
+
       <!-- script js -->
       <script src="inc/assets/js/script.js"></script>
 
@@ -68,16 +71,15 @@
         }
       </script>
 
+
         <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= esc(session()->getFlashdata('success')) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+          <script>
+            toastr.success("<?= esc(session()->getFlashdata('success')) ?>");
+          </script>
         <?php elseif (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= esc(session()->getFlashdata('error')) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+          <script>
+            toastr.error("<?= esc(session()->getFlashdata('error')) ?>");
+          </script>
         <?php endif; ?>
 
 
