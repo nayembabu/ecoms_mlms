@@ -31,7 +31,7 @@
                     <h1 class="h4 mb-4 text-center">Search Profile for Balance Tranfer</h1>
 
                     <div class="input-group input-group-lg shadow-sm ">
-                        <input type="text" class="form-control person_search_input_box" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                        <input type="text" class="form-control person_search_input_box" placeholder="Search by phone number or email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                         <button class="btn btn-primary search_btn_click " id="inputGroup-sizing-lg">
                             <i class="fa fa-search"></i>  খুঁজুন
                         </button>
@@ -57,8 +57,7 @@
             },
             dataType: "json",
             success: function (rss) {
-                console.log(rss);
-
+                $('.person_search_input_box').val('');
                 // চেক করবো রেসপন্সে 'No User Found' আছে কিনা
                 if (rss === "No User Found here... " || !rss || Object.keys(rss).length === 0) {
                     $("#userOutput").html(`
@@ -72,15 +71,15 @@
                     const html = `
                         <div class="card shadow-sm border-0" style="max-width:500px;margin:auto;">
                             <div class="card-body text-center">
-                                <img src="${rss.user_pro_pic_paths}" alt="${rss.user_full_name}" class="rounded-circle mb-3 shadow-sm" width="120" height="120" style="object-fit:cover;">
-                                <h5 class="card-title mb-1">${rss.user_full_name}</h5>
-                                <p class="text-muted mb-2">${rss.user_email_no}</p>
+                                <img src="${rss.user_pic}" alt="${rss.full_name}" class="rounded-circle mb-3 shadow-sm" width="120" height="120" style="object-fit:cover;">
+                                <h5 class="card-title mb-1">${rss.full_name}</h5>
+                                <p class="text-muted mb-2">${rss.email_no}</p>
                                 <ul class="list-group list-group-flush text-start">
                                     <li class="list-group-item">
-                                        <strong>Address:</strong> ${rss.user_full_address}
+                                        <strong>Address:</strong> ${rss.full_address}
                                     </li>
                                     <li class="list-group-item">
-                                        <strong>Phone:</strong> ${rss.user_phone_no}
+                                        <strong>Phone:</strong> ${rss.phone_no}
                                     </li>
                                 </ul>
                                 <div></div>
@@ -93,7 +92,7 @@
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-success text-white fw-bold">৳</span>
                                 <input type="text" class="form-control" id="transferAmount" placeholder="Type amount..." inputmode="numeric" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="this.value = this.value.replace(/[^0-9]/g, '');"  >
-                                <button class="btn btn-success fw-semibold" id="inputGroup-sizing-lg" >
+                                <button class="btn btn-success fw-semibold transfer_balance_amount" id="inputGroup-sizing-lg" user_id_transfer="${rss.user_id}"> 
                                     Transfer
                                 </button>
                             </div>
@@ -105,5 +104,61 @@
             }
         });
     });
+
+    $(document).on('click', '.transfer_balance_amount', function () {
+        let transfer_amount = parseFloat($('#transferAmount').val());
+        let user_id_transfer = $(this).attr('user_id_transfer');
+        let my_wallet_amount = parseFloat($('.this_wallet_amount').text());
+
+        if (isNaN(transfer_amount) || transfer_amount === '' || transfer_amount <= 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please enter a valid amount to transfer.",
+            });
+            return;
+        }
+
+        if (transfer_amount > my_wallet_amount) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Insufficient balance in your wallet.",
+            });
+            return;
+        }
+
+        // Proceed with the transfer
+        $.ajax({
+            type: "post",
+            url: "user/amountWalletTransfer",
+            data: {
+                transfer_amount: transfer_amount,
+                user_id_transfer: user_id_transfer
+            },
+            dataType: "json",
+            success: function (res) {
+                assign_wallet_balance();
+                if (res.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Good job!",
+                        text: "Amount ৳" + transfer_amount + " transferred successfully.",
+                    });
+                    $("#userOutput").html(`<div class="alert alert-success">${res.message}</div>`);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Transfer failed: " + res.message,
+                    });
+                }
+            }
+        });
+
+    });
 </script>
-<!-- id="btnTransfer"   -->
+
+
+
+

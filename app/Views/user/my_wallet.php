@@ -8,9 +8,9 @@
       <div class="col-md-6 mb-3">
         <div class="card shadow-sm border-0 ">
           <div class="card-body row">
-            <div class="col-6 col-md-5 text-center ">
+            <div class="col-6 col-md-6 text-center ">
               <h6 class="text-muted">Available Balance</h6>
-              <h2 class="fw-bold text-success fs-3 ">৳<?php echo number_format($current_wallet_balance, 2); ?></h2>
+              <h2 class="fw-bold text-success fs-3 ">৳<?php echo number_format($current_wallet_balance, 1); ?></h2>
             </div>
             <div class="col-3 col-md-3">
               <a class="btn btn-primary bg-success text-white " data-bs-toggle="modal" data-bs-target="#depositeModals" >Deposite</a>
@@ -25,19 +25,26 @@
       <!-- Summary -->
       <div class="col-md-6">
         <div class="row g-3">
-          <div class="col-6">
+          <div class="col-4">
             <div class="card text-center border-0 shadow-sm">
               <div class="card-body">
-                <h6>Total Income</h6>
-                <p class="text-success fw-bold">৳<?= $user_added_wallet; ?></p>
+                <a href="user/balanceTransfer" class="text-white fw-bold btn btn-primary bg-primary ">Transfer Balance</a>
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="card text-center border-0 shadow-sm">
               <div class="card-body">
-                <h6>Total Expense</h6>
-                <p class="text-danger fw-bold">৳<?= $user_used_wallet; ?></p>
+                <h5>Total Income</h5>
+                <p class="text-success fw-bold  fs-4 mt-1 ">৳<?= number_format($user_added_wallet, 1); ?></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card text-center border-0 shadow-sm">
+              <div class="card-body">
+                <h5>Total Expense</h5>
+                <p class="text-danger fw-bold  fs-4 mt-1 ">৳<?= number_format($user_used_wallet, 1); ?></p>
               </div>
             </div>
           </div>

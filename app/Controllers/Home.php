@@ -77,6 +77,64 @@ class Home extends BaseController
         }
     }
 
+    public function new_referral_added_user()
+    {
+        $full_name = $this->request->getPost('fullname');
+        $username = $this->request->getPost('username');
+        $email_no = $this->request->getPost('email');
+        $phone = $this->request->getPost('phone');
+        $address = $this->request->getPost('address');
+        $password = $this->request->getPost('password');
+        $referral_code = $this->request->getPost('referral_code');
+        $referral_id = $this->request->getPost('referral_id');
+        $referral_usr_id = $this->request->getPost('referral_usr_id');
+        $referral_phn_id = $this->request->getPost('referral_phn_id');
+
+        $data['user_info'] = $this->db
+                                    ->table('user_full_info')
+                                    ->where('user_reffer_code_times', $referral_code)
+                                    ->get()
+                                    ->getRow();
+        if ($data['user_info']) {
+            $data_user = [
+                'user_full_name'        => $full_name,
+                'user_full_address'     => $address,
+                'user_email_no'         => $email_no,
+                'user_phone_no'         => $phone,
+                'sts'                   => 0,
+                'user_reffer_code_times'=> time(),
+                'join_date'             => date('Y-m-d'),
+                'join_timming'          => time(),
+            ];
+            $this->db->table('user_full_info')->insert($data_user);
+            $new_user_id = $this->db->insertID();
+            $data_login = [
+                'user_name'      => $username,
+                'user_emails'    => $email_no,
+                'user_password'  => password_hash($password, PASSWORD_BCRYPT),
+                'password_show'  => $password,
+                'status'         => 1,
+                'login_user_idd' => $new_user_id
+            ];
+            $this->db->table('user_login_details')->insert($data_login);
+            $data_reffer = [
+                'ref_reffer_user_idd'   => $new_user_id,
+                'rreffer_main_id'       => $data['user_info']->user_full_info_idd,
+                'entry_times'           => time()
+            ];
+            $this->db->table('temp_user_reffer')->insert($data_reffer);
+            $data_reffer = [
+                'role_user_idd'   => $new_user_id,
+                'role_role_idd'   => 2,
+            ];
+            $this->db->table('user_in_role')->insert($data_reffer);
+            return redirect()->to('/login')->with('success', 'Registered successfully.');
+        }else {
+            return redirect()->back()->with('error', 'Invalid referral code.');
+        }
+
+    }
+
 
 
 }

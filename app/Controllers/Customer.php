@@ -62,11 +62,13 @@ class Customer extends BaseController
 // user_added_amounts
         $data['added_amounts'] = $this->db->table('user_added_amounts')
                                     ->where('user_info_id_addeds', $userInfoId)
+                                    ->limit(20)
                                     ->get()
                                     ->getResult();
 
         $data['used_amounts'] = $this->db->table('user_cutted_amnt')
                                     ->where('user_cut_user_idd', $userInfoId)
+                                    ->limit(20)
                                     ->get()
                                     ->getResult();
 
@@ -92,7 +94,6 @@ class Customer extends BaseController
         $product_id = $this->request->getPost('product_id');
         $user_id = $this->session->get('userInfoId');
         echo $product_id;
-
     }
 
     public function view_my_full_teams()
@@ -138,14 +139,30 @@ class Customer extends BaseController
                               ->get()
                               ->getRow();
         if ($user_info) {
-            echo json_encode($user_info);
+            $getdata = [
+                    'user_id'       => $user_info->user_full_info_idd,
+                    'user_pic'      => $user_info->user_pro_pic_paths,
+                    'full_name'     => $user_info->user_full_name,
+                    'email_no'      => $user_info->user_email_no,
+                    'full_address'  => $user_info->user_full_address,
+                    'phone_no'      => $user_info->user_phone_no,
+                ];
+            echo json_encode($getdata);
         }else {
             $user_infos = $this->db->table('user_full_info')
                               ->where('user_email_no', $input_post_data)
                               ->get()
                               ->getRow();
             if ($user_infos) {
-                echo json_encode($user_infos);
+                $getdata = [
+                        'user_id'       => $user_info->user_full_info_idd,
+                        'user_pic'      => $user_infos->user_pro_pic_paths,
+                        'full_name'     => $user_infos->user_full_name,
+                        'email_no'      => $user_infos->user_email_no,
+                        'full_address'  => $user_infos->user_full_address,
+                        'phone_no'      => $user_infos->user_phone_no,
+                    ];
+                echo json_encode($getdata);
             }else {
                 echo json_encode('No User Found here... ');
             }
@@ -320,24 +337,79 @@ class Customer extends BaseController
             'user_password'  => password_hash($password, PASSWORD_BCRYPT),
             'password_show'  => $password,
             'status'         => 1,
-            'login_user_idd' => $userInfoId
+            'login_user_idd' => $new_user_id
         ];
         $this->db->table('user_login_details')->insert($data_login);
 
         $data_reffer = [
-            'ref_reffer_user_idd'   => $userInfoId,
-            'rreffer_main_id'       => $new_user_id,
+            'ref_reffer_user_idd'   => $new_user_id,
+            'rreffer_main_id'       => $userInfoId,
             'entry_times'           => time()
         ];
         $this->db->table('temp_user_reffer')->insert($data_reffer);
 
         $data_reffer = [
-            'rreffer_main_id'       => $userInfoId,
-            'ref_reffer_user_idd'   => $new_user_id
+            'role_user_idd'   => $new_user_id,
+            'role_role_idd'   => 2,
         ];
-        $this->db->table('temp_user_reffer')->insert($data_reffer);
+        $this->db->table('user_in_role')->insert($data_reffer);
 
         return redirect()->to('/user/referrals')->with('success', 'New referral added successfully.');
+    }
+
+    public function transfer_wallet_amount_to_user()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $user_id_transfer = $this->request->getPost('user_id_transfer');
+        $transfer_amount = $this->request->getPost('transfer_amount');
+
+        $data_transfer = [
+            'cutting_user_idd'  => $userInfoId,
+            'added_user_idd'    => $user_id_transfer,
+            'transfer_amounts'  => $transfer_amount,
+            'tranfer_dates'     => date('Y-m-d'),
+            'tranfer_times'     => time()
+        ];
+        $this->db->table('user_transfer_balance_info')->insert($data_transfer);
+        $new_transfer_id = $this->db->insertID();
+
+        // Deduct from sender's wallet
+        $data_deduct = [
+            'user_cut_user_idd'     => $userInfoId,
+            'cutting_perpose'       => 'balance_transfer',
+            'cut_descs'             => 'Balance transfer to user ID: ' . $user_id_transfer,
+            'cutting_amounts'       => $transfer_amount,
+            'cut_any_idd'           => $new_transfer_id,
+            'time_stamps'           => time(),
+        ];
+        $this->db->table('user_cutted_amnt')->insert($data_deduct);
+
+	// user_added_amount_idd 	added_amount 	user_info_id_addeds 	amount_perpose 	payment_description 	times_stamps 	any_id_here
+
+        $data_added = [
+            'added_amount'               => $transfer_amount,
+            'user_info_id_addeds'        => $user_id_transfer,
+            'amount_perpose'             => 'balance_transfer',
+            'payment_description'       => 'Balance transfer from user ID: ' . $userInfoId,
+            'times_stamps'               => time(),
+            'any_id_here'                => $new_transfer_id,
+        ];
+        $this->db->table('user_added_amounts')->insert($data_added);
+        $response = [
+            'success' => true,
+            'message' => 'Amount transferred successfully.'
+        ];
+        echo json_encode($response);
+    }
+
+    public function view_all_products()
+    {
+        $data['all_products'] = $this->db->table('product_information')
+                                    ->join('category', 'product_information.category_id = category.cat_id', 'left')
+                                    ->join('sub_category', 'product_information.product_subcat_id = sub_category.sub_cat_idd', 'left')
+                                    ->get()
+                                    ->getResult();
+        $this->template->front('user/view_all_products', $data);
     }
 
 

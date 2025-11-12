@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="inc/assets/css/vendors/animate.css">
     <link rel="stylesheet" href="inc/plugin/jqui/jquery-ui.min.css">
     <link rel="stylesheet" href="inc/plugin/toastr/build/toastr.min.css">
+    <link rel="stylesheet" href="inc/plugin/sweetalert2/dist/sweetalert2.min.css">
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="inc/assets/css/style.css">
@@ -58,6 +59,7 @@
 
     <!-- jquery ui-->
     <script src="inc/plugin/jqui/jquery-ui.min.js"></script>
+    <script src="inc/plugin/sweetalert2/dist/sweetalert2.min.js"></script>
 
 </head>
 

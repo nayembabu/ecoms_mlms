@@ -153,11 +153,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/myWallet">ওয়ালেট</a></li>
+                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/withdraw">Withdraw</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                     <!-- Logged-in User Info -->
                     <li class="nav-item ms-lg-4">
