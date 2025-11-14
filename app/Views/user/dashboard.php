@@ -1,65 +1,19 @@
  <style>
-    h3.section-title {
-      font-weight:700;
-      background:linear-gradient(90deg,#2563eb,#0ea5e9);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      margin-bottom:10px;
-    }
-    .profit-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-      gap:20px;
-      justify-items:center;
-      margin-bottom:30px;
-    }
-    .profit-box {
-      width:110px;height:110px;
-      background:linear-gradient(145deg,#ffffff,#f0f4ff);
-      border-radius:20px;
-      box-shadow:0 6px 16px rgba(0,0,0,.08);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      transition:all .25s ease;
-      cursor:pointer;
-      position:relative;
-    }
-    .profit-box:hover {
-      transform:translateY(-5px);
-      box-shadow:0 10px 25px rgba(0,0,0,.12);
-    }
-    .profit-box i {
-      font-size:1.6rem;
-      color:#2563eb;
-      margin-bottom:5px;
-    }
-    .profit-box h6 {
-      font-weight:600;
-      color:#1e293b;
-      margin-bottom:2px;
-    }
+    h3.section-title {font-weight:700;background:linear-gradient(90deg,#2563eb,#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+    .profit-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:20px;justify-items:center;margin-bottom:30px;}
+    .profit-box {width:110px;height:110px;background:linear-gradient(145deg,#ffffff,#f0f4ff);border-radius:20px;box-shadow:0 6px 16px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .25s ease;cursor:pointer;position:relative;}
+    .profit-box:hover {transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.12);}
+    .profit-box i {font-size:1.6rem;color:#2563eb;margin-bottom:2px;}
+    .profit-box h6 {font-weight:600;color:#1e293b;margin-bottom:2px;}
     .profit-box small {color:#64748b;}
-    .profit-box.done {
-      background:linear-gradient(145deg,#d1fae5,#a7f3d0);
-      color:#064e3b;
-    }
+    .profit-box.done {background:linear-gradient(145deg,#d1fae5,#a7f3d0);color:#064e3b;}
     .profit-box.done i {color:#16a34a;}
-    .profit-box.done::after{
-      content:'✔';position:absolute;right:8px;top:6px;font-size:1rem;color:#22c55e;font-weight:bold;
-    }
-
+    .profit-box.done::after{content:'✔';position:absolute;right:8px;top:6px;font-size:1rem;color:#22c55e;font-weight:bold;}
     .progress {border-radius:30px;overflow:hidden;height:10px;}
     .progress-bar {background:linear-gradient(90deg,#0ea5e9,#2563eb);}
-
     .btn-custom {border-radius:25px;padding:6px 18px;font-weight:500;}
     .btn-custom i {margin-right:4px;}
-
-    footer {
-      background:#0f172a;
-      color:#94a3b8;
-      padding:20px 0;
-      margin-top:80px;
-      font-size:0.9rem;
-    }
+    footer {background:#0f172a;color:#94a3b8;padding:20px 0;margin-top:80px;font-size:0.9rem;}
   </style>
 
 
