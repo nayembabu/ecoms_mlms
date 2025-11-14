@@ -55,7 +55,6 @@
           });
       </script>
 
-
       <script>
         assign_wallet_balance();
         function assign_wallet_balance() {

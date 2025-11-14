@@ -1,0 +1,41 @@
+
+<!-- Get all product  -->
+<script>
+    get_all_products();
+    function get_all_products() {
+        $.ajax({
+            type: "post",
+            url: "user/getAllProducts",
+            data: "",
+            dataType: "json",
+            success: function (res) {
+                let html_view = '';
+                for (let n = 0; n < res.all_products.length; n++) {
+                    html_view +=    `<div class="col-md-3 my-4 ">
+                                        <div class="card product-card">
+                                            <div class="product-img">
+                                                <img src="${res.all_products[n].image_thumb}" alt="Product 1">
+                                                <span class="stock-badge">${res.all_products[n].product_in_stock}/${res.all_products[n].product_buy_qnty}</span>
+                                                <span class="profit-tag fw-bold">Profit: ৳ (${res.all_products[n].daily_profits_amount}×${res.all_products[n].continue_days})</span>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <h3 class="fw-semibold mb-1">${res.all_products[n].product_name.split(' ').slice(0, 2).join(' ')}</h3>
+                                                <div class="price mb-2 fs-5 ">৳ <span class="mm_dsc_price_mini" >${res.all_products[n].selling_pricess}</span> <del>৳ <span class="main_price text-danger text-decoration-line-through  " >${Number(res.all_products[n].selling_pricess) + 1000}</span></del></div>
+                                                <div class="d-flex gap-2">
+                                                    <button class="btn btn-primary bg-primary text-white btn-sm flex-fill fw-bold rounded-3 buy_this_products_single " data_product_id="${res.all_products[n].id}" data_buying_id="${res.all_products[n].product_buying_info_idd}" ><i class="fas fa-shopping-bag me-1"></i> Buy Now</button>
+                                                    <button class="btn btn-outline-dark btn-sm bg-dark text-white "><i class="fas fa-eye"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                }
+                $('#product-list').html(`<div class="row mb-4 ">${html_view}</div>`);
+            }
+        });
+    }
+</script>
+<!-- Get all product  -->
+
+
+

@@ -412,6 +412,43 @@ class Customer extends BaseController
         $this->template->front('user/view_all_products', $data);
     }
 
+    public function get_all_products_json_output()
+    {
+        $data['cats'] = $this->db->table('category')->get()->getResult();
+        $data['all_products'] = $this->db->table('product_buying_info')
+                                    ->where('product_in_stock !=', 0)
+                                    ->join('product_information', 'product_information.id = product_buying_info.product_buy_product_idd', 'left')
+                                    ->get()
+                                    ->getResult();
+        echo json_encode($data);
+    }
+
+    public function get_single_product_details_by_id()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $product_id = $this->request->getPost('product_id');
+        $buying_id  = $this->request->getPost('buying_id');
+
+        // Fetch product details based on product_id and buying_id
+        $product_details = $this->db->table('product_buying_info')
+                                    ->where('product_buying_info_idd', $buying_id)
+                                    ->join('product_information', 'product_information.id = product_buying_info.product_buy_product_idd', 'left')
+                                    ->get()
+                                    ->getRow();
+        echo json_encode(['product_details' => $product_details]);
+    }
+
+    public function buy_a_single_product_action_form()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $product_id = $this->request->getPost('product_id');
+        $buying_id  = $this->request->getPost('buying_id');
+
+        $this->teams->enroll_product_self($product_id, $userInfoId, $buying_id);
+
+    }
+
+
 
 
 

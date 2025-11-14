@@ -16,7 +16,7 @@
 
 <body>
 
-    <!-- Loader Start 
+    <!-- Loader Start -->
     <div class="fullpage-loader">
         <span></span>
         <span></span>
@@ -24,7 +24,7 @@
         <span></span>
         <span></span>
         <span></span>
-    </div>-->
+    </div>
     <!-- Loader End -->
 
 <?php if (!$session->get('isLoggedIn')) { ?>
@@ -153,7 +153,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য</a></li>
+                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
