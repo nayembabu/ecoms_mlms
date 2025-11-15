@@ -57,6 +57,12 @@ class Teams
                          ->where('ref_reffer_user_idd', $userInfoId)
                          ->delete();
                 $this->team_check_and_increement($userInfoId);
+                $this->db->table('user_full_info')->update([
+                    'sts' => 1,
+                ], $userInfoId);
+                $this->db->table('user_full_info')
+                         ->where('user_full_info_idd', $userInfoId)
+                         ->update(['sts' => 1]);
             }else {
                 //
             }
@@ -70,7 +76,7 @@ class Teams
 
     public function team_check_and_increement($userInfoId)
     {
-
+        
     }
 
 
