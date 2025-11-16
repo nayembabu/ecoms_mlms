@@ -143,51 +143,58 @@
                     <div class="card-body">
                         <h4 class="card-title mb-3">Request Withdrawal</h4>
 
-                        <?php if ($my_info->user_withdraw_nos) { ?>
-                            <form id="withdrawForm" action="/user/withdraw_req" method="post" novalidate>
-                                <!-- CSRF token if needed -->
-                                <?php if (function_exists('csrf_field')): ?><?php echo csrf_field(); ?><?php endif; ?>
+                        <?php if ($my_info->sts == 1) { ?>
+                            <?php if ($my_info->user_withdraw_nos) { ?>
+                                <form id="withdrawForm" action="/user/withdraw_req" method="post" novalidate>
+                                    <!-- CSRF token if needed -->
+                                    <?php if (function_exists('csrf_field')): ?><?php echo csrf_field(); ?><?php endif; ?>
 
-                                <div class="mb-3">
-                                    <label for="amount" class="form-label">Amount</label>
-                                    <input type="text" class="form-control amount_input_box " id="amount" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="withdraw_amount" min="1000" max="25000" step="0.01" placeholder="0.00" required >
-                                    <div class="invalid-feedback" id="amountFeedback">Enter a valid amount (min 1).</div>
-                                </div>
-
-                                <div class="mb-3 row g-2">
-                                    <div class="col">
-                                        <label class="form-label small text-muted">Fee (5%)</label>
-                                        <div class="form-control-plaintext" id="feeDisplay">0.00</div>
+                                    <div class="mb-3">
+                                        <label for="amount" class="form-label">Amount</label>
+                                        <input type="text" class="form-control amount_input_box " id="amount" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="withdraw_amount" min="1000" max="25000" step="0.01" placeholder="0.00" required >
+                                        <div class="invalid-feedback" id="amountFeedback">Enter a valid amount (min 1).</div>
                                     </div>
-                                    <div class="col">
-                                        <label class="form-label small text-muted">Net Amount</label>
-                                        <div class="form-control-plaintext" id="netDisplay">0.00</div>
+
+                                    <div class="mb-3 row g-2">
+                                        <div class="col">
+                                            <label class="form-label small text-muted">Fee (5%)</label>
+                                            <div class="form-control-plaintext" id="feeDisplay">0.00</div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label small text-muted">Net Amount</label>
+                                            <div class="form-control-plaintext" id="netDisplay">0.00</div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="note" class="form-label">Note (optional)</label>
-                                    <input type="text" class="form-control" id="note" name="additional_notes" maxlength="255" placeholder="Additional info">
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="note" class="form-label">Note (optional)</label>
+                                        <input type="text" class="form-control" id="note" name="additional_notes" maxlength="255" placeholder="Additional info">
+                                    </div>
 
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary bg-primary text-white submit_btn_withdraw" disabled id="submitBtn">Submit Request</button>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary bg-primary text-white submit_btn_withdraw" disabled id="submitBtn">Submit Request</button>
+                                    </div>
+                                </form>
+                            <?php } else { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    You need to set your withdrawal account number in your profile before making a withdrawal request.
                                 </div>
-                            </form>
-                        <?php } else { ?>
-                            <div class="alert alert-danger" role="alert">
-                                You need to set your withdrawal account number in your profile before making a withdrawal request.
+                                <a href="/user/set_account_number" class="btn btn-info bg-info text-white fs-4 ">Set Account Number</a>
+                            <?php } ?>
+
+                            <div class="mt-3">
+                                <small class="text-muted">Minimum withdrawal: <?php echo $setting->withdraw_minimum; ?>. Maximum per request: <?php echo $setting->withdraw_max; ?>. A <?php echo $setting->withdraw_percentige; ?>% fee is applied to the requested amount.</small>
                             </div>
-                            <a href="/user/set_account_number" class="btn btn-info bg-info text-white fs-4 ">Set Account Number</a>
+
+                            <div id="insufficientAlert" class="alert alert-warning mt-3 d-none" role="alert">
+                                Insufficient balance to make the minimum withdrawal of <?php echo $setting->withdraw_minimum; ?>.
+                            </div>
+                        <?php }else {?>
+                            <div class="alert alert-danger" role="alert">
+                                <h2 class="text-center mb-3">Account inactive</h2>
+                                <p class="text-center  ">Your account is not eligible for withdrawals. Please active your account.</p>
+                            </div>
                         <?php } ?>
-
-                        <div class="mt-3">
-                            <small class="text-muted">Minimum withdrawal: <?php echo $setting->withdraw_minimum; ?>. Maximum per request: <?php echo $setting->withdraw_max; ?>. A <?php echo $setting->withdraw_percentige; ?>% fee is applied to the requested amount.</small>
-                        </div>
-
-                        <div id="insufficientAlert" class="alert alert-warning mt-3 d-none" role="alert">
-                            Insufficient balance to make the minimum withdrawal of <?php echo $setting->withdraw_minimum; ?>.
-                        </div>
 
                     </div>
                 </div>

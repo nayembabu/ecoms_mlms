@@ -48,10 +48,9 @@
         $routes->post('amountWalletTransfer', 'Customer::transfer_wallet_amount_to_user');
         $routes->post('getAllProducts', 'Customer::get_all_products_json_output');
         $routes->post('getSingleProductDetails', 'Customer::get_single_product_details_by_id');
-        $routes->post('buySingleProduct', 'Customer::buy_a_single_product_action_form');
+        $routes->post('buySingleProducts', 'Customer::buy_a_single_product_action_form');
 
     });
 
 
-    // Additional routing can be added here
 

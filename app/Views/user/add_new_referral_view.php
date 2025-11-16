@@ -135,42 +135,11 @@
 
 
 
-
-<!--
-                user_full_name
-                user_full_address
-                user_email_no
-                user_phone_no
-                user_withdraw_method
-                user_withdraw_nos
-                user_pro_pic_paths
-                sts
-                user_reffer_code_times
-                payments_names
-                join_date
-                join_timming
-
-                user_name
-                user_emails
-                user_password
-                password_show
-                status
-                login_user_idd
-
-                ref_reffer_user_idd
-                rreffer_main_id
-                entry_times
-
-                role_user_idd
-                role_role_idd
- -->
-
-
-
 <section class="pt-5 mt-5 bg-white shadow-sm profit-section_ss">
     <div class="container my-5">
         <div class="row mb-4">
 
+            <?php if ($my_info->sts == 1) { ?>
             <div class="col-12 d-flex justify-content-center">
                 <div class="card animated-card shadow-lg w-100" style="max-width:960px; border-radius:16px; overflow:hidden; border:none;">
                     <div class="row g-0 align-items-stretch">
@@ -287,6 +256,13 @@
                     </div>
                 </div>
             </div>
+            <?php } else { ?>
+                <div class="col-12">
+                    <div class="alert alert-warning text-center mb-0" role="alert">
+                        <strong>Your account is not active!</strong> Please contact support to activate your account before adding referrals.
+                    </div>
+                </div>
+            <?php } ?>
 
         </div>
     </div>

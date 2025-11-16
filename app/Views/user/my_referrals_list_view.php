@@ -8,6 +8,7 @@
     <div class="container my-5">
         <div class="row mb-4">
 
+            <?php if ($my_info->sts == 1) { ?>
             <div class="col-md-6 mb-4">
                 <div class="card border-primary animate__animated animate__fadeInLeft shadow-lg">
                     <div class="card-header bg-gradient-primary bg-primary text-white d-flex justify-content-between align-items-center p-3 rounded-3 ">
@@ -49,7 +50,6 @@
                                         <div class="display-4 text-primary fw-bold">75<small>%</small></div>
                                         <small class="text-muted">Last updated: Today</small>
                                     </div>
-<!--  batch_users->batch_name -->
                                     <div class="d-flex justify-content-end gap-2">
                                         <span class="badge bg-info"><i class="fas fa-level-up-alt me-1"></i>Level <?= $batch_users->batch_position; ?></span>
                                         <span class="badge bg-silver"><i class="fas fa-medal me-1"></i>Silver</span>
@@ -182,6 +182,15 @@
                 </div>
             </div>
 
+            <?php } else { ?>
+                <div class="col-12">
+                    <div class="alert alert-warning text-center" role="alert">
+                        <h2 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Account Inactive!</h2>
+                        <p>Your account is currently inactive. Please contact support to activate your account and access referral features.</p>
+                        <hr>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </section>

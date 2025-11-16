@@ -25,128 +25,156 @@
     <div class="container py-5">
       <h1 class="fw-bold mb-3">স্বাগতম, <?= $my_info->user_full_name; ?>!</h1>
       <p class="lead text-muted">আপনার নেটওয়ার্ক ড্যাশবোর্ডে সব তথ্য এক জায়গায়</p>
-    </div>
-  </section>
-
-
-  <section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
-    <div class="container ">
-      <h2 class="section-title"><?php echo count($daily_profit); ?> দিনের প্রফিট চেকলিস্ট</h2>
-      <p class="text-muted mb-4">প্রতিদিন ক্লিক করুন, প্রফিট বাড়বে </p>
-      <div class="profit-grid" id="profitBoxes">
-        <?php foreach ($daily_profit as $profit) { ?>
-          <div class="profit-box "><i class="bi bi-cash-stack"></i><h6><?= $profit->days_list; ?> দিন </h6><h5>৳ <b><?= $profit->profit_amount; ?></b></h5></div>
-        <?php } ?>
-      </div>
-      <div class="mx-auto" style="max-width:360px;">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="fw-semibold">মোট অর্জন:</span>
-          <span id="totalEarned" class="fw-bold text-success">৳0</span>
+      <?php if ($my_info->sts != 1) { ?>
+        <div>
+          <h2 class="text-danger">আপনার অ্যাকাউন্ট একটিভ নয়</h2>
+          <p class="text-danger">অনুগ্রহ করে আপনার অ্যাকাউন্ট একটিভ করুন। অ্যাকাউন্ট একটিভ করতে প্রথমে রিচার্জ করুন, এরপর যেকোনো একটি পন্য কিনলেই আপনার একাউন্ট একটিভ হয়ে যাবে</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="<?= base_url('user/myWallet'); ?>" class="btn btn-primary bg-primary text-white btn-custom"><i class="bi bi-wallet2"></i>অ্যাকাউন্ট রিচার্জ করুন</a>
         </div>
-        <div class="progress mb-3">
-          <div id="profitProgress" class="progress-bar" style="width:0%"></div>
-        </div>
-        <div class="d-flex justify-content-center gap-2"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KPI Section -->
-  <section id="overview" class="content-section">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-md-3">
-          <div class="card text-center p-4">
-            <i class="bi bi-cash-coin kpi-icon mx-auto"></i>
-            <h5 class="mt-3">মোট কমিশন</h5>
-            <h3>৳1,24,500</h3>
-            <small class="text-success">+12% এই মাসে</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center p-4">
-            <i class="bi bi-people kpi-icon mx-auto"></i>
-            <h5 class="mt-3">ডাইরেক্ট রেফারাল</h5>
-            <h3>38</h3>
-            <small class="text-muted">সক্রিয় 29</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center p-4">
-            <i class="bi bi-diagram-3 kpi-icon mx-auto"></i>
-            <h5 class="mt-3">টিম সদস্য</h5>
-            <h3>1,247</h3>
-            <small class="text-success">+86 এই সপ্তাহে</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center p-4">
-            <i class="bi bi-trophy kpi-icon mx-auto"></i>
-            <h5 class="mt-3">র‍্যাঙ্ক</h5>
-            <h3>Gold</h3>
-            <small>Platinum এ 35% বাকি</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Wallet Section -->
-  <section id="wallet" class="content-section bg-white">
-    <div class="container">
-      <h4 class="fw-bold mb-4 text-center">ওয়ালেট ব্যালেন্স</h4>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card p-4 text-center">
-            <h6 class="text-muted">মেইন ওয়ালেট</h6>
-            <h2>৳34,250</h2>
-            <small class="text-success">আজ +৳1,250</small>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card p-4 text-center">
-            <h6 class="text-muted">বোনাস ওয়ালেট</h6>
-            <h2>৳18,640</h2>
-            <small>গতকাল +৳420</small>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card p-4 text-center">
-            <h6 class="text-muted">উইথড্রেবল</h6>
-            <h2>৳22,000</h2>
-            <small class="text-warning">ফি 1.5%</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Referral Table -->
-  <section id="referrals" class="content-section">
-    <div class="container">
-      <h4 class="fw-bold mb-3">রেফারেল হিস্ট্রি</h4>
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-primary text-center">
-            <tr>
-              <th>ইউজার</th>
-              <th>তারিখ</th>
-              <th>স্ট্যাটাস</th>
-              <th>আয় (৳)</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <tr><td>রিয়া</td><td>28 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>1250</td></tr>
-            <tr><td>সায়েম</td><td>26 Oct 2025</td><td><span class="badge bg-warning text-dark">Pending</span></td><td>0</td></tr>
-            <tr><td>মাহির</td><td>20 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>3980</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <?php } ?>
     </div>
   </section>
 
 
 
+
+
+  <?php if ($my_info->sts == 1) { ?>
+    <section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
+      <div class="container ">
+        <h2 class="section-title"><?php echo count($daily_profit); ?> দিনের প্রফিট চেকলিস্ট</h2>
+        <p class="text-muted mb-4">প্রতিদিন ক্লিক করুন, প্রফিট বাড়বে </p>
+        <div class="profit-grid" id="profitBoxes">
+          <?php foreach ($daily_profit as $profit) { ?>
+            <div class="profit-box "><i class="bi bi-cash-stack"></i><h6><?= $profit->days_list; ?> দিন </h6><h5>৳ <b><?= $profit->profit_amount; ?></b></h5></div>
+          <?php } ?>
+        </div>
+        <div class="mx-auto" style="max-width:360px;">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-semibold">মোট অর্জন:</span>
+            <span id="totalEarned" class="fw-bold text-success">৳0</span>
+          </div>
+          <div class="progress mb-3">
+            <div id="profitProgress" class="progress-bar" style="width:0%"></div>
+          </div>
+          <div class="d-flex justify-content-center gap-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI Section -->
+    <section id="overview" class="content-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card text-center p-4">
+              <i class="bi bi-cash-coin kpi-icon mx-auto"></i>
+              <h5 class="mt-3">মোট কমিশন</h5>
+              <h3>৳1,24,500</h3>
+              <small class="text-success">+12% এই মাসে</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center p-4">
+              <i class="bi bi-people kpi-icon mx-auto"></i>
+              <h5 class="mt-3">ডাইরেক্ট রেফারাল</h5>
+              <h3>38</h3>
+              <small class="text-muted">সক্রিয় 29</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center p-4">
+              <i class="bi bi-diagram-3 kpi-icon mx-auto"></i>
+              <h5 class="mt-3">টিম সদস্য</h5>
+              <h3>1,247</h3>
+              <small class="text-success">+86 এই সপ্তাহে</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center p-4">
+              <i class="bi bi-trophy kpi-icon mx-auto"></i>
+              <h5 class="mt-3">র‍্যাঙ্ক</h5>
+              <h3>Gold</h3>
+              <small>Platinum এ 35% বাকি</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section id="wallet" class="content-section bg-white">
+      <div class="container">
+        <h4 class="fw-bold mb-4 text-center">ওয়ালেট ব্যালেন্স</h4>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card p-4 text-center">
+              <h6 class="text-muted">মেইন ওয়ালেট</h6>
+              <h2>৳34,250</h2>
+              <small class="text-success">আজ +৳1,250</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-4 text-center">
+              <h6 class="text-muted">বোনাস ওয়ালেট</h6>
+              <h2>৳18,640</h2>
+              <small>গতকাল +৳420</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-4 text-center">
+              <h6 class="text-muted">উইথড্রেবল</h6>
+              <h2>৳22,000</h2>
+              <small class="text-warning">ফি 1.5%</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Referral Table -->
+    <section id="referrals" class="content-section">
+      <div class="container">
+        <h4 class="fw-bold mb-3">রেফারেল হিস্ট্রি</h4>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-primary text-center">
+              <tr>
+                <th>ইউজার</th>
+                <th>তারিখ</th>
+                <th>স্ট্যাটাস</th>
+                <th>আয় (৳)</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr><td>রিয়া</td><td>28 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>1250</td></tr>
+              <tr><td>সায়েম</td><td>26 Oct 2025</td><td><span class="badge bg-warning text-dark">Pending</span></td><td>0</td></tr>
+              <tr><td>মাহির</td><td>20 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>3980</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  <?php } ?>
+
+  <script>
+    function get_daily_check_s() {
+      $.ajax({
+        type: "post",
+        url: "user/get_daily_check",
+        data: "",
+        dataType: "json",
+        success: function (res) {
+          // Update profit boxes
+        }
+      });
+    }
+
+    // $(document).on('click', '.', function () {
+
+    // });
+  </script>
 
 
 

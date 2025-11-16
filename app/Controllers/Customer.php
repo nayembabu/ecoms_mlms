@@ -50,8 +50,8 @@ class Customer extends BaseController
 
     public function buy_a_single_product()
     {
-        $product_id = $this->request->getPost('product_id');
         $user_id = $this->session->get('userId');
+        $product_id = $this->request->getPost('product_id');
         echo $product_id;
     }
 
@@ -445,7 +445,6 @@ class Customer extends BaseController
         $buying_id  = $this->request->getPost('buying_id');
 
         $this->teams->enroll_product_self($product_id, $userInfoId, $buying_id);
-
     }
 
 

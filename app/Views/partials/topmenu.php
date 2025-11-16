@@ -154,10 +154,15 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <?php if ($my_info->sts == 1) { ?>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <?php } else { ?>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/set_account_number">Update</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <?php } ?>
                     <!-- Logged-in User Info -->
                     <li class="nav-item ms-lg-4">
                         <div class="user-info">

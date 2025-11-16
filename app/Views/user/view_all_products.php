@@ -243,21 +243,34 @@
     $(document).on('click', '.buy_this_products_single', function () {
       let product_id = $(this).attr('data_product_id');
       let buying_id = $(this).attr('data_buying_id');
-
-      $.ajax({
-        type: "post",
-        url: "user/buySingleProduct",
-        data: { product_id: product_id, buying_id: buying_id },
-        dataType: "json",
-        success: function (res) {
-          if (res.status == 'success') {
-            alert('Product purchased successfully!');
-            location.reload();
-          } else {
-            alert('Error: ' + res.message);
+      if (confirm("Are you sure?") == true) {
+        $.ajax({
+          type: "post",
+          url: "user/buySingleProducts",
+          data: { product_id: product_id, buying_id: buying_id },
+          dataType: "json",
+          success: function (res) {
+            if (res.status == 'success') {
+              assign_wallet_balance();
+              Swal.fire({
+                title: "Nice! " + res.message,
+                icon: "success",
+                draggable: true
+              });
+              setTimeout(() => location.reload(), 5000);
+            } else if (res.status == 'error') {
+              assign_wallet_balance();
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Opps " + res.message,
+              });
+            }
           }
-        }
-      });
+        });
+      } else {
+        return false;
+      }
 
     });
 

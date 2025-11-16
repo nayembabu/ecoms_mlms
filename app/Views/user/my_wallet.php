@@ -15,9 +15,11 @@
             <div class="col-3 col-md-3">
               <a class="btn btn-primary bg-success text-white " data-bs-toggle="modal" data-bs-target="#depositeModals" >Deposite</a>
             </div>
-            <div class="col-3 col-md-3">
-              <a href="user/withdraw" class="btn btn-primary bg-danger text-white ">Withdraw</a>
-            </div>
+            <?php if ($my_info->sts != 0) { ?>
+              <div class="col-3 col-md-3">
+                <a href="user/withdraw" class="btn btn-primary bg-danger text-white ">Withdraw</a>
+              </div>
+            <?php } ?>
           </div>
         </div>
       </div>
@@ -27,9 +29,11 @@
         <div class="row g-3">
           <div class="col-4">
             <div class="card text-center border-0 shadow-sm">
-              <div class="card-body">
-                <a href="user/balanceTransfer" class="text-white fw-bold btn btn-primary bg-primary ">Transfer Balance</a>
-              </div>
+              <?php if ($my_info->sts != 0) { ?>
+                <div class="card-body">
+                  <a href="user/balanceTransfer" class="text-white fw-bold btn btn-primary bg-primary ">Transfer Balance</a>
+                </div>
+              <?php } ?>
             </div>
           </div>
           <div class="col-4">

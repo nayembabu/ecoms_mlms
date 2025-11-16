@@ -214,18 +214,26 @@
 <section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
   <div class="container team_container">
 
-    <ul class="team_main_list_ul">
-      <li class="team_list_1 team_list_li " >
-        <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
-        <ul>
-          <?php foreach ($ref_users as $sng) { ?>
-            <li class="team_list_2 team_list_li " >
-              <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
-            </li>
-          <?php } ?>
-        </ul>
-      </li>
-    </ul>
+    <?php if ($my_info->sts == 1) { ?>
+      <ul class="team_main_list_ul">
+        <li class="team_list_1 team_list_li " >
+          <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
+          <ul>
+            <?php foreach ($ref_users as $sng) { ?>
+              <li class="team_list_2 team_list_li " >
+                <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
+              </li>
+            <?php } ?>
+          </ul>
+        </li>
+      </ul>
+    <?php } else { ?>
+        <div class="alert alert-warning text-center" role="alert">
+            <h2 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Account Inactive!</h2>
+            <p>Your account is currently inactive. Please contact support to activate your account and access team features.</p>
+            <hr>
+        </div>
+    <?php } ?>
 
   </div>
 </section>

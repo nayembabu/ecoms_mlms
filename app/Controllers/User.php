@@ -30,13 +30,20 @@ class User extends BaseController
 
     public function index()
     {
-        return $this->template->front('user/dashboard');
+        // return $this->template->front('user/dashboard');
     }
     public function dashboard()
     {
+        $userId = $this->session->get('userInfoId');
+        $prevToday = date('Y-m-d', strtotime('-1 day'));
         $data['daily_profit'] = $this->db->table('daily_profit_checkbox')
                                     ->get()
                                     ->getResult();
+        $data['profit_check'] = $this->db->table('user_daily_profit_check')
+                                    ->where('user_infossss_iddsss', $userId)
+                                    ->get()
+                                    ->getRow();
+        
         return $this->template->front('user/dashboard', $data);
     }
     public function profile()

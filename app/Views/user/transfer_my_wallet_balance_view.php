@@ -30,13 +30,20 @@
                 <div class="card-body p-4">
                     <h1 class="h4 mb-4 text-center">Search Profile for Balance Tranfer</h1>
 
-                    <div class="input-group input-group-lg shadow-sm ">
-                        <input type="text" class="form-control person_search_input_box" placeholder="Search by phone number or email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                        <button class="btn btn-primary search_btn_click " id="inputGroup-sizing-lg">
-                            <i class="fa fa-search"></i>  খুঁজুন
-                        </button>
-                    </div>
-                    <div id="userOutput" class="container my-4"></div>
+                    <?php if ($my_info->sts == 1) { ?>
+                        <div class="input-group input-group-lg shadow-sm ">
+                            <input type="text" class="form-control person_search_input_box" placeholder="Search by phone number or email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <button class="btn btn-primary search_btn_click " id="inputGroup-sizing-lg">
+                                <i class="fa fa-search"></i>  খুঁজুন
+                            </button>
+                        </div>
+                        <div id="userOutput" class="container my-4"></div>
+                    <?php } else { ?>
+                        <div class="alert alert-danger" role="alert">
+                            <h2 class="text-center mb-3">Account inactive</h2>
+                            <p class="text-center  ">Your account is not eligible for Transfer. Please active your account.</p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
