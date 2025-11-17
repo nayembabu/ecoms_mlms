@@ -157,7 +157,7 @@
                     <?php if ($my_info->sts == 1) { ?>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
-                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="#earnings">আয়</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                     <?php } else { ?>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/set_account_number">Update</a></li>

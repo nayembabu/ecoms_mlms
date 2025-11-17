@@ -43,7 +43,6 @@ class User extends BaseController
                                     ->where('user_infossss_iddsss', $userId)
                                     ->get()
                                     ->getRow();
-        
         return $this->template->front('user/dashboard', $data);
     }
     public function profile()
@@ -83,6 +82,11 @@ class User extends BaseController
                                  ->get()
                                  ->getResult();
         return $this->template->front('user/product_by_cats', $data);
+    }
+
+    public function income_details_sho_here_view_file()
+    {
+        return $this->template->front('user/income_details_view_file');
     }
 
 }
