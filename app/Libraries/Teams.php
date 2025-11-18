@@ -62,7 +62,7 @@ class Teams
                     'cut_descs'         => 'Product Purchase - ' . $user_buying_id->product_name,
                     'cutting_amounts'   => $user_buying_id->selling_pricess,
                     'cut_any_idd'       => $product_id,
-                    'cuting_date_yy'    => date('Y-m-d'),
+                    'cuting_date_yy'    => date('Y-m-d', time()),
                     'time_stamps'       => time(),
                 ]);
                 $this->db->table('product_sells_infos')->insert([
@@ -72,7 +72,7 @@ class Teams
                     'profit_amounts'        => $user_buying_id->daily_profits_amount,
                     'product_sell_price'    => $user_buying_id->selling_pricess,
                     'profit_continue_days'  => $user_buying_id->continue_days,
-                    'dates_s_sell'          => date('Y-m-d'),
+                    'dates_s_sell'          => date('Y-m-d', time()),
                     'created_at'            => time(),
                 ]);
                 $this->db->table('product_buying_info')
@@ -91,7 +91,7 @@ class Teams
                     'cut_descs'         => 'Product Purchase - ' . $user_buying_id->product_name,
                     'cutting_amounts'   => $user_buying_id->selling_pricess,
                     'cut_any_idd'       => $product_id,
-                    'cuting_date_yy'    => date('Y-m-d'),
+                    'cuting_date_yy'    => date('Y-m-d', time()),
                     'time_stamps'       => time(),
                 ]);
                 $this->db->table('product_sells_infos')->insert([
@@ -101,7 +101,7 @@ class Teams
                     'profit_amounts'        => $user_buying_id->daily_profits_amount,
                     'product_sell_price'    => $user_buying_id->selling_pricess,
                     'profit_continue_days'  => $user_buying_id->continue_days,
-                    'dates_s_sell'          => date('Y-m-d'),
+                    'dates_s_sell'          => date('Y-m-d', time()),
                     'created_at'            => time(),
                 ]);
                 $this->db->table('product_buying_info')
@@ -180,7 +180,7 @@ class Teams
             'user_reffer_profit_amount'     => $amount,
             'user_reffer_profit_text'       => 'Referral Bonus',
             'times_show'                    => time(),
-            'now_date_show'                 => date('Y-m-d'),
+            'now_date_show'                 => date('Y-m-d', time()),
         ]);
         $this->db->table('user_added_amounts')->insert([
             'added_amount'              => $amount,

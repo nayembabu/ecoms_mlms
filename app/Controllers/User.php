@@ -133,15 +133,39 @@ class User extends BaseController
 
     public function view_products_income_details()
     {
-        
+        $userInfoId = $this->session->get('userInfoId');
+        $data['product_sells'] = $this->db
+                                 ->table('product_sells_infos')
+                                 ->where('sell_user_idd', $userInfoId)
+                                 ->where('return_product_price', 0)
+                                 ->join('product_information', 'product_sells_infos.product_unq_idd = product_information.id', 'left')
+                                 ->get()
+                                 ->getResult();
+        return $this->template->front('user/product_sells_income_view_file', $data);
     }
 
-// $data['product_sells'] = $this->db
-//                          ->table('product_profit_continue_check')
-//                          ->where('user_info_id_info', $userInfoId)
-//                          ->where('return_product_price', 0)
-//                          ->join('product_information', 'product_profit_continue_check.product_id_infosss = product_information.id', 'left')
-//                          ->get()
-//                          ->getResult();
+    public function get_uncompleted_products_show_here()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['product_sells'] = $this->db
+                                 ->table('product_sells_infos')
+                                 ->where('sell_user_idd', $userInfoId)
+                                 ->where('return_product_price', 0)
+                                 ->join('product_information', 'product_sells_infos.product_unq_idd = product_information.id', 'left')
+                                 ->get()
+                                 ->getResult();
+        return $this->response->setJSON($data);
+    }
+
+    public function get_single_uncompleted_product_func()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $product_buy_id = $this->request->getPost('product_buy_idd');
+
+
+
+    }
+
+
 
 }

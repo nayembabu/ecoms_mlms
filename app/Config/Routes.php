@@ -51,6 +51,8 @@
         $routes->post('getAllProducts', 'Customer::get_all_products_json_output');
         $routes->post('getSingleProductDetails', 'Customer::get_single_product_details_by_id');
         $routes->post('buySingleProducts', 'Customer::buy_a_single_product_action_form');
+        $routes->post('getUncompletedProducts', 'User::get_uncompleted_products_show_here');
+        $routes->post('getSingleUncompletedProduct', 'User::get_single_uncompleted_product_func');
 
     });
 
