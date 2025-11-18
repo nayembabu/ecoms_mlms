@@ -125,10 +125,16 @@ class Teams
     {
         $user_reffer_info = $this->db->table('user_reffer')
                                     ->where('reffer_ref_user_idd', $user_id)
+                                    ->join('user_badge_s', 'user_badge_s.batch_user_inf_ids = user_reffer.reffer_main_idd', 'left')
+                                    ->join('batch_details', 'user_badge_s.batch_b_detail_idds = batch_details.batch_detail_idd', 'left')
                                     ->get()
                                     ->getRow();
 
-        if (!$user_reffer_info->reffer_main_idd) return false;
+        if (!$user_reffer_info || !$user_reffer_info->reffer_main_idd) {
+            return true;
+        }
+
+        $this->add_bonus($user_reffer_info->reffer_main_idd,$user_reffer_info->referral_bonus_amount);
 
         // Check this upper user
         $this->team_check_and_increement($user_reffer_info->reffer_main_idd);
@@ -149,20 +155,45 @@ class Teams
         $next_level   = $now_position + 1;
         $next_level_user = $user_info_data->next_level_no ?? 4;
         $total_downline = $this->db->table('user_reffer')
-                                    ->where('reffer_main_idd', $userid)
-                                    ->where('batch_details.batch_position', $now_position)
                                     ->join('user_full_info', 'user_full_info.user_full_info_idd = user_reffer.reffer_ref_user_idd', 'left')
                                     ->join('user_badge_s', 'user_badge_s.batch_user_inf_ids = user_full_info.user_full_info_idd', 'left')
                                     ->join('batch_details', 'user_badge_s.batch_b_detail_idds = batch_details.batch_detail_idd', 'left')
+                                    ->where('reffer_main_idd', $userid)
+                                    ->where('batch_details.batch_position', $now_position)
                                     ->countAllResults();
         if ($total_downline >= $next_level_user) {
             // Update user badge
                 $this->db->table('user_badge_s')
                          ->where('batch_user_inf_ids', $userid)
-                         ->update(['batch_b_detail_idds' => $$user_info_data->batch_detail_idd + 1]);
+                         ->update(['batch_b_detail_idds' => $user_info_data->batch_detail_idd + 1]);
+            return true;
         }else {
-            return;
+            return false;
         }
     }
+
+        // বোনাস যোগ করা (ওয়ালেট + হিস্ট্রি)
+    private function add_bonus($user_id, $amount)
+    {
+        $this->db->table('user_reffer_incomes_show')->insert([
+            'user_infos_idd_did'            => $user_id,
+            'user_reffer_profit_amount'     => $amount,
+            'user_reffer_profit_text'       => 'Referral Bonus',
+            'times_show'                    => time(),
+            'now_date_show'                 => date('Y-m-d'),
+        ]);
+        $this->db->table('user_added_amounts')->insert([
+            'added_amount'              => $amount,
+            'user_info_id_addeds'       => $user_id,
+            'amount_perpose'            => 'Referral Bonus',
+            'payment_description'       => 'Referral Bonus Added to Wallet',
+            'times_stamps'              => time(),
+            'any_id_here'               => 0,
+        ]);
+    }
+
+
+
+
 
 }

@@ -167,10 +167,10 @@
                     <li class="nav-item ms-lg-4">
                         <div class="user-info">
                             <img src="<?= $my_info->user_pro_pic_paths; ?>" alt="user">
-                            <div>
+                            <a href="user/profile" class="text-white text-decoration-none ms-2">
                                 <strong><?= $my_info->user_full_name; ?></strong>
                                 <small>ID: <?= $my_info->user_reffer_code_times; ?></small>
-                            </div>
+                            </a>
                         </div>
                     </li>
                 </ul>

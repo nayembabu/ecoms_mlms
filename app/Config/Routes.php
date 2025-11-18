@@ -36,6 +36,7 @@
         $routes->get('add_referral', 'Customer::add_new_referral_view');
         $routes->get('viewAllProducts', 'Customer::view_all_products');
         $routes->get('incomeDetails', 'User::income_details_sho_here_view_file');
+        $routes->get('product-sells-income', 'User::view_products_income_details');
 
         $routes->post('edit-profile','User::editProfile');
 

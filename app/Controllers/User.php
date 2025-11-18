@@ -86,7 +86,62 @@ class User extends BaseController
 
     public function income_details_sho_here_view_file()
     {
-        return $this->template->front('user/income_details_view_file');
+        $userInfoId = $this->session->get('userInfoId');
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $data['product_sells_income'] = $this->db
+                                 ->table('product_profit_continue_check')
+                                 ->selectSum('profit_amountsss')
+                                 ->where('user_info_id_info', $userInfoId)
+                                 ->get()
+                                 ->getRow()
+                                 ->profit_amountsss;
+        $data['reffer_income_amnt'] = $this->db
+                                 ->table('user_reffer_incomes_show')
+                                 ->selectSum('user_reffer_profit_amount')
+                                 ->where('user_infos_idd_did', $userInfoId)
+                                 ->get()
+                                 ->getRow()
+                                 ->user_reffer_profit_amount;
+        $data['games_income_amnt'] = $this->db
+                                 ->table('user_games_incomes_added')
+                                 ->selectSum('user_games_profit_amount')
+                                 ->where('user_inf_id_unqqqqq', $userInfoId)
+                                 ->get()
+                                 ->getRow()
+                                 ->user_games_profit_amount;
+        $data['daily_income_amnt'] = $this->db
+                                 ->table('user_daily_profit_check')
+                                 ->selectSum('profits_takas_amnt')
+                                 ->where('user_infossss_iddsss', $userInfoId)
+                                 ->get()
+                                 ->getRow()
+                                 ->profits_takas_amnt;
+        $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
+        return $this->template->front('user/income_details_view_file', $data);
     }
+
+    public function view_products_income_details()
+    {
+        
+    }
+
+// $data['product_sells'] = $this->db
+//                          ->table('product_profit_continue_check')
+//                          ->where('user_info_id_info', $userInfoId)
+//                          ->where('return_product_price', 0)
+//                          ->join('product_information', 'product_profit_continue_check.product_id_infosss = product_information.id', 'left')
+//                          ->get()
+//                          ->getResult();
 
 }
