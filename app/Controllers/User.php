@@ -154,6 +154,19 @@ class User extends BaseController
                                  ->join('product_information', 'product_sells_infos.product_unq_idd = product_information.id', 'left')
                                  ->get()
                                  ->getResult();
+        foreach ($data['product_sells'] as $single) {
+            $ths = $this->db
+                 ->table('product_profit_continue_check')
+                 ->where('product_sells_lot_id', $single->product_sells_info_idd)
+                 ->countAllResults();
+            if ($ths < $single->profit_continue_days) {
+                $data['product_sells'] = ["status"=>"n","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
+            }elseif ($ths == $single->profit_continue_days) {
+                $data['product_sells'] = ["status"=>"c","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
+            }elseif ($ths > $single->profit_continue_days) {
+                $data['product_sells'] = "";
+            }
+        }
         return $this->response->setJSON($data);
     }
 
