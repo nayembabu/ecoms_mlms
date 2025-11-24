@@ -160,11 +160,9 @@ class User extends BaseController
                  ->where('product_sells_lot_id', $single->product_sells_info_idd)
                  ->countAllResults();
             if ($ths < $single->profit_continue_days) {
-                $data['product_sells'] = ["status"=>"n","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
+                $data['product_sell_status'][] = ["status"=>"n","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
             }elseif ($ths == $single->profit_continue_days) {
-                $data['product_sells'] = ["status"=>"c","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
-            }elseif ($ths > $single->profit_continue_days) {
-                $data['product_sells'] = "";
+                $data['product_sell_status'][] = ["status"=>"c","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
             }
         }
         return $this->response->setJSON($data);

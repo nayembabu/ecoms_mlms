@@ -86,22 +86,8 @@
                 // html_view += r[l];
 
                 for (let l = 0; l < r.length; l++) {
-                    get_single_uncompleted_product_data(r.product_sells[l].product_buy_lot_id)
+                    //
                 }
-            }
-        });
-    }
-
-    function get_single_uncompleted_product_data(product_buy_idd) {
-        $.ajax({
-            type: "post",
-            url: "user/getSingleUncompletedProduct",
-            data: {
-                product_buy_idd: product_buy_idd
-            },
-            dataType: "json",
-            success: function (rs) {
-                //
             }
         });
     }
