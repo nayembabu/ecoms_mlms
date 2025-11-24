@@ -10,28 +10,25 @@
             <div class="col-lg-8 col-md-10">
                 <div class="package-card p-5">
 
-                    <div class="text-center mb-5">
-                        <h2 class="fw-bold text-primary">প্রোডাক্ট ক্রয়ের হিসাব</h2>
-                        <!-- <p class="text-muted fs-5">আয়ের সুযোগ সীমাহীন!</p> -->
+                    <div class="text-center mb-1 ">
+                        <h2 class="fw-bold text-primary ">প্রোডাক্ট ক্রয়ের হিসাব</h2>
                     </div>
 
-                    <div class="add_products_profit_show">
-                        <div class="floating-profit-btn"><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>
-                    </div>
-
-                    <div class="text-center mt-2 mb-2 ">
+                    <div class="text-center ">
                         <div class="mb-4">
                             <h4>আপনার বর্তমান প্রফিট</h4>
                             <h2 class="text-success fw-bold">৳ ৪৬,৫০০</h2>
                         </div>
 
+                        <div class="add_products_profit_show "></div>
+
                         <div class="d-grid gap-3 d-md-flex justify-content-center">
-                            <button class="btn btn-join btn-lg text-white shadow">
+                            <!-- <button class="btn btn-join btn-lg text-white shadow">
                                 এখনই জয়েন করুন
                             </button>
                             <button class="btn btn-outline-secondary btn-lg">
                                 Now Profit দেখুন
-                            </button>
+                            </button> -->
                         </div>
                     </div>
 
@@ -73,6 +70,10 @@
 
 
 <script>
+
+    // add_products_profit_show
+    // <div class="floating-profit-btn"><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>
+
 
     get_uncompleted_products()
     function get_uncompleted_products() {
