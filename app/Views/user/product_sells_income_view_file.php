@@ -84,14 +84,39 @@
             dataType: "json",
             success: function (r) {
                 let html_view = '';
-                // html_view += r[l];
 
-                for (let l = 0; l < r.length; l++) {
-                    //
+                for (let l = 0; l < r.product_sell_status.length; l++) {
+                    if (r.product_sell_status[l].status == 'n') {
+                        html_view += `<div class="floating-profit-btn add_profit_btns " sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" ><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>`;
+                    }else if(r.product_sell_status[l].status == 'c') {
+                        html_view += `<div class="floating-profit-btn close_profit_btn_return " sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" ><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>`;
+                    }
                 }
+                $('.add_products_profit_show').append(html_view);
             }
         });
     }
+
+    $(document).on('click', '.add_profit_btns', function () {
+        let sells_id = $(this).attr('sells_id');
+        let product_id = $(this).attr('product_id');
+        let product_buy_id = $(this).attr('product_buy_id');
+        let profit = $(this).attr('profit');
+
+        $.ajax({
+            type: "post",
+            url: "",
+            data: {
+                sells_id: sells_id,
+                product_buy_id: product_buy_id,
+                product_id: product_id
+            },
+            dataType: "json",
+            success: function (ress) {
+                //
+            }
+        });
+    });
 
 
 </script>

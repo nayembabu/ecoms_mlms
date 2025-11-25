@@ -159,9 +159,17 @@ class User extends BaseController
                  ->table('product_profit_continue_check')
                  ->where('product_sells_lot_id', $single->product_sells_info_idd)
                  ->countAllResults();
-            if ($ths < $single->profit_continue_days) {
+
+            $this_day = $this->db
+                             ->table('product_profit_continue_check')
+                             ->where('product_sells_lot_id', $single->product_sells_info_idd)
+                             ->where('now_profit_days_date', date('Y-m-d', time()))
+                             ->get()
+                             ->getRow();
+
+            if ($ths < $single->profit_continue_days && !$this_day ) {
                 $data['product_sell_status'][] = ["status"=>"n","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
-            }elseif ($ths == $single->profit_continue_days) {
+            }elseif ($ths == $single->profit_continue_days && !$this_day ) {
                 $data['product_sell_status'][] = ["status"=>"c","sel_id" => $single->product_sells_info_idd, "prod_id"=>$single->product_unq_idd, "prod_buy_id" => $single->product_buy_lot_id, "profit" => $single->profit_amounts, "days"=> $ths+1];
             }
         }
