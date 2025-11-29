@@ -1,79 +1,135 @@
 
 
-    <style>
-        .package-card{background:#fff;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.08);transition:.3s}.package-card:hover{box-shadow:0 15px 30px rgba(0,0,0,.15);transform:translateY(-5px)}.price{font-size:3rem;font-weight:800;color:#2c3e50}.btn-join{background:#27ae60;border:none;padding:12px 40px;font-size:1.2rem;border-radius:50px}.btn-join:hover{background:#219653}.floating-profit-btn{position:fixed;background:linear-gradient(45deg,#27ae60,#2ecc71);color:#fff;border:none;padding:15px 25px;font-size:16px;font-weight:700;border-radius:50px;box-shadow:0 8px 20px rgba(39,174,96,.4);display:flex;align-items:center;gap:10px;transition:.3s;cursor:pointer}.floating-profit-btn i{font-size:22px;animation:2s infinite pulse}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
-    </style>
 
-<section class="mt-3">
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-                <div class="package-card p-5">
 
-                    <div class="text-center mb-1 ">
-                        <h2 class="fw-bold text-primary ">প্রোডাক্ট ক্রয়ের হিসাব</h2>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="inc/plugin/confetti.js"></script>
+  <script src="inc/plugin/tailwindcss.js"></script>
+  <style>
+    body { font-family: 'Hind Siliguri', sans-serif; background: linear-gradient(135deg, #2a1954ff 0%, #1a0033 100%); }
+    .glass { backdrop-filter: blur(16px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); }
+    .glow { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
+    .gift-pulse { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  </style>
+
+
+
+<div class="text-white min-h-screen mt-5 ">
+
+
+  <main class="pt-24 pb-32 px-4 max-w-6xl mx-auto">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+        আমার ক্রয় হিস্টোরি
+      </h2>
+      <p class="text-xl text-purple-200">প্রতিটি ক্রয়ে রয়েছে সারপ্রাইজ গিফটের জাদু!</p>
+    </div>
+
+
+        <div class="absolute top-20 right-4 gift-pulse add_products_profit_show"></div>
+
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+      <div class="glass rounded-2xl p-6 text-center glow border-purple-500">
+        <i class="fas fa-trophy text-5xl text-yellow-400 mb-3"></i>
+        <p class="text-purple-300">মোট প্রফিট টাকা</p>
+        <p class="text-4xl font-bold"><?php echo array_sum(array_column($product_profit_s, 'profit_amountsss'));  ?></p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center glow border-pink-500">
+        <i class="fas fa-gem text-5xl text-pink-400 mb-3"></i>
+        <p class="text-purple-300">মোট ক্রয়</p>
+        <p class="text-4xl font-bold">৳ <?php echo array_sum(array_column($product_sells, 'product_sell_price'));  ?></p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center glow border-green-500">
+        <i class="fas fa-gift text-5xl text-green-400 mb-3"></i>
+        <p class="text-purple-300">প্রফিট পেয়েছেন</p>
+        <p class="text-4xl font-bold"><?= count($product_profit_s); ?> টি</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center glow border-cyan-500">
+        <i class="fas fa-shopping-cart text-5xl text-cyan-400 mb-3"></i>
+        <p class="text-purple-300">মোট অর্ডার</p>
+        <p class="text-4xl font-bold"> <?= count($product_sells); ?> টি</p>
+      </div>
+    </div>
+
+    <!-- Orders List -->
+    <div class="space-y-8">
+
+      <?php foreach ($product_sells as $sells) { ?>
+        <div class="glass rounded-3xl overflow-hidden border-2 border-pink-500 glow">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold">#ORD-<?= $sells->created_at; ?></h3>
+                        <p class="text-pink-300"><?= date('d F Y', $sells->created_at); ?></p>
+                    </div>
+                    <?php if ($sells->return_product_price == 0) : ?>
+                        <span class="bg-green-500/30 text-green-300 px-6 py-3 rounded-full text-lg font-bold border border-green-500"> সফল </span>
+                    <?php elseif ($sells->return_product_price == 1) : ?>
+                        <span class="bg-red-500/30 text-red-300 px-5 py-2 rounded-full text-lg font-bold border border-red-500"> বন্ধ </span>
+                    <?php endif ?>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+
+                    <div class="bg-white/5 rounded-2xl p-5">
+                        <p class="text-purple-300">প্যাকেজ</p>
+                        <p class="text-2xl font-bold text-cyan-400">
+                            <?php
+                                $short_name = implode(' ', array_slice(explode(' ', $sells->product_name), 0, 3));
+                                echo $short_name;
+                            ?>
+                        </p>
                     </div>
 
-                    <div class="text-center ">
-                        <div class="mb-4">
-                            <h4>আপনার বর্তমান প্রফিট</h4>
-                            <h2 class="text-success fw-bold">৳ ৪৬,৫০০</h2>
-                        </div>
-
-                        <div class="add_products_profit_show "></div>
-
-                        <div class="d-grid gap-3 d-md-flex justify-content-center">
-                            <!-- <button class="btn btn-join btn-lg text-white shadow">
-                                এখনই জয়েন করুন
-                            </button>
-                            <button class="btn btn-outline-secondary btn-lg">
-                                Now Profit দেখুন
-                            </button> -->
-                        </div>
+                    <div class="bg-white/5 rounded-2xl p-5">
+                        <p class="text-purple-300">মূল্য</p>
+                        <p class="text-3xl font-bold text-yellow-400">৳ <?= $sells->product_sell_price; ?></p>
                     </div>
-
-                    <div class="text-center mt-4 text-muted small">
-                        ✓ ইন্সট্যান্ট অ্যাকটিভেশন ✓ ২৪/৭ সাপোর্ট ✓ লাইফটাইম ইনকাম
+                    <div class="bg-white/5 rounded-2xl p-5">
+                        <p class="text-purple-300">প্রফিট × দিন</p>
+                        <p class="text-3xl font-bold text-green-400"><?= $sells->profit_amounts; ?> × <?= $sells->profit_continue_days; ?></p>
                     </div>
-
-
-
-                    <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                            <tr>
-                                <th>লেভেল</th>
-                                <th>প্রতি জন</th>
-                                <th>মেম্বার সংখ্যা</th>
-                                <th>লেভেল আয়</th>
-                                <th>মোট আয়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>লেভেল ১</td><td>৳ ২,০০০</td><td>৩ জন</td><td>৳ ৬,০০০</td><td>৳ ৬,০০০</td></tr>
-                            <tr><td>লেভেল ২</td><td>৳ ১,০০০</td><td>৯ জন</td><td>৳ ৯,০০০</td><td>৳ ১৫,০০০</td></tr>
-                            <tr><td>লেভেল ৩</td><td>৳ ৭০০</td><td>২৭ জন</td><td>৳ ১৮,৯০০</td><td>৳ ৩৩,৯০০</td></tr>
-                            <tr><td>লেভেল ৪</td><td>৳ ৫০০</td><td>৮১ জন</td><td>৳ ৪০,৫০০</td><td>৳ ৭৪,৪০০</td></tr>
-                            <tr><td>লেভেল ৫</td><td>৳ ৪০০</td><td>২৪৩ জন</td><td>৳ ৯৭,২০০</td><td>৳ ১,৭১,৬০০</td></tr>
-                            <tr class="table-success fw-bold fs-5">
-                                <td colspan="3">১০ লেভেল পর্যন্ত মোট</td>
-                                <td colspan="2">৳ ৫,৫০,০০০+</td>
-                            </tr>
-                        </tbody>
-                    </table>
 
                 </div>
             </div>
         </div>
+      <?php } ?>
+
     </div>
-</section>
+  </main>
+
+  <!-- Gift Reveal Modal -->
+  <div id="giftModal" class="fixed inset-0 bg-black/90 backdrop-blur-xl z-50 hidden flex items-center justify-center p-5">
+    <div class="bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 rounded-3xl p-12 max-w-2xl text-center shadow-2xl animate-pulse">
+      <i class="fas fa-gift text-9xl text-yellow-400 mb-8 gift-pulse"></i>
+      <h3 class="text-5xl font-bold mb-6">অভিনন্দন!</h3>
+      <p id="giftMessage" class="text-3xl mb-10 leading-relaxed"></p>
+      <button onclick="closeModal()" class="bg-white text-purple-600 px-12 py-5 rounded-full text-2xl font-bold hover:scale-110 transition shadow-2xl">
+        ধন্যবাদ! বন্ধ করুন
+      </button>
+    </div>
+  </div>
+
+</div>
 
 
+  <script>
+    function revealGift(message) {
+      document.getElementById('giftMessage').innerHTML = message;
+      document.getElementById('giftModal').classList.remove('hidden');
+      // কনফেটি বিস্ফোরণ
+      confetti({ particleCount: 200, spread: 80, origin: { y: 0.4 } });
+      confetti({ particleCount: 100, spread: 100, origin: { y: 0.6 } });
+    }
 
-<script>
-
-    // add_products_profit_show
-    // <div class="floating-profit-btn"><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>
-
+    function closeModal() {
+      document.getElementById('giftModal').classList.add('hidden');
+    }
 
     get_uncompleted_products()
     function get_uncompleted_products() {
@@ -87,12 +143,16 @@
 
                 for (let l = 0; l < r.product_sell_status.length; l++) {
                     if (r.product_sell_status[l].status == 'n') {
-                        html_view += `<div class="floating-profit-btn add_profit_btns " sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" ><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>`;
+                        html_view += `<div class="add_profit_btns bg-gradient-to-br from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-bold text-lg shadow-2xl flex items-center gap-2 animate-bounce" sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}"  onclick="revealGift('অভিনন্দন! আপনার ক্রয়কৃত প্রোডাক্ট এর আজকের বোনাস যোগ হয়েছে। ${r.product_sell_status[l].profit}/- ')" >
+                            <i class="fas fa-gift text-2xl"></i> প্রফিট!
+                        </div>`;
                     }else if(r.product_sell_status[l].status == 'c') {
-                        html_view += `<div class="floating-profit-btn close_profit_btn_return " sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" ><i class="bi bi-graph-up-arrow"></i>প্রফিট</div><br><br>`;
+                        html_view += `<div class="add_profit_btns bg-gradient-to-br from-yellow-400 to-orange-500 text-black px-6 py-3 rounded-full font-bold text-lg shadow-2xl flex items-center gap-2 animate-bounce" sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}"  onclick="revealGift('অভিনন্দন! আপনার ক্রয়কৃত প্রোডাক্ট এর আজকের বোনাস যোগ হয়েছে। ${r.product_sell_status[l].profit}/- ')" >
+                            <i class="fas fa-gift text-2xl"></i> প্রফিট!
+                        </div>`;
                     }
                 }
-                $('.add_products_profit_show').append(html_view);
+                $('.add_products_profit_show').html(html_view);
             }
         });
     }
@@ -105,21 +165,17 @@
 
         $.ajax({
             type: "post",
-            url: "",
+            url: "user/add_profit_in_sell_products",
             data: {
                 sells_id: sells_id,
                 product_buy_id: product_buy_id,
                 product_id: product_id
             },
-            dataType: "json",
             success: function (ress) {
-                //
+                get_uncompleted_products()
             }
         });
     });
 
 
-</script>
-
-
-
+  </script>

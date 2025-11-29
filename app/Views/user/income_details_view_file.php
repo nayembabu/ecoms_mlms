@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
     <style>
         .glass {
             background: rgba(255, 255, 255, 0.08);
@@ -72,25 +67,25 @@
                             <h3 class="text-success">৳ <?= number_format($reffer_income_amnt, 2); ?></h3>
                         </div>
                     </a>
-                    <div class="col-xl-3 col-md-6">
+                    <a class="col-xl-3 col-md-6" href="user/gamming_pages">
                         <div class="glass p-4 text-center income-card shadow">
                             <i class="bi bi-trophy-fill fs-1 text-warning"></i>
                             <h5 class="mt-3">গেমস উইনিং</h5>
                             <h3 class="text-warning">৳ <?= number_format($games_income_amnt, 2); ?></h3>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
+                    </a>
+                    <a class="col-xl-3 col-md-6" href="user/daily_check" >
                         <div class="glass p-4 text-center income-card shadow">
                             <i class="bi bi-calendar-check fs-1 text-primary"></i>
                             <h5 class="mt-3">ডেইলি চেক-ইন বোনাস</h5>
                             <h3 class="text-primary">৳ <?= number_format($daily_income_amnt, 2); ?></h3>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- বিস্তারিত ইনকাম টেবিল (এই মাসের) -->
                 <div class="glass p-4 shadow">
-                    <h4 class="mb-4 text-center">নভেম্বর ২০২৫ - মাসিক ইনকাম বিস্তারিত</h4>
+                    <h4 class="mb-4 text-center"><?= date('F Y'); ?> - মাসিক ইনকাম বিস্তারিত</h4>
                     <div class="table-responsive">
                         <table class="table table-light table-striped table-hover align-middle">
                             <thead class="table-primary text-dark">
@@ -99,71 +94,24 @@
                                     <th>ইনকামের ধরন</th>
                                     <th>বিবরণ</th>
                                     <th class="text-end">পরিমাণ</th>
-                                    <th>স্ট্যাটাস</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>১৭ নভে</td>
-                                    <td>গেমস উইনিং</td>
-                                    <td>Spin Wheel - ১ম পুরস্কার</td>
-                                    <td class="text-end text-success fw-bold">+৳ ৫,০০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১৭ নভে</td>
-                                    <td>ডেইলি চেক-ইন</td>
-                                    <td>৩৭ দিনের স্ট্রিক</td>
-                                    <td class="text-end text-success">+৳ ২০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১৬ নভে</td>
-                                    <td>রেফার বোনাস</td>
-                                    <td>নতুন জয়েন: সাকিব (ID: SK-9912)</td>
-                                    <td class="text-end text-success">+৳ ২,০০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১৫ নভে</td>
-                                    <td>লেভেল ইনকাম</td>
-                                    <td>লেভেল ৪ থেকে</td>
-                                    <td class="text-end text-success">+৳ ৩,৫০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১৪ নভে</td>
-                                    <td>প্রোডাক্ট সেল</td>
-                                    <td>Gold Package (নিজে ক্রয়)</td>
-                                    <td class="text-end text-success">+৳ ১২,০০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১৩ নভে</td>
-                                    <td>ম্যাচিং বোনাস</td>
-                                    <td>লেগ ম্যাচ (১:১)</td>
-                                    <td class="text-end text-success">+৳ ৮,০০০</td>
-                                    <td><span class="badge bg-warning">পেন্ডিং</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১২ নভে</td>
-                                    <td>গেমস উইনিং</td>
-                                    <td>Daily Quiz Winner</td>
-                                    <td class="text-end text-success">+৳ ১,৫০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
-                                <tr>
-                                    <td>১০ নভে</td>
-                                    <td>রেফার বোনাস</td>
-                                    <td>৩ জন একসাথে জয়েন</td>
-                                    <td class="text-end text-success">+৳ ৬,০০০</td>
-                                    <td><span class="badge bg-success">ক্রেডিটেড</span></td>
-                                </tr>
+                                <?php foreach ($user_added_info as $sngl) { ?>
+                                    <tr>
+                                        <td><?php echo date('d M Y', $sngl->times_stamps); ?></td>
+                                        <td> <?= $sngl->amount_perpose; ?> </td>
+                                        <td><?= $sngl->payment_description; ?></td>
+                                        <td class="text-end text-success fw-bold">৳ <?= $sngl->added_amount; ?></td>
+                                        <td></td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                             <tfoot class="table-info text-dark">
                                 <tr>
                                     <th colspan="3" class="text-end">এই মাসের মোট ইনকাম:</th>
-                                    <th class="text-end">৳ ৩৮,২০০</th>
+                                    <th class="text-end">৳ <?php echo array_sum(array_column($user_added_info, 'added_amount'));  ?></th>
                                     <th></th>
                                 </tr>
                             </tfoot>

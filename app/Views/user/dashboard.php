@@ -41,7 +41,7 @@
 
 
   <?php if ($my_info->sts == 1) { ?>
-    <section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
+    <!--<section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
       <div class="container ">
         <h2 class="section-title"><?php echo count($daily_profit); ?> দিনের প্রফিট চেকলিস্ট</h2>
         <p class="text-muted mb-4">প্রতিদিন ক্লিক করুন, প্রফিট বাড়বে </p>
@@ -61,7 +61,7 @@
           <div class="d-flex justify-content-center gap-2"></div>
         </div>
       </div>
-    </section>
+    </section>-->
 
     <!-- KPI Section -->
     <section id="overview" class="content-section">
@@ -171,9 +171,7 @@
       });
     }
 
-    // $(document).on('click', '.', function () {
 
-    // });
   </script>
 
 

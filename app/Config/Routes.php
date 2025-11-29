@@ -37,6 +37,11 @@
         $routes->get('viewAllProducts', 'Customer::view_all_products');
         $routes->get('incomeDetails', 'User::income_details_sho_here_view_file');
         $routes->get('product-sells-income', 'User::view_products_income_details');
+        $routes->get('daily_check', 'User::daily_checking_func_s');
+        $routes->get('gamming_pages', 'User::gamming_all_page_func');
+        $routes->get('lottery_system', 'User::lottery_system_func_system');
+        $routes->get('all_lottery_history_system', 'User::all_lottery_history_system_func');
+        $routes->get('single_lottery_view', 'User::single_lottery_system_func_views');
 
         $routes->post('edit-profile','User::editProfile');
 
@@ -53,6 +58,9 @@
         $routes->post('buySingleProducts', 'Customer::buy_a_single_product_action_form');
         $routes->post('getUncompletedProducts', 'User::get_uncompleted_products_show_here');
         $routes->post('getSingleUncompletedProduct', 'User::get_single_uncompleted_product_func');
+        $routes->post('add_profit_in_sell_products', 'User::add_profit_in_sell_products');
+        $routes->post('get_daily_check', 'User::get_daily_check_func');
+        $routes->post('buy_a_ticket_s', 'User::buy_ticket_func');
 
     });
 

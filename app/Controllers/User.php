@@ -42,9 +42,26 @@ class User extends BaseController
         $data['profit_check'] = $this->db->table('user_daily_profit_check')
                                     ->where('user_infossss_iddsss', $userId)
                                     ->get()
-                                    ->getRow();
+                                    ->getResult();
         return $this->template->front('user/dashboard', $data);
     }
+
+    public function get_daily_check_func()
+    {
+        $data['daily_profit'] = $this->db->table('daily_profit_checkbox')
+                                    ->get()
+                                    ->getResult();
+        $data['profit_check'] = $this->db->table('user_daily_profit_check')
+                                    ->where('user_infossss_iddsss', $userId)
+                                    ->get()
+                                    ->getResult();
+
+
+        /* <div class="profit-box "><i class="bi bi-cash-stack"></i><h6><?= // $profit->days_list; ?> দিন </h6><h5>৳ <b><?= // $profit->profit_amount; ?></b></h5></div>; */
+
+        return $this->response->setJSON(['success' => true, 'data' => $data]);
+    }
+
     public function profile()
     {
         $userId = $this->session->get('userInfoId');
@@ -86,6 +103,9 @@ class User extends BaseController
 
     public function income_details_sho_here_view_file()
     {
+        $start_of_month = date('Y-m-01 00:00:00');
+        $end_of_month   = date('Y-m-t 23:59:59');
+
         $userInfoId = $this->session->get('userInfoId');
         $user_added_wallet = $this->db->table('user_added_amounts')
                                     ->selectSum('added_amount')
@@ -99,6 +119,13 @@ class User extends BaseController
                                     ->get()
                                     ->getRow()
                                     ->cutting_amounts;
+        $data['user_added_info'] = $this->db->table('user_added_amounts')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->where('times_stamps >=', strtotime($start_of_month))
+                                    ->where('times_stamps <=', strtotime($end_of_month))
+                                    ->orderBy('times_stamps', 'DESC')
+                                    ->get()
+                                    ->getResult();
         $data['product_sells_income'] = $this->db
                                  ->table('product_profit_continue_check')
                                  ->selectSum('profit_amountsss')
@@ -137,10 +164,16 @@ class User extends BaseController
         $data['product_sells'] = $this->db
                                  ->table('product_sells_infos')
                                  ->where('sell_user_idd', $userInfoId)
-                                 ->where('return_product_price', 0)
                                  ->join('product_information', 'product_sells_infos.product_unq_idd = product_information.id', 'left')
                                  ->get()
                                  ->getResult();
+
+        $data['product_profit_s'] = $this->db
+                                 ->table('product_profit_continue_check')
+                                 ->where('user_info_id_info', $userInfoId)
+                                 ->get()
+                                 ->getResult();
+
         return $this->template->front('user/product_sells_income_view_file', $data);
     }
 
@@ -180,11 +213,206 @@ class User extends BaseController
     {
         $userInfoId = $this->session->get('userInfoId');
         $product_buy_id = $this->request->getPost('product_buy_idd');
+    }
 
+    public function add_profit_in_sell_products()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $sells_id = $this->request->getPost('sells_id');
+        $product_buy_id = $this->request->getPost('product_buy_id');
+        $product_id = $this->request->getPost('product_id');
 
+        $product_sells_info = $this->db
+                                 ->table('product_sells_infos')
+                                 ->where('product_sells_info_idd', $sells_id)
+                                 ->where('return_product_price', 0)
+                                 ->get()
+                                 ->getRow();
+
+        if ($product_sells_info) {
+            $ths = $this->db
+                        ->table('product_profit_continue_check')
+                        ->where('product_sells_lot_id', $product_sells_info->product_sells_info_idd)
+                        ->countAllResults();
+            if ($ths < 7) {
+                $this->db->table('product_profit_continue_check')->insert([
+                    "user_info_id_info"         => $userInfoId,
+                    "product_id_infosss"        => $product_sells_info->product_unq_idd,
+                    "product_buy_lot_iddsdds"   => $product_sells_info->product_buy_lot_id,
+                    "product_sells_lot_id"      => $product_sells_info->product_sells_info_idd,
+                    "profit_amountsss"          => $product_sells_info->profit_amounts,
+                    "now_profit_days_date"      => date('Y-m-d', time()),
+                    "now_profit_days_times"     => time(),
+                ]);
+
+                $this->db->table('user_added_amounts')->insert([
+                    "added_amount"                  => $product_sells_info->profit_amounts,
+                    "user_info_id_addeds"           => $userInfoId,
+                    "amount_perpose"                => 'Products Profit added',
+                    "times_stamps"                  => time(),
+                ]);
+
+            }else if ($ths >= 7) {
+                $this->db->table('product_sells_infos')
+                         ->where('product_sells_info_idd', $product_sells_info->product_unq_idd)
+                         ->update([
+                            "return_product_price"  => 0,
+                            "return_date"           => date('Y-m-d', time())
+                         ]);
+
+                $this->db->table('user_added_amounts')->insert([
+                    "added_amount"                  => $product_sells_info->product_sell_price,
+                    "user_info_id_addeds"           => $userInfoId,
+                    "amount_perpose"                => 'Products Price Return',
+                    "times_stamps"                  => time(),
+                    "any_id_here"                   => $product_sells_info->product_unq_idd
+                ]);
+
+            }
+        }
 
     }
 
+    public function daily_checking_func_s()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data = [];
+        return $this->template->front('user/user_daly_profit_check', $data);
+    }
+
+    public function gamming_all_page_func()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['lottery_info'] = $this->db
+                                 ->table('lotary_shedual')
+                                 ->where('expire_dates >=', date('Y-m-d', time()))
+                                 ->get()
+                                 ->getRow();
+        return $this->template->front('user/gamming_all_view_pages', $data);
+    }
+
+    public function lottery_system_func_system()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['lottery_info'] = $this->db
+                                 ->table('lotary_shedual')
+                                 ->where('expire_dates >=', date('Y-m-d', time()))
+                                 ->get()
+                                 ->getRow();
+        if ($data['lottery_info']) {
+            $data['lottery_price_info'] = $this->db
+                                    ->table('lottery_prices')
+                                    ->where('lottery_unq_idddd', $data['lottery_info']->lotary_shedual_idd)
+                                    ->get()
+                                    ->getResult();
+            $data['user_lottery_attend'] = $this->db
+                                    ->table('user_lottery_enrolls')
+                                    ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                    ->get()
+                                    ->getResult();
+            $data['total_price'] = $this->db->table('lottery_prices')
+                                    ->selectSum('prices_amountss')
+                                    ->get()
+                                    ->getRow()
+                                    ->prices_amountss ?? 0;
+            $data['buy_ticket_info'] = $this->db
+                                        ->table('user_lottery_enrolls')
+                                        ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                        ->where('user_id_infoss', $userInfoId)
+                                        ->get()
+                                        ->getResult();
+            $data['total_buy_ticket'] = $this->db
+                                        ->table('user_lottery_enrolls')
+                                        ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                        ->where('user_id_infoss', $userInfoId)
+                                        ->countAllResults();
+        }
+        return $this->template->front('user/lottery_all_view_pages', $data);
+    }
+
+    public function buy_ticket_func()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $lottery_id = $this->request->getPost('lottery_id');
+
+        $lottery_info = $this->db
+                                 ->table('lotary_shedual')
+                                 ->where('lotary_shedual_idd', $lottery_id)
+                                 ->get()
+                                 ->getRow();
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $current_balance = $user_added_wallet - $user_used_wallet;
+        if ($lottery_info && $current_balance > $lottery_info->ticket_prices) {
+                $this->db->table('user_lottery_enrolls')->insert([
+                        "user_id_infoss"    => $userInfoId,
+                        "bet_amountss_s"    => $lottery_info->ticket_prices,
+                        "user_lottery_nos"  => $lottery_id,
+                        "users_ticket_noss" => rand(0, 60).'-'.time(),
+                        "entry_timess"      => time(),
+                        "entry_datess"      => date('Y-m-d', time()),
+                ]);
+                $this->db->table('user_cutted_amnt')->insert([
+                        "user_cut_user_idd"     => $userInfoId,
+                        "cutting_perpose"       => 'লটারী টিকেট কেনা',
+                        "cut_descs"             => 'লটারী টিকেট কেনায় খরচ হয়েছে। ',
+                        "cutting_amounts"       => $lottery_info->ticket_prices,
+                        "cut_any_idd"           => '',
+                        "cuting_date_yy"        => date('Y-m-d', time()),
+                        "time_stamps"           => time(),
+                ]);
+                $this->db->table('user_lottery_winning_price')->insert([
+                        "user_iddd"                 => $userInfoId,
+                        "lottery_idd"               => $lottery_id,
+                        "possition_ss_price"        => '',
+                        "lottery_price_amounts"     => '',
+                        "entry_dates"               => date('Y-m-d', time()),
+                        "entry_times"               => time(),
+                ]);
+            echo json_encode(['status'=>1, 'msg'=>'Buy Ticket Successfully']);
+        }
+    }
+
+    public function all_lottery_history_system_func()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['all_lotary_info'] = $this->db
+                                        ->table('lotary_shedual')
+                                        ->orderBy('lotary_shedual_idd', 'DESC')
+                                        ->get()
+                                        ->getResult();
+        return $this->template->front('user/all_lottery_history_system_view_file', $data);
+    }
+
+    public function single_lottery_system_func_views()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $lottery_id = $this->request->getGet('id');
+        if ($lottery_id) {
+            $data['lottery_info'] = $this->db
+                                 ->table('lotary_shedual')
+                                 ->where('lotary_shedual_idd', $lottery_id)
+                                 ->get()
+                                 ->getRow();
+            if ($data['lottery_info']) {
+                return $this->template->front('user/single_lottery_system_func_views_file', $data);
+            }else {
+                return redirect()->to('user/all_lottery_history_system');
+            }
+        }else {
+            return redirect()->to('user/all_lottery_history_system');
+        }
+    }
 
 
 }
