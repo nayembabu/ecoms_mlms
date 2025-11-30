@@ -400,11 +400,47 @@ class User extends BaseController
         $lottery_id = $this->request->getGet('id');
         if ($lottery_id) {
             $data['lottery_info'] = $this->db
-                                 ->table('lotary_shedual')
-                                 ->where('lotary_shedual_idd', $lottery_id)
-                                 ->get()
-                                 ->getRow();
+                                        ->table('lotary_shedual')
+                                        ->where('lotary_shedual_idd', $lottery_id)
+                                        ->get()
+                                        ->getRow();
             if ($data['lottery_info']) {
+
+                $data['lottery_price_info'] = $this->db
+                                                    ->table('lottery_prices')
+                                                    ->where('lottery_unq_idddd', $data['lottery_info']->lotary_shedual_idd)
+                                                    ->get()
+                                                    ->getResult();
+                $data['user_lottery_attend'] = $this->db
+                                                    ->table('user_lottery_enrolls')
+                                                    ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                                    ->join('user_full_info', 'user_lottery_enrolls.user_id_infoss = user_full_info.user_full_info_idd', 'left')
+                                                    ->get()
+                                                    ->getResult();
+                $data['total_price'] = $this->db->table('lottery_prices')
+                                            ->selectSum('prices_amountss')
+                                            ->get()
+                                            ->getRow()
+                                            ->prices_amountss ?? 0;
+                $data['my_buying_ticket_info'] = $this->db
+                                                    ->table('user_lottery_enrolls')
+                                                    ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                                    ->where('user_id_infoss', $userInfoId)
+                                                    ->get()
+                                                    ->getResult();
+                $data['lottery_winning_info'] = $this->db
+                                                    ->table('user_lottery_winning_price')
+                                                    ->where('lottery_idd', $data['lottery_info']->lotary_shedual_idd)
+                                                    ->orderBy('possition_ss_price', 'ASC')
+                                                    ->join('user_full_info', 'user_lottery_winning_price.user_iddd = user_full_info.user_full_info_idd', 'left')
+                                                    ->get()
+                                                    ->getResult();
+                $data['total_buy_ticket'] = $this->db
+                                                ->table('user_lottery_enrolls')
+                                                ->where('user_lottery_nos', $data['lottery_info']->lotary_shedual_idd)
+                                                ->where('user_id_infoss', $userInfoId)
+                                                ->countAllResults();
+
                 return $this->template->front('user/single_lottery_system_func_views_file', $data);
             }else {
                 return redirect()->to('user/all_lottery_history_system');
