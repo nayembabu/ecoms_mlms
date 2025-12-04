@@ -114,7 +114,7 @@
 
               <?php foreach ($user_lottery_attend as $lot_attend) { ?>
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3 mb-2 bg-warning bg-opacity-25}">
-                  <span class="fs-3 fw-bold"><?= $lot_attend->user_full_name; ?> <span class="fs-6 text-sm rounded-pill badge-xs badge bg-success "><?= $lot_attend->bet_amountss_s; ?></span> </span>
+                  <span class="fs-3 fw-bold"><?= $lot_attend->user_full_name; ?> <span class="fs-6 text-sm rounded-pill badge-xs badge bg-success ">৳<?= $lot_attend->bet_amountss_s; ?></span> </span>
                   <span class="fs-5 badge bg-primary "><?= $lot_attend->users_ticket_noss; ?></span>
                 </div>
               <?php } ?>
@@ -126,10 +126,6 @@
 
     </div>
   </div>
-
-
-
-
 
 
 
