@@ -42,6 +42,7 @@
         $routes->get('lottery_system', 'User::lottery_system_func_system');
         $routes->get('all_lottery_history_system', 'User::all_lottery_history_system_func');
         $routes->get('single_lottery_view', 'User::single_lottery_system_func_views');
+        $routes->get('your_lottery_history_system', 'User::your_lottery_history_system_func_views');
 
         $routes->post('edit-profile','User::editProfile');
 

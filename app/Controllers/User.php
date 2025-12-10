@@ -375,7 +375,7 @@ class User extends BaseController
                         "user_iddd"                 => $userInfoId,
                         "lottery_idd"               => $lottery_id,
                         "possition_ss_price"        => '',
-                        "lottery_price_amounts"     => '',
+                        "lottery_price_amounts"     => 0,
                         "entry_dates"               => date('Y-m-d', time()),
                         "entry_times"               => time(),
                 ]);
@@ -449,6 +449,22 @@ class User extends BaseController
             return redirect()->to('user/all_lottery_history_system');
         }
     }
+
+    public function your_lottery_history_system_func_views()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['my_lotary_info'] = $this->db
+                                        ->table('lotary_shedual')
+                                        ->join('user_lottery_enrolls', 'lotary_shedual.lotary_shedual_idd = user_lottery_enrolls.user_lottery_nos', 'inner')
+                                        // ->join('user_lottery_winning_price', 'user_lottery_winning_price.lottery_idd = lotary_shedual.lotary_shedual_idd', 'left')
+                                        ->where('user_lottery_enrolls.user_id_infoss', $userInfoId)
+                                        ->orderBy('lotary_shedual.lotary_shedual_idd', 'DESC')
+                                        ->get()
+                                        ->getResult();
+        return $this->template->front('user/your_lottery_history_system_view_file', $data);
+    }
+
+
 
 
 }

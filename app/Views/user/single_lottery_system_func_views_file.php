@@ -69,6 +69,9 @@
       </h1>
       <p class="fs-3 opacity-90"> <?= $lottery_info->lottery_description_here; ?></p>
       <p class="fs-1 fw-bold text-warning mt-5 ">মোট প্রাইজ <?= $total_price; ?></p>
+      <?php if ($lottery_info->close_lottery == 0) { ?>
+        <a href="user/lottery_system" class="btn btn-success draw-btn bg-success text-white " >ক্রয় করুন</a>
+      <?php } ?>
     </div>
 
     <div class="row g-5">
