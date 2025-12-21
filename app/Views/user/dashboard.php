@@ -1,178 +1,305 @@
- <style>
-    h3.section-title {font-weight:700;background:linear-gradient(90deg,#2563eb,#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
-    .profit-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:20px;justify-items:center;margin-bottom:30px;}
-    .profit-box {width:110px;height:110px;background:linear-gradient(145deg,#ffffff,#f0f4ff);border-radius:20px;box-shadow:0 6px 16px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .25s ease;cursor:pointer;position:relative;}
-    .profit-box:hover {transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.12);}
-    .profit-box i {font-size:1.6rem;color:#2563eb;margin-bottom:2px;}
-    .profit-box h6 {font-weight:600;color:#1e293b;margin-bottom:2px;}
-    .profit-box small {color:#64748b;}
-    .profit-box.done {background:linear-gradient(145deg,#d1fae5,#a7f3d0);color:#064e3b;}
-    .profit-box.done i {color:#16a34a;}
-    .profit-box.done::after{content:'✔';position:absolute;right:8px;top:6px;font-size:1rem;color:#22c55e;font-weight:bold;}
-    .progress {border-radius:30px;overflow:hidden;height:10px;}
-    .progress-bar {background:linear-gradient(90deg,#0ea5e9,#2563eb);}
-    .btn-custom {border-radius:25px;padding:6px 18px;font-weight:500;}
-    .btn-custom i {margin-right:4px;}
-    footer {background:#0f172a;color:#94a3b8;padding:20px 0;margin-top:80px;font-size:0.9rem;}
-  </style>
 
 
 
 
 
-  <!-- Hero Section -->
-  <section class="pt-5 mt-5 text-center bg-white shadow-sm">
-    <div class="container py-5">
-      <h1 class="fw-bold mb-3">স্বাগতম, <?= $my_info->user_full_name; ?>!</h1>
-      <p class="lead text-muted">আপনার নেটওয়ার্ক ড্যাশবোর্ডে সব তথ্য এক জায়গায়</p>
-      <?php if ($my_info->sts != 1) { ?>
-        <div>
-          <h2 class="text-danger">আপনার অ্যাকাউন্ট একটিভ নয়</h2>
-          <p class="text-danger">অনুগ্রহ করে আপনার অ্যাকাউন্ট একটিভ করুন। অ্যাকাউন্ট একটিভ করতে প্রথমে রিচার্জ করুন, এরপর যেকোনো একটি পন্য কিনলেই আপনার একাউন্ট একটিভ হয়ে যাবে</p>
-          <div class="d-flex justify-content-center gap-3">
-            <a href="<?= base_url('user/myWallet'); ?>" class="btn btn-primary bg-primary text-white btn-custom"><i class="bi bi-wallet2"></i>অ্যাকাউন্ট রিচার্জ করুন</a>
-        </div>
-      <?php } ?>
-    </div>
-  </section>
 
-
-
-
-
-  <?php if ($my_info->sts == 1) { ?>
-    <!--<section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
-      <div class="container ">
-        <h2 class="section-title"><?php echo count($daily_profit); ?> দিনের প্রফিট চেকলিস্ট</h2>
-        <p class="text-muted mb-4">প্রতিদিন ক্লিক করুন, প্রফিট বাড়বে </p>
-        <div class="profit-grid" id="profitBoxes">
-          <?php foreach ($daily_profit as $profit) { ?>
-            <div class="profit-box "><i class="bi bi-cash-stack"></i><h6><?= $profit->days_list; ?> দিন </h6><h5>৳ <b><?= $profit->profit_amount; ?></b></h5></div>
-          <?php } ?>
-        </div>
-        <div class="mx-auto" style="max-width:360px;">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="fw-semibold">মোট অর্জন:</span>
-            <span id="totalEarned" class="fw-bold text-success">৳0</span>
-          </div>
-          <div class="progress mb-3">
-            <div id="profitProgress" class="progress-bar" style="width:0%"></div>
-          </div>
-          <div class="d-flex justify-content-center gap-2"></div>
-        </div>
-      </div>
-    </section>-->
-
-    <!-- KPI Section -->
-    <section id="overview" class="content-section">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-md-3">
-            <div class="card text-center p-4">
-              <i class="bi bi-cash-coin kpi-icon mx-auto"></i>
-              <h5 class="mt-3">মোট কমিশন</h5>
-              <h3>৳1,24,500</h3>
-              <small class="text-success">+12% এই মাসে</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center p-4">
-              <i class="bi bi-people kpi-icon mx-auto"></i>
-              <h5 class="mt-3">ডাইরেক্ট রেফারাল</h5>
-              <h3>38</h3>
-              <small class="text-muted">সক্রিয় 29</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center p-4">
-              <i class="bi bi-diagram-3 kpi-icon mx-auto"></i>
-              <h5 class="mt-3">টিম সদস্য</h5>
-              <h3>1,247</h3>
-              <small class="text-success">+86 এই সপ্তাহে</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center p-4">
-              <i class="bi bi-trophy kpi-icon mx-auto"></i>
-              <h5 class="mt-3">র‍্যাঙ্ক</h5>
-              <h3>Gold</h3>
-              <small>Platinum এ 35% বাকি</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Wallet Section -->
-    <section id="wallet" class="content-section bg-white">
-      <div class="container">
-        <h4 class="fw-bold mb-4 text-center">ওয়ালেট ব্যালেন্স</h4>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="card p-4 text-center">
-              <h6 class="text-muted">মেইন ওয়ালেট</h6>
-              <h2>৳34,250</h2>
-              <small class="text-success">আজ +৳1,250</small>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card p-4 text-center">
-              <h6 class="text-muted">বোনাস ওয়ালেট</h6>
-              <h2>৳18,640</h2>
-              <small>গতকাল +৳420</small>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card p-4 text-center">
-              <h6 class="text-muted">উইথড্রেবল</h6>
-              <h2>৳22,000</h2>
-              <small class="text-warning">ফি 1.5%</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Referral Table -->
-    <section id="referrals" class="content-section">
-      <div class="container">
-        <h4 class="fw-bold mb-3">রেফারেল হিস্ট্রি</h4>
-        <div class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead class="table-primary text-center">
-              <tr>
-                <th>ইউজার</th>
-                <th>তারিখ</th>
-                <th>স্ট্যাটাস</th>
-                <th>আয় (৳)</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <tr><td>রিয়া</td><td>28 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>1250</td></tr>
-              <tr><td>সায়েম</td><td>26 Oct 2025</td><td><span class="badge bg-warning text-dark">Pending</span></td><td>0</td></tr>
-              <tr><td>মাহির</td><td>20 Oct 2025</td><td><span class="badge bg-success">Active</span></td><td>3980</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  <?php } ?>
-
-  <script>
-    function get_daily_check_s() {
-      $.ajax({
-        type: "post",
-        url: "user/get_daily_check",
-        data: "",
-        dataType: "json",
-        success: function (res) {
-          // Update profit boxes
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
         }
-      });
-    }
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        .sidebar {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            min-height: 100vh;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar a {
+            color: #fff;
+            border-radius: 15px;
+            margin: 10px 20px;
+            padding: 15px 20px !important;
+            transition: all 0.4s;
+            font-size: 1.1rem;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(12px);
+        }
+        .card-investment {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            transition: all 0.4s;
+            overflow: hidden;
+        }
+        .card-investment:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+        .count-up {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd194, #d1913c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .progress-circle {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 20px auto;
+        }
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+        .progress-circle .bg-circle { 
+            stroke: rgba(255,255,255,0.2); 
+            stroke-width: 12; 
+            fill: none;
+        }
+        .progress-circle .fg-circle { 
+            stroke-width: 12; 
+            fill: none; 
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+        .badge-premium {
+            background: linear-gradient(45deg, #ffecd2, #fcb69f);
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            min-width: 180px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+        .action-btn i {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+        .action-btn span {
+            font-size: 1.1rem;
+        }
+        .action-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .action-btn:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+        .btn-deposit { border: 2px solid #38ef7d; }
+        .btn-deposit:hover { background: linear-gradient(45deg, #11998e, #38ef7d); }
+        .btn-withdraw { border: 2px solid #ff6b6b; }
+        .btn-withdraw:hover { background: linear-gradient(45deg, #ff6b6b, #ee5a52); }
+        .btn-buy { border: 2px solid #f5576c; }
+        .btn-buy:hover { background: linear-gradient(45deg, #f093fb, #f5576c); }
+        .btn-history { border: 2px solid #00f2fe; }
+        .btn-history:hover { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+        .btn-games { border: 2px solid #ff8c00; }
+        .btn-games:hover { background: linear-gradient(45deg, #ffd700, #ff8c00); }
+    </style>
 
 
-  </script>
+    <div class="container-fluid mt-5">
+        <div class="row g-0 ">
+
+            <!-- Main Content -->
+            <div class="col-md-12 col-lg-12 p-5 mt-4 ">
+              <!-- Welcome Section Start -->
+              <div class="glass p-5 rounded-4 mb-5 text-center">
+                  <h1 class="display-4 mb-3">স্বাগতম, <strong style="background: linear-gradient(135deg,#ff9a9e,#fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><?= $my_info->user_full_name; ?></strong> <img width="80px" height="80px" src="<?= $user_batch->batch_img_path; ?>" alt="">✨</h1>
+                  <p class="lead opacity-90">তারিখ: <?= date('d F, Y'); ?></p>
+                  <span class="badge-premium fs-5"> <?= strtoupper($user_batch->batch_name.' Member'); ?> </span>
+              </div>
+              <!-- Welcome Section End -->
+              <?php if ($my_info->sts != 1) { ?>
+                <div class="glass p-5 rounded-4 mb-5 text-center">
+                  <h2 class="text-danger">আপনার অ্যাকাউন্ট একটিভ নয়</h2>
+                  <p class="text-danger">অনুগ্রহ করে আপনার অ্যাকাউন্ট একটিভ করুন। অ্যাকাউন্ট একটিভ করতে প্রথমে রিচার্জ করুন, এরপর যেকোনো একটি পন্য কিনলেই আপনার একাউন্ট একটিভ হয়ে যাবে</p>
+                  <div class="d-flex justify-content-center gap-3">
+                    <a href="<?= base_url('user/myWallet'); ?>" class="btn btn-primary bg-primary text-white btn-custom"><i class="bi bi-wallet2"></i>অ্যাকাউন্ট রিচার্জ করুন</a>
+                  </div>
+                </div>
+              <?php }else{ ?>
+
+                <h2 class="text-center mb-4">দ্রুত অ্যাকশন</h2>
+                <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
+                  <a href="user/myWallet" class="action-btn btn-deposit">
+                      <i class="fas fa-money-bill-wave"></i>
+                      <span>ওয়ালেট</span>
+                  </a>
+                  <a href="user/withdraw" class="action-btn btn-withdraw">
+                      <i class="fas fa-wallet"></i>
+                      <span>উইথড্র করুন</span>
+                  </a>
+                  <a href="user/balanceTransfer" class="action-btn btn-buy">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span>ব্যালেন্স ট্রান্সফার</span>
+                  </a>
+                  <a href="investment-history.html" class="action-btn btn-history">
+                      <i class="fas fa-history"></i>
+                      <span>হিস্ট্রি দেখুন</span>
+                  </a>
+                  <a href="games.html" class="action-btn btn-games">
+                      <i class="fas fa-dice"></i>
+                      <span>গেমস খেলুন 🎰</span>
+                  </a>
+                </div>
+
+
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-5">
+                  <div class="col-md-4">
+                      <div class="glass p-4 text-center rounded-4">
+                          <i class="fas fa-wallet fa-4x mb-3 text-warning opacity-70"></i>
+                          <h5>মোট ব্যালেন্স</h5>
+                          <h2 class="count-up" data-target="168500">৳0</h2>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="glass p-4 text-center rounded-4">
+                          <i class="fas fa-users fa-4x mb-3 text-info opacity-70"></i>
+                          <h5>ডাউনলাইন মেম্বার</h5>
+                          <h2 class="count-up" data-target="428">0</h2>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="glass p-4 text-center rounded-4">
+                          <i class="fas fa-gem fa-4x mb-3 text-success opacity-70"></i>
+                          <h5>মোট ROI আর্নিং</h5>
+                          <h2 class="count-up" data-target="142300">৳0</h2>
+                      </div>
+                  </div>
+                </div>
+
+                <!-- Investment Packages -->
+                <h2 class="text-center mb-5">আমার অ্যাকটিভ ইনভেস্টমেন্ট প্যাকেজসমূহ</h2>
+                <div class="row g-5">
+                    <!-- Package 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card-investment text-white p-4">
+                            <div class="text-center mb-4">
+                                <h4 class="fw-bold">Starter Pack</h4>
+                                <h2>৳৩০,০০০</h2>
+                            </div>
+                            <div class="progress-circle">
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <h3 class="mb-0">70%</h3>
+                                    <small>সম্পন্ন</small>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled mt-4 text-center">
+                                <li><strong>ROI পেয়েছেন:</strong> ৳২১,০০০</li>
+                                <li><strong>মেয়াদ:</strong> ১৮০ দিন</li>
+                                <li><strong>বাকি:</strong> ৫৪ দিন</li>
+                                <li><strong>দৈনিক রিটার্ন:</strong> ০.৮%</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Package 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card-investment text-white p-4">
+                            <div class="text-center mb-4">
+                                <h4 class="fw-bold text-success">Pro Pack</h4>
+                                <h2>৳৭৫,০০০</h2>
+                            </div>
+                            <div class="progress-circle">
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <h3 class="mb-0">60%</h3>
+                                    <small>সম্পন্ন</small>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled mt-4 text-center">
+                                <li><strong>ROI পেয়েছেন:</strong> ৳৪৫,০০০</li>
+                                <li><strong>মেয়াদ:</strong> ২৪০ দিন</li>
+                                <li><strong>বাকি:</strong> ৯৬ দিন</li>
+                                <li><strong>দৈনিক রিটার্ন:</strong> ১.০%</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Package 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card-investment text-white p-4">
+                            <div class="text-center mb-4">
+                                <h4 class="fw-bold text-warning">Premium Pack</h4>
+                                <h2>৳১,৫০,০০০</h2>
+                            </div>
+                            <div class="progress-circle">
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <h3 class="mb-0">40%</h3>
+                                    <small>সম্পন্ন</small>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled mt-4 text-center">
+                                <li><strong>ROI পেয়েছেন:</strong> ৳৬০,০০০</li>
+                                <li><strong>মেয়াদ:</strong> ৩৬৫ দিন</li>
+                                <li><strong>বাকি:</strong> ২১৯ দিন</li>
+                                <li><strong>দৈনিক রিটার্ন:</strong> ১.২%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Referral Link -->
+                <div class="glass p-5 rounded-4 mt-5 text-center">
+                    <h4 class="mb-4">তোমার ব্যক্তিগত রেফারেল লিঙ্ক</h4>
+                    <div class="input-group input-group-lg w-75 mx-auto">
+                        <input type="text" class="form-control text-center fs-5" value="https://elitemlm.com/ref=rahim2025" readonly>
+                        <button class="btn btn-outline-light btn-lg px-5"><i class="fas fa-copy me-2"></i>কপি করুন</button>
+                    </div>
+                    <p class="mt-4 fs-5 opacity-90">এখন পর্যন্ত <strong class="text-warning">৯২ জন</strong> তোমার লিঙ্ক থেকে জয়েন করেছে! 🔥</p>
+                </div>
+
+
+              <?php } ?>
+            </div>
+        </div>
+    </div>
 
 
 
+
+
+
+    <script>
+        // Animated Counter
+        document.querySelectorAll('.count-up').forEach(el => {
+            const target = parseInt(el.getAttribute('data-target'));
+            let count = 0;
+            const inc = target / 80;
+            const timer = setInterval(() => {
+                count += inc;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                }
+                el.innerText = count < 100000 ? '৳' + Math.floor(count).toLocaleString() : Math.floor(count).toLocaleString();
+            }, 30);
+        });
+    </script>

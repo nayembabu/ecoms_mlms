@@ -66,4 +66,8 @@
     });
 
 
+    
+    $routes->group('games', ['filter' => 'auth'], function($routes) {
+        $routes->get('bycycle', 'Games::game_bi_cycle_view');
+    });
 

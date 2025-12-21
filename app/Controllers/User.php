@@ -35,14 +35,12 @@ class User extends BaseController
     public function dashboard()
     {
         $userId = $this->session->get('userInfoId');
-        $prevToday = date('Y-m-d', strtotime('-1 day'));
-        $data['daily_profit'] = $this->db->table('daily_profit_checkbox')
-                                    ->get()
-                                    ->getResult();
-        $data['profit_check'] = $this->db->table('user_daily_profit_check')
-                                    ->where('user_infossss_iddsss', $userId)
-                                    ->get()
-                                    ->getResult();
+        $data['my_info'] = $this->regModel->find($userId);
+        $data['user_batch'] = $this->db->table('user_badge_s')
+                                           ->where('batch_user_inf_ids', $userId)
+                                           ->join('batch_details', 'batch_details.batch_detail_idd = user_badge_s.batch_b_detail_idds', 'left')
+                                           ->get()
+                                           ->getRow();
         return $this->template->front('user/dashboard', $data);
     }
 
@@ -254,9 +252,9 @@ class User extends BaseController
 
             }else if ($ths >= 7) {
                 $this->db->table('product_sells_infos')
-                         ->where('product_sells_info_idd', $product_sells_info->product_unq_idd)
+                         ->where('product_sells_info_idd', $product_sells_info->product_sells_info_idd)
                          ->update([
-                            "return_product_price"  => 0,
+                            "return_product_price"  => 1,
                             "return_date"           => date('Y-m-d', time())
                          ]);
 

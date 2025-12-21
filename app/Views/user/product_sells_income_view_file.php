@@ -139,6 +139,8 @@
             data: "",
             dataType: "json",
             success: function (r) {
+
+              if (r.product_sell_status && r.product_sell_status.length > 0) {
                 let html_view = '';
 
                 for (let l = 0; l < r.product_sell_status.length; l++) {
@@ -153,6 +155,9 @@
                     }
                 }
                 $('.add_products_profit_show').html(html_view);
+              }else {
+                $('.add_products_profit_show').html('');
+              }
             }
         });
     }
