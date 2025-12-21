@@ -1,283 +1,216 @@
-<!-- Breadcrumb Section Start -->
-<section class="breadcrumb-section pt-0">
-    <div class="container-fluid-lg">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb-contain">
-                    <h2 class="mb-2">Log In</h2>
-                    <nav>
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item">
-                                <a href="index.php"><i class="fa-solid fa-house"></i></a>
-                            </li>
-                            <li class="breadcrumb-item active">Log In</li>
-                        </ol>
-                    </nav>
+
+
+
+
+
+
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #ee0979, #ff6a00, #00c3ff, #ffff00, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Arial', sans-serif;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        .login-container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px gold;
+            color: gold;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #fff;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            color: white;
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, gold, #ffd700, orange);
+            border: none;
+            border-radius: 50px;
+            padding: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            animation: pulse 2s infinite;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px gold;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+            100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px gold; }
+            to { text-shadow: 0 0 30px gold, 0 0 40px orange; }
+        }
+
+        .extra-text {
+            margin-top: 20px;
+            font-size: 1rem;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+    
+
+
+
+
+
+    <canvas class="particles" id="particles"></canvas>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1><i class="fas fa-coins me-2"></i> RICH ZONE</h1>
+            <p class="tagline">আজই জয়েন করুন – অসীম আয়ের সুযোগ অপেক্ষা করছে!</p>
+            <form action="login_check" method="POST" >
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-user"></i> ইউজারনেম বা ইমেইল</label>
+                    <input type="text" class="form-control text-white" name="u_name" placeholder="আপনার আইডি দিন" required>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                    <input type="password" class="form-control text-white" name="password" placeholder="সিক্রেট পাসওয়ার্ড" required>
+                </div>
+                <button type="submit" class="btn btn-login w-100">
+                    <i class="fas fa-sign-in-alt"></i> লগইন করুন & ধনী হোন!
+                </button>
+                <div class="extra-text mt-3">
+                    <i class="fas fa-gem"></i> নতুন? <a href="/register" style="color: gold; text-decoration: underline;">রেজিস্টার করুন</a> এবং বোনাস পান!
+                </div>
+            </form>
         </div>
     </div>
-</section>
-<!-- Breadcrumb Section End -->
 
-<!-- log in section start -->
-<section class="log-in-section py-5">
-    <div class="container-fluid-lg w-100">
-        <div class="row justify-content-center">
-            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10">
-                
-                <!-- Eye-catching Login Card -->
-                <div class="rk-login-card">
-                    <div class="rk-login-inner">
-                        <div class="text-center mb-4">
-                            <div class="rk-logo-badge mb-3">
-                                <i class="fa-solid fa-bag-shopping"></i>
-                            </div>
-                            <h3 class="rk-title mb-1">Welcome To Fastkart</h3>
-                            <p class="rk-subtitle mb-0">Log in to continue</p>
-                        </div>
+    <!-- Particles JS -->
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-                        <form class="row g-3" action="login_check" method="POST" id="loginForm" novalidate>
-                            <!-- Username -->
-                            <div class="col-12">
-                                <div class="input-group rk-input">
-                                    <span class="input-group-text rk-ig-icon">
-                                        <i class="fa-solid fa-user"></i>
-                                    </span>
-                                    <div class="form-floating flex-grow-1">
-                                        <input type="text" class="form-control rk-control" id="u_name" name="u_name" placeholder="User Name" required>
-                                        <label for="u_name">User Name</label>
-                                    </div>
-                                </div>
-                            </div>
+        let particles = [];
+        const numParticles = 100;
 
-                            <!-- Password -->
-                            <div class="col-12">
-                                <div class="input-group rk-input">
-                                    <span class="input-group-text rk-ig-icon">
-                                        <i class="fa-solid fa-lock"></i>
-                                    </span>
-                                    <div class="form-floating flex-grow-1 position-relative">
-                                        <input type="password" class="form-control rk-control" id="password" name="password" placeholder="Password" required>
-                                        <label for="password">Password</label>
-                                        <button type="button" class="rk-eye-btn" aria-label="Toggle password" tabindex="-1">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = ['gold', '#ff00ff', '#00ffff', '#ff6a00'][Math.floor(Math.random() * 4)];
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-                            <!-- Remember & Forgot -->
-                            <div class="col-12 d-flex justify-content-between align-items-center">
-                                <div class="form-check m-0">
-                                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                                </div>
-                                <a href="forgot.php" class="rk-link">Forgot Password?</a>
-                            </div>
+        function init() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
 
-                            <!-- Submit -->
-                            <div class="col-12">
-                                <button class="btn rk-btn w-100" type="submit">
-                                    <span class="rk-sheen"></span>
-                                    <i class="fa-solid fa-right-to-bracket me-2"></i> Log In
-                                </button>
-                            </div>
-                        </form>
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
 
-                        <div class="text-center mt-4">
-                            <span class="text-white-50 me-1">Don’t have an account?</span>
-                            <a href="/register" class="rk-link">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Eye-catching Login Card -->
+        init();
+        animate();
 
-            </div>
-        </div>
-    </div>
-</section>
-<!-- log in section end -->
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+    </script>
 
-<!-- Styles (card-only effects) -->
-<style>
-/* Color system (easily tweakable) */
-:root{
-  --rk-primary:#7c3aed;   /* purple */
-  --rk-secondary:#22d3ee; /* cyan */
-  --rk-accent:#22c55e;    /* green */
-  --rk-dark:#0b1020;
-  --rk-white:#ffffff;
-}
 
-.rk-login-card{
-  position: relative;
-  border-radius: 24px;
-  padding: 2px;               /* gradient border thickness */
-  background: conic-gradient(
-      from 180deg,
-      var(--rk-primary),
-      var(--rk-secondary),
-      var(--rk-accent),
-      var(--rk-primary)
-  );
-  animation: rk-rotate 8s linear infinite;
-  box-shadow:
-    0 10px 30px rgba(124,58,237,.35),
-    0 2px 8px rgba(0,0,0,.25);
-  isolation: isolate; /* keep glow inside stacking context */
-}
 
-.rk-login-card::after{
-  /* soft outer glow */
-  content:"";
-  position:absolute; inset:-20px;
-  background: radial-gradient(40% 40% at 50% 0%,
-              rgba(124,58,237,.35), transparent 70%);
-  filter: blur(18px);
-  z-index:-1;
-}
 
-.rk-login-inner{
-  border-radius: 22px;
-  background: rgba(15, 18, 34, .55); /* glass layer */
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  padding: 28px;
-  color: var(--rk-white);
-  position: relative;
-  overflow: hidden;
-}
 
-/* floating sparkles */
-.rk-login-inner::before,
-.rk-login-inner::after{
-  content:"";
-  position:absolute;
-  width:220px;height:220px;border-radius:50%;
-  filter: blur(40px);
-  opacity:.25; pointer-events:none;
-}
-.rk-login-inner::before{
-  background: radial-gradient(circle, var(--rk-secondary), transparent 60%);
-  top:-70px; left:-70px;
-  animation: rk-float 7s ease-in-out infinite;
-}
-.rk-login-inner::after{
-  background: radial-gradient(circle, var(--rk-accent), transparent 60%);
-  bottom:-80px; right:-80px;
-  animation: rk-float 6s ease-in-out infinite reverse;
-}
-
-.rk-logo-badge{
-  width:64px;height:64px;border-radius:20px;
-  display:inline-flex;align-items:center;justify-content:center;
-  background: linear-gradient(135deg, var(--rk-primary), var(--rk-secondary));
-  box-shadow: 0 10px 20px rgba(34,211,238,.35);
-  color:#fff;font-size:26px;
-}
-
-.rk-title{ 
-  font-weight:800; letter-spacing:.3px;
-  background: linear-gradient(90deg, #fff, #e9e9ff);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-.rk-subtitle{ color:rgba(255,255,255,.7); }
-
-/* Inputs */
-.rk-input .rk-ig-icon{
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
-  border-right: none;
-  color: #fff;
-}
-.rk-input .rk-control{
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.15);
-  color: #fff;
-}
-.rk-input .rk-control::placeholder{ color: rgba(255,255,255,.65); }
-.rk-input .rk-control:focus{
-  border-color: rgba(34,211,238,.65);
-  box-shadow: 0 0 0 .25rem rgba(34,211,238,.15);
-}
-
-.rk-eye-btn{
-  position:absolute; right:.75rem; top:50%; transform: translateY(-50%);
-  background: transparent; border:0; color:#fff; opacity:.8;
-}
-.rk-eye-btn:hover{ opacity:1; }
-
-/* Links & texts */
-.rk-link{
-  color: #fff; text-decoration: none; font-weight:600;
-  border-bottom: 1px dashed rgba(255,255,255,.5);
-}
-.rk-link:hover{ opacity:.9; }
-
-/* Button with sheen sweep */
-.rk-btn{
-  position:relative; overflow:hidden;
-  border:none; font-weight:700;
-  color:#0b1020;
-  background: linear-gradient(90deg, var(--rk-secondary), var(--rk-accent), var(--rk-primary));
-  box-shadow: 0 10px 20px rgba(124,58,237,.35);
-  padding:.9rem 1.1rem; border-radius:14px;
-}
-.rk-btn .rk-sheen{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55), transparent 70%);
-  transform: translateX(-100%);
-  transition: transform .6s ease;
-}
-.rk-btn:hover .rk-sheen{ transform: translateX(100%); }
-
-/* Animations */
-@keyframes rk-rotate{
-  0%{ filter:hue-rotate(0deg); }
-  100%{ filter:hue-rotate(360deg); }
-}
-@keyframes rk-float{
-  0%,100%{ transform: translateY(0) }
-  50%{ transform: translateY(-12px) }
-}
-
-/* Accessibility: reduce animation */
-@media (prefers-reduced-motion: reduce){
-  .rk-login-card, .rk-login-inner::before, .rk-login-inner::after { animation: none !important; }
-  .rk-btn .rk-sheen{ display:none; }
-}
-
-/* Small tweaks for mobile spacing */
-@media (max-width: 575.98px){
-  .rk-login-inner{ padding: 22px; }
-}
-</style>
-
-<!-- SweetAlert + Interactions -->
-<script>
-(function($){
-  // Password toggle
-  $('.rk-eye-btn').on('click', function(){
-    const $inp = $('#password');
-    const type = $inp.attr('type') === 'password' ? 'text' : 'password';
-    $inp.attr('type', type);
-    $(this).find('i').toggleClass('fa-eye fa-eye-slash');
-  });
-
-  // Submit with SweetAlert (shows toast then submits)
-  $('#loginForm').on('submit', function(e){
-    e.preventDefault();
-    Swal.fire({
-      toast: true, position: 'top-end',
-      icon: 'success',
-      title: 'Logging you in...',
-      showConfirmButton: false,
-      timer: 900
-    });
-    // slight delay so toast is visible, then real submit
-    const form = this;
-    setTimeout(function(){ form.submit(); }, 950);
-  });
-});
-</script>

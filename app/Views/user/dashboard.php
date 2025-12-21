@@ -1,4 +1,4 @@
-
+<?php use App\Libraries\BanglaConverter; ?>
 
 
 
@@ -177,7 +177,7 @@
                       <div class="glass p-4 text-center rounded-4">
                           <i class="fas fa-wallet fa-4x mb-3 text-warning opacity-70"></i>
                           <h5>মোট ব্যালেন্স</h5>
-                          <h2 class="count-up" data-target="168500">৳0</h2>
+                          <h2 class="count-up" data-target="<?= BanglaConverter::en2bn($current_wallet_balance); ?>">৳<?= BanglaConverter::en2bn($current_wallet_balance); ?></h2>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -283,23 +283,3 @@
     </div>
 
 
-
-
-
-
-    <script>
-        // Animated Counter
-        document.querySelectorAll('.count-up').forEach(el => {
-            const target = parseInt(el.getAttribute('data-target'));
-            let count = 0;
-            const inc = target / 80;
-            const timer = setInterval(() => {
-                count += inc;
-                if (count >= target) {
-                    count = target;
-                    clearInterval(timer);
-                }
-                el.innerText = count < 100000 ? '৳' + Math.floor(count).toLocaleString() : Math.floor(count).toLocaleString();
-            }, 30);
-        });
-    </script>

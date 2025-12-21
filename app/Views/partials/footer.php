@@ -68,6 +68,9 @@
             }
           });
         }
+        function toggleMenu() {
+          document.getElementById('navbarNav').classList.toggle('hidden');
+        }
       </script>
 
 

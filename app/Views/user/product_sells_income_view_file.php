@@ -171,6 +171,9 @@
         $.ajax({
             type: "post",
             url: "user/add_profit_in_sell_products",
+            beaforeSend: function () {
+              $('.add_products_profit_show').html('');
+            },
             data: {
                 sells_id: sells_id,
                 product_buy_id: product_buy_id,
