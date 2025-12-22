@@ -15,6 +15,18 @@ class BanglaConverter {
         return str_replace(self::$en, self::$bn, $number); 
     }
 
+    public static function bd_money($amount) {
+        $amount = (string)$amount;
+        if (strlen($amount) <= 3) return $amount;
+
+        $last3 = substr($amount, -3);
+        $rest = substr($amount, 0, -3);
+        $rest = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $rest);
+
+        return $rest . ',' . $last3;
+    }
+
+
 }
 
 

@@ -8,6 +8,7 @@ use App\Models\RegModel;
 use App\Models\ProductModel;
 use App\Models\UserModel;
 use Config\Database;
+use App\Libraries\BanglaConverter;
 
 class Customer extends BaseController
 {
@@ -35,6 +36,14 @@ class Customer extends BaseController
         return $this->template->front('user/dashboard');
     }
 
+    public function all_package_show_here()
+    {
+        $data['invest_packages'] = $this->db->table('invest_package')
+                                    ->get()
+                                    ->getResult();
+        return $this->template->front('user/all_package_show_view_file', $data);
+    }
+
     public function get_single_products_by_id()
     {
         $id = $this->request->getGet('id');
@@ -59,7 +68,7 @@ class Customer extends BaseController
     {
         $userInfoId = $this->session->get('userInfoId');
         $data['user_info'] = $this->regModel->find($userInfoId);
-// user_added_amounts
+
         $data['added_amounts'] = $this->db->table('user_added_amounts')
                                     ->where('user_info_id_addeds', $userInfoId)
                                     ->limit(20)

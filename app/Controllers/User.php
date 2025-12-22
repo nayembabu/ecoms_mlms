@@ -19,7 +19,7 @@ class User extends BaseController
     protected $productModel;
     protected $userModel;
     protected $db;
-    
+
 
     public function __construct()
     {

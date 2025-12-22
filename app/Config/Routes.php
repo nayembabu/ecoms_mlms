@@ -44,6 +44,7 @@
         $routes->get('single_lottery_view', 'User::single_lottery_system_func_views');
         $routes->get('your_lottery_history_system', 'User::your_lottery_history_system_func_views');
         $routes->get('myWalletss', 'Customer::get_downline_recursive');
+        $routes->get('allPackage', 'Customer::all_package_show_here');
 
         $routes->post('edit-profile','User::editProfile');
 
