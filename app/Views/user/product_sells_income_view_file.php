@@ -14,14 +14,16 @@
   </style>
 
 
-
-<div class="text-white min-h-screen mt-5 ">
-
+<div class="text-white min-h-screen mt-3 relative">
 
   <main class="pt-24 pb-32 px-4 max-w-6xl mx-auto">
 
+  <a href="<?= base_url('user/dashboard'); ?>" class="px-3 py-3 bg-white text-gray-800 font-medium text-lg rounded-xl shadow-lg hover:shadow-xl hover:bg-gray-50 hover:-translate-y-0.5 active:scale-95 transition-all duration-200 border border-gray-200">
+    ব্যাক করুন
+  </a>
+
     <!-- Hero Section -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-12 mt-4">
       <h2 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
         আমার ক্রয় হিস্টোরি
       </h2>

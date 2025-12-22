@@ -148,6 +148,10 @@
 
                 <h2 class="text-center mb-4">দ্রুত অ্যাকশন</h2>
                 <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
+                  <a href="user/product-sells-income" class="action-btn btn-games">
+                      <i class="fas fa-basket-shopping"></i>
+                      <span>পন্য ক্রয়ের তথ্য</span>
+                  </a>
                   <a href="user/myWallet" class="action-btn btn-deposit">
                       <i class="fas fa-money-bill-wave"></i>
                       <span>ওয়ালেট</span>
@@ -160,13 +164,29 @@
                       <i class="fas fa-shopping-cart"></i>
                       <span>ব্যালেন্স ট্রান্সফার</span>
                   </a>
-                  <a href="investment-history.html" class="action-btn btn-history">
-                      <i class="fas fa-history"></i>
-                      <span>হিস্ট্রি দেখুন</span>
+                  <a href="user/viewAllProducts" class="action-btn btn-history">
+                      <i class="fa-brands fa-product-hunt"></i>
+                      <span>পন্য ক্রয়</span>
                   </a>
-                  <a href="games.html" class="action-btn btn-games">
+                  <a href="user/gamming_pages" class="action-btn btn-games">
                       <i class="fas fa-dice"></i>
                       <span>গেমস খেলুন 🎰</span>
+                  </a>
+                  <a href="user/referrals" class="action-btn btn-games">
+                      <i class="fas fa-history"></i>
+                      <span>রেফার হিস্টোরি</span>
+                  </a>
+                  <a href="user/add_referral" class="action-btn btn-games">
+                      <i class="fas fa-user"></i>
+                      <span>নতুন রেফারাল যোগ </span>
+                  </a>
+                  <a href="user/fullTeams" class="action-btn btn-games">
+                      <i class="fas fa-users"></i>
+                      <span>আমার টিম </span>
+                  </a>
+                  <a href="user/incomeDetails" class="action-btn btn-games">
+                      <i class="fas fa-chart-line"></i>
+                      <span>আয়ের ড্যাশবোর্ড</span>
                   </a>
                 </div>
 
@@ -184,7 +204,7 @@
                       <div class="glass p-4 text-center rounded-4">
                           <i class="fas fa-users fa-4x mb-3 text-info opacity-70"></i>
                           <h5>ডাউনলাইন মেম্বার</h5>
-                          <h2 class="count-up" data-target="428">0</h2>
+                          <h2 class="count-up"><?= $downline_count; ?></h2>
                       </div>
                   </div>
                   <div class="col-md-4">

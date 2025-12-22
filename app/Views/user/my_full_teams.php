@@ -214,6 +214,7 @@
 <section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
   <div class="container team_container">
 
+
     <?php if ($my_info->sts == 1) { ?>
       <ul class="team_main_list_ul">
         <li class="team_list_1 team_list_li " >

@@ -149,8 +149,8 @@
                         </a>
                     </div>
                 </div>
-            <button class="navbar-toggler" onclick="toggleMenu()" type="button" ><span class="navbar-toggler-icon"></span></button>
-            <div class=" navbar-collapse" id="navbarNav">
+            <button class="navbar-toggler" onclick="toggleMenu()"  data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" type="button" ><span class="navbar-toggler-icon"></span></button>
+            <div class=" collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>

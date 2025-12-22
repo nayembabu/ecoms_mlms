@@ -100,6 +100,12 @@ class Customer extends BaseController
     {
         $user_id = $this->session->get('userInfoId');
 
+        $rootUser = $this->db->table('user_full_info')
+            ->where('user_full_info_idd', $user_id)
+            ->get()
+            ->getRowArray();
+
+
         $data['my_info'] = $this->db->table('user_full_info')
                                     ->where('user_full_info_idd', $user_id)
                                     ->get()
@@ -445,6 +451,88 @@ class Customer extends BaseController
         $buying_id  = $this->request->getPost('buying_id');
 
         $this->teams->enroll_product_self($product_id, $userInfoId, $buying_id);
+    }
+
+    /**
+     * Build a nested downline tree for a given user id.
+     * Returns an array of nodes: ['user_id'=>..., 'full_name'=>..., 'children'=>[...]]
+     */
+    private function buildDownlineTree($userId, array &$visited = [])
+    {
+        if (in_array($userId, $visited)) {
+            return [];
+        }
+        $visited[] = $userId;
+
+        $children = $this->db->table('user_reffer')
+                             ->where('reffer_main_idd', $userId)
+                             ->join('user_full_info', 'user_reffer.reffer_ref_user_idd = user_full_info.user_full_info_idd', 'left')
+                             ->get()
+                             ->getResult();
+
+        $tree = [];
+        foreach ($children as $child) {
+            $childId = $child->reffer_ref_user_idd;
+            if (in_array($childId, $visited)) {
+                continue;
+            }
+            $node = [
+                'user_id'   => $childId,
+                'full_name' => property_exists($child, 'user_full_name') ? $child->user_full_name : null,
+                'children'  => $this->buildDownlineTree($childId, $visited),
+            ];
+            $tree[] = $node;
+        }
+        return $tree;
+    }
+
+    /**
+     * Count total downline recursively for a given user id.
+     * Uses visited array to avoid cycles.
+     */
+    private function countDownline($userId, array &$visited = [])
+    {
+        if (in_array($userId, $visited)) {
+            return 0;
+        }
+        $visited[] = $userId;
+
+        $children = $this->db->table('user_reffer')
+                             ->where('reffer_main_idd', $userId)
+                             ->get()
+                             ->getResult();
+
+        $count = 0;
+        foreach ($children as $child) {
+            $childId = $child->reffer_ref_user_idd;
+            if (in_array($childId, $visited)) {
+                continue;
+            }
+            $count += 1;
+            $count += $this->countDownline($childId, $visited);
+        }
+        return $count;
+    }
+
+    /**
+     * Public endpoint: returns JSON with total downline count and nested tree.
+     * Accepts POST `user_id` (optional — falls back to session `userInfoId`).
+     */
+    public function get_downline_recursive()
+    {
+        $userId = $this->request->getPost('user_id') ?? $this->session->get('userInfoId');
+        if (empty($userId)) {
+            echo json_encode(['error' => 'No user id provided']);
+            return;
+        }
+
+        $visitedForTree = [];
+        $tree = $this->buildDownlineTree($userId, $visitedForTree);
+
+        $visitedForCount = [];
+        $count = $this->countDownline($userId, $visitedForCount);
+
+        $this->template->front('user/my_full_teams_php_array', ['count' => $count, 'tree' => $tree]);
     }
 
 

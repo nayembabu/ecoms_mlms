@@ -117,6 +117,11 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
+        .form-control::placeholder {
+            color: #ffffff !important;
+            opacity: 1 !important;
+        }
+
     </style>
     
 

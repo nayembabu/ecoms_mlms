@@ -35,6 +35,23 @@ class User extends BaseController
     {
         // return $this->template->front('user/dashboard');
     }
+
+    private function getDownline($userId, &$total = [])
+    {
+        $rows = $this->db->table('user_reffer')
+            ->where('reffer_main_idd', $userId)
+            ->get()
+            ->getResult();
+
+        foreach ($rows as $row) {
+            if (!in_array($row->reffer_ref_user_idd, $total)) {
+                $total[] = $row->reffer_ref_user_idd;
+                $this->getDownline($row->reffer_ref_user_idd, $total);
+            }
+        }
+        return $total;
+    }
+
     public function dashboard()
     {
         $userId = $this->session->get('userInfoId');
@@ -45,10 +62,8 @@ class User extends BaseController
                                            ->get()
                                            ->getRow();
 
-
-
-
-
+        $downlines = $this->getDownline($userId);
+        $data['downline_count'] = count($downlines);
 
         $user_added_wallet = $this->db->table('user_added_amounts')
                                     ->selectSum('added_amount')
