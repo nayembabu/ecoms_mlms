@@ -1,28 +1,67 @@
-<!--
-<div class="team-tree mt-5 mb-5">
-    <?php
-
-        function renderTree($tree) {
-            echo '<ul>';
-            foreach ($tree as $node) {
-                echo '<li>';
-                echo 'User ID: ' . $node['user_id'] . ' - Name: ' . $node['full_name'];
-                if (!empty($node['children'])) {
-                    renderTree($node['children']);
-                }
-                echo '</li>';
-            }
-            echo '</ul>';
-        }
-
-        renderTree($tree);
-
-    ?>
-
-</div>
--->
 
 
+<?php
+
+  function renderDownlineTree(array $members)
+  {
+      if (empty($members)) return;
+
+      echo '<div class="mgt-item-children">';
+
+      foreach ($members as $user) {
+
+          $photo = !empty($user['photo'])
+              ? $user['photo']
+              : 'inc/img/user_pic/default_user.png';
+
+          $levelClass = 'lvl' . ($user['level'] ?? 1);
+          ?>
+
+          <div class="mgt-item-child">
+              <div class="mgt-item">
+
+                  <div class="mgt-item-parent">
+                      <div class="node">
+
+                          <div class="avatar">
+                              <img src="<?= htmlspecialchars($photo) ?>" alt="">
+                          </div>
+
+                          <div class="meta">
+                              <div class="row1">
+                                  <p class="name">
+                                      <?= htmlspecialchars($user['full_name']) ?>
+                                  </p>
+
+                                  <span class="badge-level <?= $levelClass ?>">
+                                      Level <?= $user['level'] ?>
+                                  </span>
+                              </div>
+
+                              <?php if (!empty($user['role'])): ?>
+                                  <p class="role"><?= htmlspecialchars($user['role']) ?></p>
+                              <?php endif; ?>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <?php
+                  // 🔁 Recursive call (children)
+                  if (!empty($user['children'])) {
+                      renderDownlineTree($user['children']);
+                  }
+                  ?>
+
+              </div>
+          </div>
+
+          <?php
+      }
+
+      echo '</div>';
+  }
+?>
 
 
 
@@ -459,7 +498,7 @@
       .node{ min-width: 280px; }
     }
   </style>
-  
+
 
 <br><br><br><br><br>
 
@@ -494,234 +533,26 @@
             <div class="mgt-item-parent">
               <div class="node">
                 <div class="avatar">
-                  <img src="https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-128.png" alt="">
+                  <?php if ($my_info->user_pro_pic_paths) { ?>
+                    <img src="<?= $my_info->user_pro_pic_paths ?>" alt="">
+                  <?php } else { ?>
+                    <img src="inc/img/user_pic/default_user.png" alt="">
+                  <?php } ?>
                 </div>
                 <div class="meta">
                   <div class="row1">
                     <p class="name"><?= $my_info->user_full_name; ?></p>
-                    <span class="badge-level lvl1">Level 1 • Founder</span>
-                  </div>
-                  <p class="role">Top Leader / Company Owner</p>
-                  <div class="stats">
-                    <div class="pill">Team: <span>1,240</span></div>
-                    <div class="pill">Rank: <span>Diamond</span></div>
-                    <div class="pill">Bonus: <span>$12,500</span></div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- LEVEL 2 -->
-            <div class="mgt-item-children">
-
-              <!-- Branch A -->
-              <div class="mgt-item-child">
-                <div class="mgt-item">
-                  <div class="mgt-item-parent">
-                    <div class="node">
-                      <div class="avatar">
-                        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-128.png" alt="">
-                      </div>
-                      <div class="meta">
-                        <div class="row1">
-                          <p class="name">Sajid Khan</p>
-                          <span class="badge-level lvl2">Level 2 • Leader</span>
-                        </div>
-                        <p class="role">Team Builder / Mentor</p>
-                        <div class="stats">
-                          <div class="pill">Team: <span>420</span></div>
-                          <div class="pill">Rank: <span>Ruby</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Level 3 under Branch A -->
-                  <div class="mgt-item-children">
-                    <div class="mgt-item-child">
-                      <div class="node">
-                        <div class="avatar">
-                          <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png" alt="">
-                        </div>
-                        <div class="meta">
-                          <div class="row1">
-                            <p class="name">Nusrat Jahan</p>
-                            <span class="badge-level lvl3">Level 3 • Pro</span>
-                          </div>
-                          <p class="role">Sales Specialist</p>
-                          <div class="stats">
-                            <div class="pill">Ref: <span>58</span></div>
-                            <div class="pill">Bonus: <span>$1,200</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mgt-item-child">
-                      <div class="mgt-item">
-                        <div class="mgt-item-parent">
-                          <div class="node">
-                            <div class="avatar">
-                              <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/boy-128.png" alt="">
-                            </div>
-                            <div class="meta">
-                              <div class="row1">
-                                <p class="name">Arif Rahman</p>
-                                <span class="badge-level lvl3">Level 3 • Pro</span>
-                              </div>
-                              <p class="role">Growth Marketer</p>
-                              <div class="stats">
-                                <div class="pill">Ref: <span>44</span></div>
-                                <div class="pill">Rank: <span>Silver</span></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Level 4 under Arif -->
-                        <div class="mgt-item-children">
-                          <div class="mgt-item-child">
-                            <div class="node">
-                              <div class="avatar">
-                                <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-128.png" alt="">
-                              </div>
-                              <div class="meta">
-                                <div class="row1">
-                                  <p class="name">Imran</p>
-                                  <span class="badge-level lvl4">Level 4 • New</span>
-                                </div>
-                                <p class="role">Starter Member</p>
-                                <div class="stats">
-                                  <div class="pill">Ref: <span>9</span></div>
-                                  <div class="pill">Status: <span>Active</span></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="mgt-item-child">
-                            <div class="node">
-                              <div class="avatar">
-                                <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportfemale-128.png" alt="">
-                              </div>
-                              <div class="meta">
-                                <div class="row1">
-                                  <p class="name">Maliha</p>
-                                  <span class="badge-level lvl4">Level 4 • New</span>
-                                </div>
-                                <p class="role">Starter Member</p>
-                                <div class="stats">
-                                  <div class="pill">Ref: <span>7</span></div>
-                                  <div class="pill">Status: <span>Active</span></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mgt-item-child">
-                      <div class="node">
-                        <div class="avatar">
-                          <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female2-128.png" alt="">
-                        </div>
-                        <div class="meta">
-                          <div class="row1">
-                            <p class="name">Tahmina</p>
-                            <span class="badge-level lvl3">Level 3 • Pro</span>
-                          </div>
-                          <p class="role">Community Builder</p>
-                          <div class="stats">
-                            <div class="pill">Ref: <span>36</span></div>
-                            <div class="pill">Rank: <span>Bronze</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Branch B -->
-              <div class="mgt-item-child">
-                <div class="mgt-item">
-                  <div class="mgt-item-parent">
-                    <div class="node">
-                      <div class="avatar">
-                        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female3-128.png" alt="">
-                      </div>
-                      <div class="meta">
-                        <div class="row1">
-                          <p class="name">Sharmin Akter</p>
-                          <span class="badge-level lvl2">Level 2 • Leader</span>
-                        </div>
-                        <p class="role">Sales Manager</p>
-                        <div class="stats">
-                          <div class="pill">Team: <span>310</span></div>
-                          <div class="pill">Rank: <span>Emerald</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Level 3 under Branch B -->
-                  <div class="mgt-item-children">
-                    <div class="mgt-item-child">
-                      <div class="node">
-                        <div class="avatar">
-                          <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/girl-128.png" alt="">
-                        </div>
-                        <div class="meta">
-                          <div class="row1">
-                            <p class="name">Rima</p>
-                            <span class="badge-level lvl3">Level 3 • Pro</span>
-                          </div>
-                          <p class="role">Executive</p>
-                          <div class="stats">
-                            <div class="pill">Ref: <span>22</span></div>
-                            <div class="pill">Bonus: <span>$480</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mgt-item-child">
-                      <div class="node">
-                        <div class="avatar">
-                          <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/man-128.png" alt="">
-                        </div>
-                        <div class="meta">
-                          <div class="row1">
-                            <p class="name">Nazmul</p>
-                            <span class="badge-level lvl3">Level 3 • Pro</span>
-                          </div>
-                          <p class="role">Executive</p>
-                          <div class="stats">
-                            <div class="pill">Ref: <span>18</span></div>
-                            <div class="pill">Status: <span>Active</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
+            <?php renderDownlineTree($tree); ?>
           </div>
 
         </div>
       </div>
 
       <div class="legend">
-        <div class="left">
-          <span><span class="dot d1"></span>Level 1</span>
-          <span><span class="dot d2"></span>Level 2</span>
-          <span><span class="dot d3"></span>Level 3</span>
-          <span><span class="dot d4"></span>Level 4</span>
-        </div>
         <div style="opacity:.85">✨ Premium Vertical MLM Tree • Drag & Zoom Enabled</div>
       </div>
     </div>

@@ -476,6 +476,8 @@ class Customer extends BaseController
         $children = $this->db->table('user_reffer')
                              ->where('reffer_main_idd', $userId)
                              ->join('user_full_info', 'user_reffer.reffer_ref_user_idd = user_full_info.user_full_info_idd', 'left')
+                             ->join('user_badge_s', 'user_badge_s.batch_user_inf_ids = user_full_info.user_full_info_idd', 'left')
+                             ->join('batch_details', 'batch_details.batch_detail_idd = user_badge_s.batch_b_detail_idds', 'left')
                              ->get()
                              ->getResult();
 
@@ -488,6 +490,9 @@ class Customer extends BaseController
             $node = [
                 'user_id'   => $childId,
                 'full_name' => property_exists($child, 'user_full_name') ? $child->user_full_name : null,
+                'photo'     => property_exists($child, 'user_pro_pic_paths') ? $child->user_pro_pic_paths : null,
+                'level'     => property_exists($child, 'position_no') ? $child->position_no : null,
+                'role'      => property_exists($child, 'batch_name') ? $child->batch_name : null,
                 'children'  => $this->buildDownlineTree($childId, $visited),
             ];
             $tree[] = $node;
