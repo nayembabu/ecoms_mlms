@@ -1,23 +1,3 @@
-<!-- <?php
-    echo "<pre>";
-    print_r($products);
-    echo "</pre>";
-?> -->
-
-<!--
-    *** Must logged in to view products
-    * View products by categories
-    * just view products and buy option
-    * buy option will be done after amount added in wallet
-    * after amount added in wallet then buy option will be done
-    * buy option will be done in single product details page
-    * single product details page route will be
-        /user/singleProduct?id=19  (get method)
-    * (product_buying_info_idd => এর উপর বেস করে রাউট বানান)
--->
-
-
-
 <style>
   /* ===================== Section Header Style ===================== */
   .category-section { margin-bottom: 4rem; }

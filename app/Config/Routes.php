@@ -64,11 +64,12 @@
         $routes->post('add_profit_in_sell_products', 'User::add_profit_in_sell_products');
         $routes->post('get_daily_check', 'User::get_daily_check_func');
         $routes->post('buy_a_ticket_s', 'User::buy_ticket_func');
+        $routes->post('buySinglePackage', 'Customer::buy_single_package_action_form');
 
     });
 
 
-    
+
     $routes->group('games', ['filter' => 'auth'], function($routes) {
         $routes->get('bycycle', 'Games::game_bi_cycle_view');
     });

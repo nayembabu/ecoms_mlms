@@ -184,7 +184,7 @@
                       <i class="fas fa-user"></i>
                       <span>নতুন রেফারাল যোগ </span>
                   </a>
-                  <a href="user/fullTeams" class="action-btn btn-games">
+                  <a href="user/myWalletss" class="action-btn btn-games">
                       <i class="fas fa-users"></i>
                       <span>আমার টিম </span>
                   </a>

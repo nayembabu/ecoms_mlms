@@ -44,6 +44,77 @@ class Customer extends BaseController
         return $this->template->front('user/all_package_show_view_file', $data);
     }
 
+    public function buy_single_package_action_form()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $package_id = $this->request->getPost('package_id');
+        $package_price = $this->request->getPost('package_price');
+        $single_package_info = $this->db->table('invest_package')
+                                        ->where('invest_package_p_iddd', $package_id)
+                                        ->get()
+                                        ->getRow();
+
+        $data['user_added_wallet'] = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $data['user_used_wallet'] = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $current_wallet_balance = $data['user_added_wallet'] - $data['user_used_wallet'];
+
+        if ($current_wallet_balance < $package_price) {
+            $response = [
+                'success' => false,
+                'message' => 'Insufficient wallet balance to purchase this package.'
+            ];
+            echo json_encode($response);
+            return;
+        }else {
+            $this->db->table('user_package_enroll')
+                    ->insert([
+                        'user_id'                       => $userInfoId,
+                        'package_id'                    => $package_id,
+                        'enrollment_date'               => date('Y-m-d', time()),
+                        'start_date'                    => date('Y-m-d', time()),
+                        'expire_day_numberss'           => $single_package_info->expire,
+                        'expiry_date'                   => date('Y-m-d', strtotime("+" . $single_package_info->expire . " days")),
+                        'invested_amount'               => $package_price,
+                        'daily_return_percnts'          => $single_package_info->daily_return_percentage,
+                        'daily_return_rate'             => $single_package_info->invest_amount * ($single_package_info->daily_return_percentage / 100),
+                        'total_earned'                  => 0,
+                        'status'                        => 1,
+                        'payment_status'                => 0,
+                        'transaction_id'                => 0,
+                        'last_return_calculated_date'   => 0,
+                        'created_at'                    => date('Y-m-d H:i:s'),
+                        'updated_at'                    => date('Y-m-d H:i:s')
+                    ]);
+            $last_insert_id = $this->db->insertID();
+            // Deduct from user's wallet
+            $data_deduct = [
+                'user_cut_user_idd'     => $userInfoId,
+                'cutting_perpose'       => 'package_purchase',
+                'cut_descs'             => 'Purchased package ID: ' . $package_id,
+                'cutting_amounts'       => $package_price,
+                'cut_any_idd'           => $last_insert_id,
+                'time_stamps'           => time(),
+            ];
+            $this->db->table('user_cutted_amnt')->insert($data_deduct);
+            $response = [
+                'success' => true,
+                'message' => 'Package purchased successfully.'
+            ];
+            echo json_encode($response);
+            return;
+        }
+    }
+
     public function get_single_products_by_id()
     {
         $id = $this->request->getGet('id');

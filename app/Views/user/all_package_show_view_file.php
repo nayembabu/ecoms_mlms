@@ -131,8 +131,9 @@
 
     <div id="particles-js"></div>
 
-    <div class="container py-5">
+    <div class="container py-5 mt-5 ">
         <div class="text-center mb-5 mt-5">
+            <h1 class="display_error_bal"></h1>
             <h2 class="display-5 fw-bold">প্রিমিয়াম ইনভেস্টমেন্ট প্যাকেজ</h2>
             <p class="lead" style="color: #a0a0ff;">স্বপ্নের রিটার্নের জন্য সেরা সুযোগ বেছে নিন!</p>
         </div>
@@ -152,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="card-body d-flex flex-column">
-                                <button class="btn btn-buy mt-auto " data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
+                                <button class="btn btn-buy mt-auto btn_package_buy_s " data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>" package_id="<?= $invest_packages_item->invest_package_p_iddd; ?>" package_price="<?= $invest_packages_item->invest_amount; ?>" >
                                     Buy Now
                                 </button>
                             </div>
@@ -170,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="card-body d-flex flex-column">
-                                <button class="btn btn-buy mt-auto" data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
+                                <button class="btn btn-buy mt-auto btn_package_buy_s " data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>" package_id="<?= $invest_packages_item->invest_package_p_iddd; ?>" package_price="<?= $invest_packages_item->invest_amount; ?>" >
                                     Buy Now
                                 </button>
                             </div>
@@ -234,24 +235,66 @@
 
             document.getElementById('packageName').textContent = packageName;
             document.getElementById('packagePrice').textContent = packagePrice;
+            document.getElementById('confirmPurchase').setAttribute('package_id', button.getAttribute('package_id'));
+            document.getElementById('confirmPurchase').setAttribute('package_price', button.getAttribute('package_price'));
         });
 
-        // কনফার্ম বাটনের জন্য ইভেন্ট ডেলিগেশন (এবার ১০০% কাজ করবে)
+
         document.getElementById('confirmPurchase').addEventListener('click', function() {
-            // কনফেটি ইফেক্ট
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#ff8c00']
+            $.ajax({
+                type: "post",
+                url: "user/buySinglePackage",
+                data: {
+                    package_id: this.getAttribute('package_id'),
+                    package_price: this.getAttribute('package_price')
+                },
+                dataType: "json",
+                success: function (rsp) {
+
+                    if (rsp.success === false) {
+                        assign_wallet_balance();
+                        Swal.fire({
+                            title: 'Eror!',
+                            text: `${rsp.message}`,
+                            icon: 'error',
+                            confirmButtonColor: '#f107a3',
+                            timer: 3600,
+                            showConfirmButton: false
+                        });
+                        // মোডাল বন্ধ করা
+                        const modal = bootstrap.Modal.getInstance(confirmModal);
+                        modal.hide();
+                        $('.display_error_bal').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error!</strong> প্যাকেজ কেনার জন্য আপনার ব্যালেন্স অপর্যাপ্ত। দয়া করে আপনার ওয়ালেটে পর্যাপ্ত ব্যালেন্স যোগ করুন।
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`);
+                    }else if (rsp.success === true) {
+                        assign_wallet_balance();
+                        Swal.fire({
+                            title: 'Success!',
+                            text: `${rsp.message}`,
+                            icon: 'success',
+                            confirmButtonColor: '#f107a3',
+                            timer: 3600,
+                            showConfirmButton: false
+                        });
+                        // কনফেটি ইফেক্ট
+                        confetti({
+                            particleCount: 150,
+                            spread: 70,
+                            origin: { y: 0.6 },
+                            colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#ff8c00']
+                        });
+                        // মোডাল বন্ধ করা
+                        const modal = bootstrap.Modal.getInstance(confirmModal);
+                        modal.hide();
+                        $('.display_error_bal').html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> আপনি সফলভাবে প্যাকেজটি কিনেছেন।
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`);
+                    }
+
+                }
             });
 
-            // সাকসেস মেসেজ
-            alert('🎉 অর্ডার সফলভাবে সম্পন্ন হয়েছে! আপনার ইনভেস্টমেন্ট শুরু হয়ে গেল।');
-
-            // মোডাল বন্ধ করা
-            const modal = bootstrap.Modal.getInstance(confirmModal);
-            modal.hide();
         });
 
     </script>

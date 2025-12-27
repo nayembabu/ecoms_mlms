@@ -1,241 +1,358 @@
 
 <style>
-  /* ============ Design Tokens ============ */
-  :root{
-    --bg: #fafafa;
-    --card: #ffffff;
-    --text: #1d1d1f;
-    --muted: #6b7280;
-    --line: #c9ced6;
-    --accent: #2563eb;
-    --shadow: 0 8px 24px rgba(0,0,0,.06);
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg: #ffffffff;
-      --card: #12151a;
-      --text: #e5e7eb;
-      --muted: #9aa3b2;
-      --line: #2a3441;
-      --accent: #60a5fa;
-      --shadow: 0 8px 24px rgba(0,0,0,.35);
-    }
-  }
+  
 
-  /* ============ Container ============ */
-  .team_container{
+  /* ================== NEON CORE TOKENS ================== */
+:root{
+  --bg:
+    radial-gradient(1200px 600px at 10% 10%, #0ff3, transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, #f0f3, transparent 55%),
+    linear-gradient(135deg,#030712,#020617);
+  
+  --card: rgba(9,12,32,.75);
+  --glass: rgba(255,255,255,.08);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+
+  --neon-cyan:#22d3ee;
+  --neon-pink:#ec4899;
+  --neon-green:#22c55e;
+  --neon-yellow:#facc15;
+  --neon-violet:#8b5cf6;
+
+  --line: linear-gradient(
+    180deg,
+    var(--neon-cyan),
+    var(--neon-violet),
+    var(--neon-green)
+  );
+
+  --shadow: 0 40px 120px rgba(0,0,0,.8);
+}
+
+
+
+
+/* ================= GLOBAL BACKGROUND ================= */
+html, body {
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:'Orbitron', sans-serif;
+  color:#fde68a;
+  background:
+    radial-gradient(900px 500px at 15% 20%, rgba(255,215,0,.18), transparent 60%),
+    radial-gradient(800px 500px at 85% 30%, rgba(220,38,38,.25), transparent 60%),
+    radial-gradient(700px 600px at 50% 85%, rgba(16,185,129,.18), transparent 60%),
+    linear-gradient(180deg,#020617,#020617);
+  overflow-x:hidden;
+}
+
+/* ================= CASINO LIGHTS ================= */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(120deg,
+      rgba(255,215,0,.08),
+      rgba(255,255,255,.15),
+      rgba(255,215,0,.08));
+  mix-blend-mode:overlay;
+  animation: casinoLights 6s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes casinoLights{
+  0%{opacity:.15}
+  50%{opacity:.35}
+  100%{opacity:.15}
+}
+
+/* ================= COIN RAIN ================= */
+.coin {
+  position: fixed;
+  top: -50px;
+  font-size: 22px;
+  animation: fall linear infinite;
+  opacity: .9;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ================= CONTAINER ================= */
+.wrapper{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:80px 20px;
+}
+
+
+
+.container,
+.container-fluid,
+.row {
+  background: transparent !important;
+}
+.bg-white,
+.bg-light {
+  background: transparent !important;
+}
+/* subtle moving stars */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1px 1px at 20% 30%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 80% 70%, #fff6 50%, transparent 51%),
+    radial-gradient(1px 1px at 50% 50%, #fff7 50%, transparent 51%);
+  opacity:.15;
+  pointer-events:none;
+}
+
+
+
+/* ================== GLOBAL BACKGROUND ================== */
+.team_container{
+  min-height:100vh;
+  width:100%;
+  background: transparent; /* body থেকে background আসবে */
+  padding:80px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+/* ================== TREE RESET ================== */
+.team_main_list_ul,
+.team_main_list_ul ul{
+  margin:0;
+  padding:0;
+  list-style:none;
+  position:relative;
+}
+
+.team_main_list_ul{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:40px;
+}
+
+/* ================== NODE CARD (PLAYER / INVESTOR) ================== */
+.person_cls{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 22px;
+  border-radius:18px;
+
+  background:
+    linear-gradient(var(--card),var(--card)) padding-box,
+    linear-gradient(135deg,
+      var(--neon-cyan),
+      var(--neon-pink),
+      var(--neon-violet)
+    ) border-box;
+
+  border:2px solid transparent;
+  color:var(--text);
+  font-weight:800;
+  letter-spacing:.3px;
+  text-decoration:none;
+  box-shadow:
+    0 0 25px rgba(34,211,238,.25),
+    inset 0 0 20px rgba(255,255,255,.05);
+  cursor:pointer;
+  position:relative;
+  transition:.3s ease;
+}
+
+/* glowing pulse */
+.person_cls::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:inherit;
+  background: linear-gradient(135deg,
+    var(--neon-cyan),
+    var(--neon-pink),
+    var(--neon-violet)
+  );
+  filter:blur(18px);
+  opacity:.35;
+  z-index:-1;
+  animation: neonPulse 3s infinite alternate;
+}
+
+@keyframes neonPulse{
+  from{ opacity:.25; }
+  to{ opacity:.65; }
+}
+
+.person_cls:hover{
+  transform: translateY(-6px) scale(1.05);
+  box-shadow:
+    0 0 45px rgba(236,72,153,.55),
+    0 0 120px rgba(34,211,238,.35);
+}
+
+/* ================== DESKTOP CONNECTORS ================== */
+@media (min-width:641px){
+  .team_main_list_ul ul{
     display:flex;
     justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    padding:40px 16px;
-    background: var(--bg);
-    overflow-x:auto; /* বড় ট্রি হলে স্ক্রল করা যাবে */
+    gap:70px;
+    padding-top:46px;
   }
 
-  /* ============ Tree Reset ============ */
-  .team_main_list_ul, .team_main_list_ul ul{
-    margin:0; padding:0; list-style:none;
+  /* vertical beam */
+  .team_main_list_ul ul::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:4px;
+    height:46px;
+    background: var(--line);
+    border-radius:999px;
+    box-shadow:0 0 30px var(--neon-cyan);
+  }
+
+  /* horizontal energy bar */
+  .team_main_list_ul ul::after{
+    content:"";
+    position:absolute;
+    top:46px;
+    left:8%;
+    right:8%;
+    height:4px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--neon-pink),
+      var(--neon-cyan),
+      var(--neon-green),
+      transparent
+    );
+    box-shadow:0 0 30px rgba(34,211,238,.7);
+  }
+
+  .team_main_list_ul ul > li{
     position:relative;
+    padding-top:34px;
   }
 
-  .team_main_list_ul{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-    max-width:1200px;
-    width:max-content;
+  /* child drop beam */
+  .team_main_list_ul ul > li::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:4px;
+    height:34px;
+    background: var(--line);
+    border-radius:999px;
+    box-shadow:0 0 20px rgba(139,92,246,.6);
+  }
+}
+
+/* ================== MOBILE = NEON TIMELINE ================== */
+@media (max-width:640px){
+  .team_main_list_ul ul{
+    padding-left:28px;
+    margin-top:24px;
   }
 
-  .team_main_list_ul > li{ position:relative; text-align:center; }
-
-  /* ============ Node Card ============ */
-  .person_cls{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 16px;
-    border:1px solid var(--line);
-    background: var(--card);
-    color: var(--text);
-    border-radius:12px;
-    box-shadow: var(--shadow);
-    text-decoration:none;
-    font-weight:600;
-    line-height:1.2;
-    white-space:normal;
-    word-break:break-word;
-    cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-  }
-  .person_cls:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(0,0,0,.08);
-    border-color: var(--accent);
-    color: var(--text);
-  }
-  .person_cls:focus{
-    outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    outline-offset: 2px;
-  }
-  
-  .person_cls:hover{
-    transform:translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    border-color:var(--accent);
-  }
-  /* ============ Desktop / Large (>= 641px) ============ */
-  @media (min-width: 641px){
-    /* children list horizontally */
-    .team_main_list_ul ul{
-      display:flex;
-      justify-content:center;
-      gap:40px;
-      padding-top:28px;      /* parent থেকে নিচে লাইন নামানোর স্পেস */
-    }
-
-    /* vertical line from parent to children row */
-    .team_main_list_ul ul::before{
-      content:"";
-      position:absolute;
-      top:0; left:50%;
-      transform: translateX(-50%);
-      width:0; height:28px;
-      border-left:2px solid var(--line);
-    }
-
-    /* each child item box spacing + connectors */
-    .team_main_list_ul ul > li{
-      position:relative;
-      padding-top:20px;
-      text-align:center;
-    }
-
-    /* horizontal connectors between siblings */
-    .team_main_list_ul ul > li::before,
-    .team_main_list_ul ul > li::after{
-      content:"";
-      position:absolute;
-      top:0;
-      width:50%;
-      height:20px;
-    }
-      /* সব চাইল্ডের ওপরে একসাথে দাগ */
-    .team_main_list_ul ul::after{
-      content:"";
-      position:absolute;
-      top:24px;
-      left:0;
-      right:0;
-      border-top:2px solid var(--line);
-      height:0;
-    }
-    .team_main_list_ul ul > li::before{
-      right:50%;
-      border-right:2px solid var(--line);
-    }
-    .team_main_list_ul ul > li::after{
-      left:50%;
-      border-left:2px solid var(--line);
-    }
-
-    /* if there's only one child, hide split arms */
-    .team_main_list_ul ul > li:only-child::before,
-    .team_main_list_ul ul > li:only-child::after{ display:none; }
-
-    /* trim first/last arms */
-    .team_main_list_ul ul > li:first-child::before{ border-right:none; }
-    .team_main_list_ul ul > li:last-child::after{ border-left:none; }
+  .team_main_list_ul ul::before{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:0;
+    bottom:0;
+    width:4px;
+    background: var(--line);
+    box-shadow:0 0 30px rgba(34,211,238,.7);
   }
 
-  /* ============ Mobile (<= 640px) ============ */
-  @media (max-width: 640px){
-    /* children list becomes vertical "timeline" */
-    .team_main_list_ul ul{
-      display:block;
-      padding-top:18px;
-      padding-left:18px; /* left timeline gutter */
-    }
-
-    /* vertical timeline line */
-    .team_main_list_ul ul::before{
-      content:"";
-      position:absolute;
-      top:0; bottom:0; left:18px;
-      border-left:2px solid var(--line);
-    }
-
-    /* each child appears as a step on the timeline */
-    .team_main_list_ul ul > li{
-      position:relative;
-      padding:14px 0 14px 20px;
-      text-align:left;
-    }
-
-    /* bullet connector from timeline to card */
-    .team_main_list_ul ul > li::before{
-      content:"";
-      position:absolute;
-      top: calc(50% - 6px);
-      left:12px;
-      width:12px; height:12px;
-      border-radius:50%;
-      background: var(--bg);
-      border:2px solid var(--accent);
-      box-shadow: var(--shadow);
-    }
-
-    /* hide desktop arms on mobile */
-    .team_main_list_ul ul > li::after{ display:none; }
-
-    /* make cards full-width on mobile */
-    .team_main_list_ul a.person_cls{
-      display:block;
-      width:100%;
-      max-width:520px;
-    }
+  .team_main_list_ul ul > li{
+    position:relative;
+    padding:22px 0 22px 34px;
   }
 
-  /* ============ Extras ============ */
-  /* subtle gradient accent on cards (optional; looks classy) */
-  .person_cls{
-    background:
-      radial-gradient(120% 120% at 10% 0%, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 45%),
-      var(--card);
+  .team_main_list_ul ul > li::before{
+    content:"";
+    position:absolute;
+    left:6px;
+    top:50%;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background: var(--neon-cyan);
+    box-shadow:0 0 25px rgba(34,211,238,1);
+    transform:translateY(-50%);
   }
 
-  /* reduce motion preference */
-  @media (prefers-reduced-motion: reduce){
-    .person_cls{ transition:none; }
+  .team_main_list_ul a.person_cls{
+    width:100%;
+    max-width:520px;
   }
+}
+
+/* ================== GAMING EFFECTS ================== */
+.person_cls:active{
+  transform:scale(.95);
+  box-shadow:0 0 60px rgba(250,204,21,.8);
+}
+
+/* ================== REDUCE MOTION ================== */
+@media (prefers-reduced-motion: reduce){
+  .person_cls::before{ animation:none; }
+  .person_cls{ transition:none; }
+}
+
+
+
 </style>
 
-<section class="pt-5 mt-5 text-center bg-white shadow-sm profit-section_ss">
-  <div class="container team_container">
+<section class="pt-5 text-center bg-white shadow-sm profit-section_ss">
+  
+  <div class="wrapper">
+    <div class="container team_container">
 
 
-    <?php if ($my_info->sts == 1) { ?>
-      <ul class="team_main_list_ul">
-        <li class="team_list_1 team_list_li " >
-          <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
-          <ul>
-            <?php foreach ($ref_users as $sng) { ?>
-              <li class="team_list_2 team_list_li " >
-                <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
-              </li>
-            <?php } ?>
-          </ul>
-        </li>
-      </ul>
-    <?php } else { ?>
-        <div class="alert alert-warning text-center" role="alert">
-            <h2 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Account Inactive!</h2>
-            <p>Your account is currently inactive. Please contact support to activate your account and access team features.</p>
-            <hr>
-        </div>
-    <?php } ?>
+      <?php if ($my_info->sts == 1) { ?>
+        <ul class="team_main_list_ul">
+          <li class="team_list_1 team_list_li " >
+            <a class="person_cls" person_id="<?= $my_info->user_full_info_idd; ?>" ><?= $my_info->user_full_name; ?></a>
+            <ul>
+              <?php foreach ($ref_users as $sng) { ?>
+                <li class="team_list_2 team_list_li " >
+                  <a class="person_cls" person_id="<?= $sng->user_full_info_idd; ?>" ><?= $sng->user_full_name; ?></a>
+                </li>
+              <?php } ?>
+            </ul>
+          </li>
+        </ul>
+      <?php } else { ?>
+          <div class="alert alert-warning text-center" role="alert">
+              <h2 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Account Inactive!</h2>
+              <p>Your account is currently inactive. Please contact support to activate your account and access team features.</p>
+              <hr>
+          </div>
+      <?php } ?>
 
+    </div>
   </div>
 </section>
 
@@ -285,6 +402,20 @@
     });
 
   });
+
+
+
+  /* ===== COIN RAIN ===== */
+  const coins = ["💰","🪙","💲"];
+  setInterval(()=>{
+    const coin = document.createElement("div");
+    coin.className="coin";
+    coin.innerText = coins[Math.floor(Math.random()*coins.length)];
+    coin.style.left = Math.random()*100+"vw";
+    coin.style.animationDuration = (3 + Math.random()*3)+"s";
+    document.body.appendChild(coin);
+    setTimeout(()=>coin.remove(),6000);
+  }, 500);
 </script>
 
 
