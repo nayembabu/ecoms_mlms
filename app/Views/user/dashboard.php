@@ -152,6 +152,10 @@
                       <i class="fas fa-basket-shopping"></i>
                       <span>পন্য ক্রয়ের তথ্য</span>
                   </a>
+                  <a href="user/allPackage" class="action-btn btn-deposit">
+                      <i class="fas fa-money-bill-wave"></i>
+                      <span>ইনভেস্ট প্যাকেজ</span>
+                  </a>
                   <a href="user/myWallet" class="action-btn btn-deposit">
                       <i class="fas fa-money-bill-wave"></i>
                       <span>ওয়ালেট</span>

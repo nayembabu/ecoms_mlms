@@ -139,51 +139,43 @@
 
         <div class="row justify-content-center g-5">
             <?php foreach ($invest_packages as $invest_packages_item) {
-                  if ($invest_packages_item->invest_package_p_iddd == 2) { ?>
-                <div class="col-md-4">
-                    <div class="card h-100 text-center position-relative">
-                        <div class="popular-ribbon">সবচেয়ে জনপ্রিয়</div>
-                        <div class="card-header py-4">
-                            <h4 class="fw-bold text-warning"><?= $invest_packages_item->package_names; ?></h4>
-                            <h2 class="price my-3">৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?></h2>
-                            <p><?= $invest_packages_item->suitable_names; ?></p>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <ul class="list-unstyled mb-4">
-                                <li>✔ ৮% বার্ষিক রিটার্ন</li>
-                                <li>✔ ১ বছরের লক-ইন</li>
-                                <li>✔ মাসিক রিপোর্ট</li>
-                                <li>✖ প্রায়োরিটি সাপোর্ট</li>
-                                <li>✖ বোনাস</li>
-                            </ul>
-                            <button class="btn btn-buy mt-auto " data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
-                                Buy Now
-                            </button>
+                if ($invest_packages_item->invest_package_p_iddd == 2) { ?>
+                    <div class="col-md-4">
+                        <div class="card h-100 text-center position-relative">
+                            <div class="popular-ribbon">জনপ্রিয়</div>
+                            <div class="card-header py-4">
+                                <h4 class="fw-bold text-warning"><?= $invest_packages_item->package_names; ?></h4>
+                                <h2 class="price my-3">৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?></h2>
+                                <p><?= $invest_packages_item->suitable_names; ?></p>
+                                <div class="mt-3 rounded img-fluid " >
+                                    <img src="<?= $invest_packages_item->package_image_s; ?>" alt="<?= $invest_packages_item->package_names; ?> Badge" class="popular-badge img-fluid " style="max-width: 100px; height: auto;">
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <button class="btn btn-buy mt-auto " data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
+                                    Buy Now
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php }else { ?>
-                <div class="col-md-4">
-                    <div class="card h-100 text-center position-relative">
-                        <div class="card-header py-4">
-                            <h4 class="fw-bold text-warning"><?= $invest_packages_item->package_names; ?></h4>
-                            <h2 class="price my-3">৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?></h2>
-                            <p><?= $invest_packages_item->suitable_names; ?></p>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <ul class="list-unstyled mb-4">
-                                <li>✔ ৮% বার্ষিক রিটার্ন</li>
-                                <li>✔ ১ বছরের লক-ইন</li>
-                                <li>✔ মাসিক রিপোর্ট</li>
-                                <li>✖ প্রায়োরিটি সাপোর্ট</li>
-                                <li>✖ বোনাস</li>
-                            </ul>
-                            <button class="btn btn-buy mt-auto" data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
-                                Buy Now
-                            </button>
+                <?php }else { ?>
+                    <div class="col-md-4">
+                        <div class="card h-100 text-center position-relative">
+                            <div class="card-header py-4">
+                                <h4 class="fw-bold text-warning"><?= $invest_packages_item->package_names; ?></h4>
+                                <h2 class="price my-3">৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?></h2>
+                                <p><?= $invest_packages_item->suitable_names; ?></p>
+                                <div class="mt-3 rounded img-fluid " >
+                                    <img src="<?= $invest_packages_item->package_image_s; ?>" alt="<?= $invest_packages_item->package_names; ?> Badge" class="popular-badge img-fluid " style="max-width: 100px; height: auto;">
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <button class="btn btn-buy mt-auto" data-bs-toggle="modal" data-bs-target="#confirmModal" data-package="<?= $invest_packages_item->package_names; ?>" data-price="৳ <?= BanglaConverter::en2bn(BanglaConverter::bd_money($invest_packages_item->invest_amount)); ?>">
+                                    Buy Now
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
             <?php } } ?>
 
         </div>
@@ -212,6 +204,7 @@
         </div>
     </div>
 
+    <br><br><br><br>
     <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <!-- Confetti Effect -->

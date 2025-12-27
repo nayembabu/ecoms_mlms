@@ -530,6 +530,7 @@ class Customer extends BaseController
     public function get_downline_recursive()
     {
         $userId = $this->request->getPost('user_id') ?? $this->session->get('userInfoId');
+        $data_my_info = $this->regModel->find($userId);
         if (empty($userId)) {
             echo json_encode(['error' => 'No user id provided']);
             return;
@@ -541,7 +542,7 @@ class Customer extends BaseController
         $visitedForCount = [];
         $count = $this->countDownline($userId, $visitedForCount);
 
-        $this->template->front('user/my_full_teams_php_array', ['count' => $count, 'tree' => $tree]);
+        $this->template->front('user/my_full_teams_php_array', ['count' => $count, 'tree' => $tree, 'my_info' => $data_my_info]);
     }
 
 
