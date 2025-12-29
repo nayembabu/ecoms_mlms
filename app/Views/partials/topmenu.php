@@ -153,8 +153,9 @@
             <div class=" collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
-                    <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
                     <?php if ($my_info->sts == 1) { ?>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/allPackage">প্যাকেজ</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
