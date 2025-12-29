@@ -265,7 +265,7 @@
                         const modal = bootstrap.Modal.getInstance(confirmModal);
                         modal.hide();
                         $('.display_error_bal').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Error!</strong> প্যাকেজ কেনার জন্য আপনার ব্যালেন্স অপর্যাপ্ত। দয়া করে আপনার ওয়ালেটে পর্যাপ্ত ব্যালেন্স যোগ করুন।
+                            <strong>Error!</strong> প্যাকেজ কেনার জন্য আপনার ব্যালেন্স নেই। দয়া করে আপনার ওয়ালেটে পর্যাপ্ত ব্যালেন্স যোগ করুন।
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`);
                     }else if (rsp.success === true) {
                         assign_wallet_balance();

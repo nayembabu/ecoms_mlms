@@ -621,6 +621,42 @@ class Customer extends BaseController
         $this->template->front('user/my_full_teams_php_array', ['count' => $count, 'tree' => $tree, 'my_info' => $data_my_info]);
     }
 
+    public function my_invest_package_show_here()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['user_packages'] = $this->db->table('user_package_enroll')
+                                    ->where('user_id', $userInfoId)
+                                    ->join('invest_package', 'user_package_enroll.package_id = invest_package.invest_package_p_iddd', 'left')
+                                    ->get()
+                                    ->getResult();
+        $this->template->front('user/my_invest_package_show_view_file', $data);
+    }
+
+    public function my_invest_package_show_here_single_package($invest_package)
+    {
+        if (!is_numeric($invest_package)) {
+            return redirect()->to('user/myPackage')->with('error', 'Invalid package ID.');
+        }else {
+            $userInfoId = $this->session->get('userInfoId');
+            $data['single_invest_package'] = $this->db->table('user_package_enroll')
+                                        ->where('user_package_enroll.id', $invest_package)
+                                        ->join('invest_package', 'user_package_enroll.package_id = invest_package.invest_package_p_iddd', 'left')
+                                        ->get()
+                                        ->getRow();
+
+            if (!$data['single_invest_package'] || $data['single_invest_package']->user_id != $userInfoId) {
+                return redirect()->to('user/myPackage')->with('error', 'Package not found or access denied.');
+            }else {
+                $data['invest_pachage_roi'] = $this->db->table('user_invest_pachage_roi_insert')
+                                            ->where('user_enroll_package_idd_unq', $data['single_invest_package']->package_id)
+                                            ->where('user_enroll_package_idd_unq', $data['single_invest_package']->id)
+                                            ->get()
+                                            ->getResult();
+                return $this->template->front('user/my_invest_package_single_view_file', $data);
+            }
+
+        }
+    }
 
 
 

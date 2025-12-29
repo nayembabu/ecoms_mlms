@@ -156,6 +156,10 @@
                       <i class="fas fa-money-bill-wave"></i>
                       <span>ইনভেস্ট প্যাকেজ</span>
                   </a>
+                  <a href="user/myPackage" class="action-btn btn-deposit">
+                      <i class="fas fa-money-bill-wave"></i>
+                      <span>আমার কেনা প্যাকেজ</span>
+                  </a>
                   <a href="user/myWallet" class="action-btn btn-deposit">
                       <i class="fas fa-money-bill-wave"></i>
                       <span>ওয়ালেট</span>
