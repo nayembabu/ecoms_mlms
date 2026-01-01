@@ -44,4 +44,11 @@ class Template
         echo view('partials/footer', $data);
     }
 
+    public function back($view, $data = [])
+    {
+        echo view('partials/header', $data);
+        echo view($view, $data);
+        echo view('partials/footer', $data);
+    }
+
 }

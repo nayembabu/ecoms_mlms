@@ -2,32 +2,32 @@
 
 namespace App\Controllers;
 use Config\Services;
+use Config\Database;
 use App\Libraries\Template;
 use App\Libraries\Teams;
 use App\Models\RegModel;
 use App\Models\ProductModel;
 use App\Models\UserModel;
-use Config\Database;
 use App\Libraries\BanglaConverter;
 
 class Customer extends BaseController
 {
     protected $session;
+    protected $db;
     protected $template;
     protected $teams;
     protected $regModel;
     protected $productModel;
     protected $userModel;
-    protected $db;
 
     public function __construct()
     {
         $this->session      = Services::session();
+        $this->db           = Database::connect();
         $this->template     = new Template();
         $this->teams        = new Teams();
         $this->regModel     = new RegModel();
         $this->productModel = new ProductModel();
-        $this->db           = Database::connect();
         $this->userModel    = new UserModel();
     }
 

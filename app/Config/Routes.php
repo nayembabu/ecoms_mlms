@@ -73,6 +73,8 @@
 
 
     $routes->group('games', ['filter' => 'auth'], function($routes) {
+        $routes->get('taptap', 'Games::telegram_tap_tap');
         $routes->get('bycycle', 'Games::game_bi_cycle_view');
+        $routes->post('insert_added_coin_tap_tap', 'Games::insert_added_coin_tap_tap');
     });
 

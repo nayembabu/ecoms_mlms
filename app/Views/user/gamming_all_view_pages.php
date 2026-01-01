@@ -122,6 +122,14 @@
 
     <div class="container container_games">
 
+        <a href="games/taptap" class="game">
+            <img src="inc/img/games_view/tap_tap_games.png" class="img">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="title">Tap Tap</div><button class="play">চালু</button>
+            </div>
+        </a>
+
         <a href="" class="game">
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" class="img">
             <div class="overlay"></div>
