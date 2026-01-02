@@ -513,7 +513,7 @@
                 <div class="coin " id="coin" >
                     <div class="coin-inner">
                         <span class="coin-symbol">
-                            <img src="<?= base_url(); ?>/inc/img/games_view/tap_tap_icon.png" class="coin-image" alt="Royal Chain Coin">
+                            <img src="<?= base_url(); ?>inc/img/games_view/tap_tap_coin.jpg" class="coin-image" alt="Royal Chain Coin">
                         </span>
                     </div>
                     <div class="combo-indicator" id="comboIndicator">x2</div>
