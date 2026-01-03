@@ -40,7 +40,7 @@ class Home extends BaseController
                                  ->join('sub_category', 'product_information.product_subcat_id = sub_category.sub_cat_idd', 'left')
                                  ->get()
                                  ->getResult();
-        return $this->template->front('welcome_message', $data);
+        return view('welcome_message', $data);
     }
 
     public function login()
