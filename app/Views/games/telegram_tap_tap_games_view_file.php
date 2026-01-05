@@ -4,7 +4,10 @@
         <base href="<?= base_url(); ?>" target="">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>Telegram Tap Game</title>
+
+        <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
+        <title>Royal Chain - Online Banking & Finance</title>
+
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
         <style>
@@ -463,6 +466,164 @@
                 pointer-events:none; /* tap issue হবে না */
             }
 
+                /* Bottom Sheet (Earn Modal) */
+            .sheet-overlay{
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.65);
+                z-index: 1200;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity .25s ease, visibility .25s ease;
+            }
+
+            .sheet-overlay.show{
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .sheet{
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                transform: translateX(-50%) translateY(110%);
+                width: min(430px, 100%);
+                background: linear-gradient(180deg, #1a1a2e, #16213e);
+                border-top-left-radius: 18px;
+                border-top-right-radius: 18px;
+                border: 1px solid rgba(245, 158, 11, 0.25);
+                box-shadow: 0 -20px 60px rgba(0,0,0,0.6);
+                transition: transform .28s ease;
+                padding: 12px 16px 18px;
+            }
+
+            .sheet-overlay.show .sheet{
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .sheet-handle{
+                width: 46px;
+                height: 5px;
+                border-radius: 999px;
+                margin: 6px auto 12px;
+                background: rgba(255,255,255,0.25);
+            }
+
+            .sheet-header{
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            .sheet-title{
+                font-size: 16px;
+                font-weight: 800;
+                color: #fbbf24;
+            }
+
+            .sheet-close{
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.08);
+                color: rgba(255,255,255,0.85);
+                cursor: pointer;
+            }
+
+            .sheet-body{
+                display:flex;
+                flex-direction:column;
+                gap: 10px;
+                max-height: 58vh;
+                overflow:auto;
+                padding-bottom: 6px;
+            }
+
+            .sheet-card{
+                background: rgba(255,255,255,0.06);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 14px;
+                padding: 12px;
+            }
+
+            .sheet-card-title{
+                font-size: 14px;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+
+            .sheet-card-sub{
+                font-size: 12px;
+                color: rgba(255,255,255,0.65);
+                margin-bottom: 10px;
+            }
+
+            .sheet-btn{
+                width: 100%;
+                padding: 10px 12px;
+                border: none;
+                border-radius: 12px;
+                font-weight: 800;
+                cursor: pointer;
+                background: linear-gradient(135deg, #f59e0b, #fbbf24);
+                color: #000;
+            }
+.sheet-card-balance{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.balance-left{
+    flex: 1;
+}
+
+.balance-right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.coin-balance{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(245,158,11,.6);
+    white-space: nowrap;
+}
+
+.withdraw-btn{
+    padding: 14px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #10b981, #22c55e);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(16,185,129,.4);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.withdraw-btn:active{
+    transform: scale(.95);
+    box-shadow: 0 2px 6px rgba(16,185,129,.4);
+}
+
+.withdraw-btn:disabled{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+
         </style>
     </head>
     <body>
@@ -553,9 +714,9 @@
                     <span>Friends</span>
                 </div>
                 -->
-                <div class="nav-item">
+                <div class="nav-item" id="earnBtn">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>Earn</span>
+                    <span>Withdraw</span>
                 </div>
                 <div class="nav-item">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -568,18 +729,39 @@
             </div>
         </div>
 
-        <!-- Name Input Modal -->
-        <div class="modal-overlay" id="nameModal">
-            <div class="modal">
-                <div class="modal-title">🎮 Welcome!</div>
-                <div class="modal-subtitle">Enter your name for the leaderboard</div>
-                <input type="text" class="modal-input" id="playerNameInput" placeholder="Your name..." maxlength="15">
-                <button class="modal-btn" id="startGameBtn">Start Game</button>
+        <!-- Earn Bottom Sheet Modal -->
+        <div class="sheet-overlay" id="earnSheet">
+            <div class="sheet">
+                <div class="sheet-handle"></div>
+
+                <div class="sheet-header">
+                    <div class="sheet-title">💰 Earn Coins</div>
+                    <button class="sheet-close" id="earnSheetClose" aria-label="Close">✕</button>
+                </div>
+
+                <div class="sheet-body">
+                    <div class="sheet-card sheet-card-balance">
+                        <div class="balance-left">
+                            <div class="sheet-card-title">Total Earn Coin</div>
+                            <div class="sheet-card-sub">Withdraw coin and add balance in wallet</div>
+                        </div>
+
+                        <div class="balance-right">
+                            <span class="coin-icon">🪙</span>
+                            <span class="coin-amount" id="totalEarnCoin">0</span>
+                        </div>
+                    </div>
+                    <button class="withdraw-btn" id="withdrawBtn">Withdraw</button>
+                </div>
+
+
+                </div>
             </div>
         </div>
 
         <script>
             $(document).ready(function() {
+
                 // Audio Context for Sound Effects
                 let audioContext = null;
                 let soundEnabled = true;
@@ -660,7 +842,8 @@
                 // Game State
                 let playerName = '<?= $my_info->user_full_name; ?>';
                 let score = parseInt('<?= $current_coin_balance; ?>') || 0;
-                let energy = parseInt(localStorage.getItem('nowEnergy')) || 100;
+
+
                 const MAX_ENERGY = '<?= $user_tap_tap_info->boost_energy_size; ?>';
                 const ENERGY_REGEN_RATE = 1;
                 let totalTaps = parseInt(<?= $user_taps_add; ?>) || 0;
@@ -669,6 +852,37 @@
                 let lastTapTime = 0;
                 let tapsInLastSecond = [];
                 let previousLevel = 1;
+                let max_energy_set = Math.min(MAX_ENERGY, Math.max(0, parseInt(((Math.floor(Date.now() / 1000) - parseInt(<?= $user_tap_tap_info->time_start; ?>))) / 5)) - totalTaps) || 100;
+                const now_time = Math.floor(Date.now() / 1000);
+
+                let energy = Math.min(MAX_ENERGY, Math.max(0, parseInt(((Math.floor(Date.now() / 1000) - parseInt(<?= $user_tap_tap_info->time_start; ?>))) / 5)) - totalTaps) || 100;
+
+                if (energy < MAX_ENERGY) {
+                    energy = Math.min(MAX_ENERGY, energy + ENERGY_REGEN_RATE);
+                    localStorage.setItem('nowEnergy', energy);
+                    updateUI();
+                }
+
+                // function get_last_energy(max_energy_set, now_time) {
+                //     $.ajax({
+                //         url: "<?= base_url('games/lastCoinAdd'); ?>",
+                //         type: "GET",
+                //         dataType: "json",
+                //         success: function (res) {
+                //             if (res.status === 'success') {
+                //                 let las_coin = parseInt(res.user_last_add_coin.now_energy_label);
+                //                 let now_time_int = now_time - parseInt(res.user_last_add_coin.now_energy_label);
+                //                 energy = las_coin + (now_time_int / 5);
+                //             } else {
+                //                 console.log("No data");
+                //             }
+                //         },
+                //         error: function (xhr, status, error) {
+                //             console.error("API Error:", error);
+                //         }
+                //     });
+                // }
+
                 let tap_rate_s = parseInt('<?= intval($user_tap_tap_info->boost_click_s); ?>') || 1;
 
                 const levels = <?= json_encode(
@@ -769,6 +983,7 @@
                     $('#levelBadge').text('Level ' + getCurrentLevel() + ' • ' + getLevelName());
                     $('#energyText').text(energy + ' / ' + MAX_ENERGY);
                     $('#energyBar').css('width', (energy / MAX_ENERGY * 100) + '%');
+                    $('#totalEarnCoin').text(score.toLocaleString());
 
                     const multiplier = getComboMultiplier();
                     if (multiplier > 1) {
@@ -799,7 +1014,7 @@
                 function disableTap(reason = '') {
                     tapEnabled = false;
                     $('#coin').addClass('coin-disabled');
-                    $('.block_info_text').html('ভাইয়া Auto Clicker দিয়ে কাজ করিও না।');
+                    $('.block_info_text').html('spam পাওয়া গেছে, রিলোড করুন। ');
                 }
 
                 function enableTap() {
@@ -846,7 +1061,6 @@
                     }
 
                     initAudio();
-
 
                         // 🔴 Same Position Detect
                     const clickX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -928,11 +1142,54 @@
                 function insert_added_coin_tap_tap(coin, taps) {
                     $.post("<?= base_url('games/insert_added_coin_tap_tap'); ?>", {
                         'added_coin': coin,
+                        'now_energy': energy,
                         'taps': taps
                     }, function(data) {
                         //console.log(data);
                     });
                 }
+
+                $(document).on('click', '#withdrawBtn', function () {
+                    cut_and_withdraw_bal();
+                });
+
+                function cut_and_withdraw_bal() {
+                    $.post("<?= base_url('games/insert_cut_coin_tap'); ?>", {}, 
+                        function(data) {
+                            location.reload(true);
+                        }
+                    );
+                }
+
+                $(function () {
+                    const $sheet = $("#earnSheet");
+
+                    function openSheet() {
+                        $sheet.addClass("show");
+                    }
+
+                    function closeSheet() {
+                        $sheet.removeClass("show");
+                    }
+
+                    $("#earnBtn").on("click", function () {
+                        openSheet();
+                    });
+
+                    $("#earnSheetClose").on("click", function () {
+                        closeSheet();
+                    });
+
+                    // overlay তে ক্লিক করলে বন্ধ হবে (sheet-এর ভিতরে ক্লিক করলে নয়)
+                    $sheet.on("click", function (e) {
+                        if (e.target === this) closeSheet();
+                    });
+
+                    // ESC চাপলেও বন্ধ হবে (desktop)
+                    $(document).on("keydown", function (e) {
+                        if (e.key === "Escape") closeSheet();
+                    });
+                });
 
             });
 

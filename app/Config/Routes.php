@@ -76,8 +76,10 @@
         $routes->get('taptap', 'Games::telegram_tap_tap');
         $routes->get('bycycle', 'Games::game_bi_cycle_view');
         $routes->get('coinFlip', 'Games::game_coin_tos_tos');
+        $routes->get('lastCoinAdd', 'Games::get_last_tap_tap_added_coin');
 
 
         $routes->post('insert_added_coin_tap_tap', 'Games::insert_added_coin_tap_tap');
+        $routes->post('insert_cut_coin_tap', 'Games::insert_cut_withdraw_coin_tap_tap');
     });
 
