@@ -8,8 +8,8 @@
     <meta name="description" content="Fastkart">
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
-    <link rel="icon" href="inc/assets/images/favicon/1.png" type="image/x-icon">
-    <title>On-demand last-mile delivery</title>
+    <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
+    <title>Royal Chain - Online Banking & Finance</title>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

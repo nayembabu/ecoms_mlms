@@ -130,11 +130,11 @@
             </div>
         </a>
 
-        <a href="" class="game">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" class="img">
+        <a href="games/coinFlip" class="game">
+            <img src="inc/img/games_view/coin_flip_toss.png" class="img">
             <div class="overlay"></div>
             <div class="content">
-                <div class="title">Aviator</div><button class="play">উড়ুন</button>
+                <div class="title">Coin Tos</div><button class="play">টস করুন</button>
             </div>
         </a>
 

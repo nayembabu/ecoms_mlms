@@ -2,8 +2,6 @@
 
 
 
-
-
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -121,6 +119,50 @@
         .btn-history:hover { background: linear-gradient(45deg, #4facfe, #00f2fe); }
         .btn-games { border: 2px solid #ff8c00; }
         .btn-games:hover { background: linear-gradient(45deg, #ffd700, #ff8c00); }
+
+
+
+        .game-card{
+            width: 100%;
+            height: 250px;
+            border-radius: 14px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-color: #111;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.2);
+            transition: transform .15s ease;
+        }
+
+        .game-card::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+            to top,
+            rgba(0,0,0,.7),
+            rgba(0,0,0,.1)
+            );
+            border-radius: inherit;
+        }
+
+        .game-card:hover{
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0,0,0,.3);
+        }
+
+        .game-title{
+            position: relative;
+            z-index: 1;
+            font-size: 25px;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgba(0,0,0,.6);
+            line-height: 1.2;
+        }
     </style>
 
 
@@ -197,6 +239,23 @@
                       <span>আয়ের ড্যাশবোর্ড</span>
                   </a>
                 </div>
+
+
+<h2 class="text-center mb-3 fw-bold">জনপ্রিয় গেমসগুলি</h2>
+
+
+<div class="row g-3 mb-5 ">
+
+  <div class="col-6 col-md-3 col-lg-3">
+    <a href="games/taptap" class="game-card text-white text-decoration-none" style="background-image: url('inc/img/games_view/tap_tap_games.png');">
+      <span class="game-title">Tap Tap Games</span>
+    </a>
+  </div>
+
+</div>
+
+
+
 
 
                 <!-- Summary Cards -->

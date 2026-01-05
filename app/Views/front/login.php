@@ -127,7 +127,7 @@
 
     <div class="login-container">
         <div class="login-card">
-            <h1><i class="fas fa-coins me-2"></i> RICH ZONE</h1>
+            <h1><i class="fas fa-coins me-2"></i> ROYAL CHAIN</h1>
             <p class="tagline">আজই জয়েন করুন – অসীম আয়ের সুযোগ অপেক্ষা করছে!</p>
             <form action="login_check" method="POST" >
                 <div class="mb-3">
@@ -139,10 +139,10 @@
                     <input type="password" class="form-control text-white" name="password" placeholder="সিক্রেট পাসওয়ার্ড" required>
                 </div>
                 <button type="submit" class="btn btn-login w-100">
-                    <i class="fas fa-sign-in-alt"></i> লগইন করুন & ধনী হোন!
+                    <i class="fas fa-sign-in-alt"></i> লগইন করুন!
                 </button>
                 <div class="extra-text mt-3">
-                    <i class="fas fa-gem"></i> নতুন? <a href="/register" style="color: gold; text-decoration: underline;">রেজিস্টার করুন</a> এবং বোনাস পান!
+                    <i class="fas fa-gem"></i> নতুন? <a href="/register" style="color: gold; text-decoration: underline;">রেজিস্টার করুন</a>
                 </div>
             </form>
         </div>

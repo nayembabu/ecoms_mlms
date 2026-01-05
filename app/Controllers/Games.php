@@ -108,6 +108,11 @@ class Games extends BaseController
         return view('games/bi-cycle');
     }
 
+    public function game_coin_tos_tos()
+    {
+        return view('games/coin_flip_tos');
+    }
+
 
 }
 

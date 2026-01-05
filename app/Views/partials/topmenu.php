@@ -35,38 +35,10 @@
                 <div class="row">
                     <div class="col-12" >
                         <div class="navbar-top">
-                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button me-3" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
-                                <span class="navbar-toggler-icon">
-                                    <i class="fa-solid fa-bars"></i>
-                                </span>
-                            </button>
                             <a href="" class="web-logo nav-logo">
-                                <img src="inc/assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                                <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 40% !important; border-radius: 20px;  " class="img-fluid blur-up lazyload" alt="">
                             </a>
 
-                            <div class="middle-box ">
-                                <div class="header-nav-middle">
-                                    <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky ">
-                                        <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
-                                            <div class="offcanvas-header navbar-shadow">
-                                                <h5>Menu</h5>
-                                                <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas"></button>
-                                            </div>
-                                            <div class="offcanvas-body">
-                                                <ul class="navbar-nav">
-                                                    <li class="nav-item  ">
-                                                        <a class="nav-link " href="" >Home</a>
-                                                    </li>
-                                                    <li class="nav-item ">
-                                                        <a class="nav-link " href="" >Product</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="rightside-box">
                                 <ul class="right-side-menu">
