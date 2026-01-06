@@ -75,7 +75,7 @@
         </div>
 
         <button id="btnSpin" class="btn btn-primary" type="button">Spin Coin</button>
-        <button id="btnReset" class="btn btn-secondary" type="button" hidden>Play Again</button>
+        <!-- <button id="btnReset" class="btn btn-secondary" type="button" hidden>Play Again</button> -->
 
         <!-- <p class="fineprint">Win Rate: 20% | Win Multiplier: 2x</p> -->
       </section>
