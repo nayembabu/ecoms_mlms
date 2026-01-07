@@ -509,7 +509,7 @@
       <div class="brand">
         <div class="logo"></div>
         <div class="title">
-          <h1>Vertical MLM Downline</h1>
+          <h1>Vertical Team Downline</h1>
           <p>Top → Down Tree • Drag & Zoom • Premium colorful UI</p>
         </div>
       </div>
@@ -552,14 +552,11 @@
         </div>
       </div>
 
-      <div class="legend">
-        <div style="opacity:.85">✨ Premium Vertical MLM Tree • Drag & Zoom Enabled</div>
-      </div>
     </div>
   </div>
 
   <script>
-    // ====== Pan + Zoom (no external libs) ======
+
     const viewport = document.getElementById('viewport');
     const world = document.getElementById('world');
     const zoomText = document.getElementById('zoomText');

@@ -19,7 +19,7 @@
     </style>
 
   </head>
-  <body>
+  <body style="">
     <header class="site-header" aria-label="Coin flip game header">
       <div class="container">
         <div class="title-row">
@@ -34,7 +34,7 @@
       <section class="card balance" aria-label="Balance section">
         <div>
           <div class="kicker">Your Balance</div>
-          <div class="balance-amount"><span id="balance">100</span> TK</div>
+          <div class="balance-amount"><span id="balance"></span> TK</div>
         </div>
         <!-- <button id="btnAdd" class="btn btn-secondary" type="button">+50 TK</button> -->
       </section>
@@ -91,12 +91,7 @@
       /* global $ */
 
       (function () {
-        const BET_AMOUNT = 10;
-        const WIN_RATE = 0.2;
-        const WIN_MULTIPLIER = 2;
-        const SPIN_MS = 3000;
 
-        let balance = 100;
         let selectedSide = null; // 'heads' | 'tails'
         let isSpinning = false;
         let resultSide = null;
@@ -114,6 +109,33 @@
         const $resultWrap = $('#resultWrap');
         const $resultText = $('#resultText');
         const $resultSide = $('#resultSide');
+
+        const BET_AMOUNT = 10;
+        const WIN_RATE = 0.2;
+        const WIN_MULTIPLIER = 2;
+        const SPIN_MS = 3000;
+        let balance;
+
+        function fetchBalance() {
+            $.ajax({
+                url: '/games/getUserInfo',
+                type: 'GET',
+                dataType: 'json',
+                success: function(res) {
+                  balance = res.current_wallet_balance;
+                  $balance.text(balance);
+                },
+                error: function(xhr, status, error) {
+                  console.error('Error fetching balance:', error);
+                  alert('ব্যালেন্স লোড করতে সমস্যা হয়েছে! রিলোড করুন');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            fetchBalance();
+        });
+
 
         function setUIBusy(busy) {
           isSpinning = busy;
@@ -183,8 +205,19 @@
 
         function spin() {
           if (!selectedSide || isSpinning || balance < BET_AMOUNT) return;
-
           clearResult();
+
+          $.ajax({
+            type: "post",
+            url: "",
+            data: {
+
+            },
+            dataType: "json",
+            success: function (rss) {
+
+            }
+          });
 
           balance -= BET_AMOUNT;
           renderBalance();

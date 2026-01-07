@@ -26,6 +26,29 @@ class Games extends BaseController
         $this->template     = new Template();
     }
 
+    public function get_user_info_json()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['my_info'] = $this->db->table('user_full_info')
+                                    ->where('user_full_info_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow();
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
+        return $this->response->setJSON($data);
+    }
+
     public function telegram_tap_tap()
     {
         $userInfoId = $this->session->get('userInfoId');
@@ -164,10 +187,21 @@ class Games extends BaseController
             $this->db->table('tap_tap_coin_cutted_info')
                     ->insert([
                         'user_info_unq_idddidd'     => $userInfoId,
-                        'coin_cutted_amount'        => $data['current_coin_balance'] / $data['games_infoss']->withdraw_coin_to_1taka,
+                        'coin_cutted_amount'        => (float)$data['current_coin_balance'] / (float)$data['games_infoss']->withdraw_coin_to_1taka,
                         'coint_cutted_cause'        => 'Coin withdraw and balance added',
                         'now_timesss'               => time(),
                     ]);
+            $coin_added_id = $this->db->insertID();
+
+            $this->db->table('user_added_amounts')->insert( [
+                        'added_amount'               => (float)$data['current_coin_balance'] / (float)$data['games_infoss']->withdraw_coin_to_1taka,
+                        'user_info_id_addeds'        => $userInfoId,
+                        'amount_perpose'             => 'Tap Tap Coin withdraw and balance added',
+                        'payment_description'       => 'Coin withdraw and balance added',
+                        'times_stamps'               => time(),
+                        'any_id_here'                => $coin_added_id,
+                    ]);
+
             return $this->response->setJSON([
                 'status'=> 'success',
                 'msg'   => 'Withdraw Success....'

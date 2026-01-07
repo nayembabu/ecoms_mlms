@@ -25,6 +25,8 @@
         $routes->get('profile', 'User::profile');
         $routes->get('allProduct', 'User::show_product_by_cats');
 
+        $routes->get('withdraw/history', 'Customer::get_withdraw_history');
+
         $routes->get('singleProduct', 'Customer::get_single_products_by_id');
         $routes->get('myWallet', 'Customer::my_wallet_view');
         $routes->get('fullTeams', 'Customer::view_my_full_teams');
@@ -73,6 +75,7 @@
 
 
     $routes->group('games', ['filter' => 'auth'], function($routes) {
+        $routes->get('getUserInfo', 'Games::get_user_info_json');
         $routes->get('taptap', 'Games::telegram_tap_tap');
         $routes->get('bycycle', 'Games::game_bi_cycle_view');
         $routes->get('coinFlip', 'Games::game_coin_tos_tos');

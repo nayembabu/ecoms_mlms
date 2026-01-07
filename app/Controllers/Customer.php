@@ -658,6 +658,16 @@ class Customer extends BaseController
         }
     }
 
+    public function get_withdraw_history()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['user_withdraws'] = $this->db->table('user_withdraw_request')
+                                    ->where('user_id_unp', $userInfoId)
+                                    ->get()
+                                    ->getResult();
+        return $this->template->front('user/withdraw_history_all', $data);
+    }
+
 
 
 
