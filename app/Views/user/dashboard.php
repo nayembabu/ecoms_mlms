@@ -181,9 +181,12 @@
               <?php if ($my_info->sts != 1) { ?>
                 <div class="glass p-5 rounded-4 mb-5 text-center">
                   <h2 class="text-danger">আপনার অ্যাকাউন্ট একটিভ নয়</h2>
-                  <p class="text-danger">অনুগ্রহ করে আপনার অ্যাকাউন্ট একটিভ করুন। অ্যাকাউন্ট একটিভ করতে প্রথমে রিচার্জ করুন, এরপর যেকোনো একটি পন্য কিনলেই আপনার একাউন্ট একটিভ হয়ে যাবে</p>
+                  <p class="text-light">অনুগ্রহ করে আপনার অ্যাকাউন্ট একটিভ করুন। অ্যাকাউন্ট একটিভ করতে প্রথমে রিচার্জ করুন, এরপর যেকোনো একটি পন্য কিনলেই আপনার একাউন্ট একটিভ হয়ে যাবে</p>
                   <div class="d-flex justify-content-center gap-3">
-                    <a href="<?= base_url('user/myWallet'); ?>" class="btn btn-primary bg-primary text-white btn-custom"><i class="bi bi-wallet2"></i>অ্যাকাউন্ট রিচার্জ করুন</a>
+                    <a href="user/viewAllProducts" class="action-btn btn-history">
+                        <i class="fa-brands fa-product-hunt"></i>
+                        <span>পন্য ক্রয়</span>
+                    </a>
                   </div>
                 </div>
               <?php }else{ ?>

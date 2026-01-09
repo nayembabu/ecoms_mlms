@@ -134,7 +134,7 @@ class Teams
             return true;
         }
 
-        $this->add_bonus($user_reffer_info->reffer_main_idd,$user_reffer_info->referral_bonus_amount);
+        $this->add_bonus($user_reffer_info->reffer_main_idd, $user_reffer_info->referral_bonus_amount);
 
         // Check this upper user
         $this->team_check_and_increement($user_reffer_info->reffer_main_idd);
