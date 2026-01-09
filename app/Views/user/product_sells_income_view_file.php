@@ -30,7 +30,6 @@
       <p class="text-xl text-purple-200">প্রতিটি ক্রয়ে রয়েছে সারপ্রাইজ গিফটের জাদু!</p>
     </div>
 
-
         <div class="absolute top-20 right-4 gift-pulse add_products_profit_show"></div>
 
 
@@ -157,8 +156,10 @@
                     }
                 }
                 $('.add_products_profit_show').html(html_view);
+                assign_wallet_balance();
               }else {
                 $('.add_products_profit_show').html('');
+                assign_wallet_balance();
               }
             }
         });
@@ -182,7 +183,8 @@
                 product_id: product_id
             },
             success: function (ress) {
-                get_uncompleted_products()
+                get_uncompleted_products();
+                assign_wallet_balance();
             }
         });
     });

@@ -45,17 +45,29 @@ class Auth extends BaseController
         $user_name         = $this->request->getPost('userNam');
         $user_password     = $this->request->getPost('user_password');
 
-        $user_pro_pic_paths = null;
+        $user_pro_pic_paths = 'inc/img/user_pic/'.rand(0, 102).'.png';
         $file = $this->request->getFile('profile_pic');
 
         if ($file && $file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'inc/user_pic/', $newName); 
-            $user_pro_pic_paths = 'inc/user_pic/' . $newName;
+            $file->move(ROOTPATH . 'inc/img/user_pic/', $newName); 
+            $user_pro_pic_paths = 'inc/img/user_pic/' . $newName;
         }
 
         if (empty($user_full_name) || empty($user_email_no) || empty($user_password)) {
             return redirect()->to('/register')->with('error', 'Please fill in all required fields.');
+        }
+
+
+        $user_find = $this->userModel
+                    ->groupStart()
+                        ->where('user_emails', $email_no)
+                        ->orWhere('user_name', $username)
+                        ->orWhere('user_phone_numbers', $phone)
+                    ->groupEnd()
+                    ->first();
+        if ($user_find) {
+            return redirect()->to('/register')->with('error', 'Email, Phone, or Username already exists.');
         }
         $userData = [
             'user_full_name'            => $user_full_name,
@@ -68,11 +80,12 @@ class Auth extends BaseController
         ];
 
         $loginData = [
-            'user_name'       => $user_name,
-            'status'          => "1",
-            'password_show'   => $user_password,
-            'user_emails'     => $user_email_no,
-            'user_password'   => password_hash($user_password, PASSWORD_BCRYPT),
+            'user_name'             => $user_name,
+            'status'                => "1",
+            'password_show'         => $user_password,
+            'user_emails'           => $user_email_no,
+            'user_phone_numbers'    => $user_phone_no,
+            'user_password'         => password_hash($user_password, PASSWORD_BCRYPT),
         ];
 
         $roleData = [
@@ -101,10 +114,14 @@ class Auth extends BaseController
             return redirect()->to('/login')->with('error', 'Email and password are required');
         } else {
             $user = $this->userModel
-                         ->where('user_emails', $email)
-                         ->join('user_in_role', 'user_in_role.role_user_idd = user_login_details.login_user_idd', 'left')
-                         ->join('role_details', 'role_details.role_detail_idd = user_in_role.role_role_idd', 'left')
-                         ->first();
+                        ->groupStart()
+                            ->where('user_emails', $email)
+                            ->orWhere('user_name', $email)
+                            ->orWhere('user_phone_numbers', $email)
+                        ->groupEnd()
+                        ->join('user_in_role', 'user_in_role.role_user_idd = user_login_details.login_user_idd', 'left')
+                        ->join('role_details', 'role_details.role_detail_idd = user_in_role.role_role_idd', 'left')
+                        ->first();
             if ($user && password_verify($password, $user['user_password'])) {
 
                 $this->db_login_info->insert([

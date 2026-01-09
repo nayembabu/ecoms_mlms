@@ -188,7 +188,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Username</label>
                                         <div class="input-anim">
-                                            <input type="text" name="user_name" class="form-control form-control-lg" placeholder="username" required>
+                                            <input type="text" name="user_name" id="username" class="form-control form-control-lg" placeholder="username" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please choose a username.</div>
@@ -197,7 +197,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Email</label>
                                         <div class="input-anim">
-                                            <input type="email" name="email" class="form-control form-control-lg" placeholder="type your email" required>
+                                            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="type your email" required>
                                             <span class="focus-line"></span>
                                         </div>
                                         <div class="invalid-feedback">Please provide a valid email.</div>
@@ -206,7 +206,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small">Phone</label>
                                         <div class="input-anim">
-                                            <input type="tel" name="phone" class="form-control form-control-lg" placeholder="mobile no (01712345678)" required>
+                                            <input type="tel" name="phone" id="phone" class="form-control form-control-lg" placeholder="mobile no (01712345678)" required>
                                             <span class="focus-line"></span>
                                         </div>
                                     </div>
@@ -246,9 +246,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 d-flex justify-content-between align-items-center">
-                                        <button type="submit" class=" mx-auto mt-3 btn text-white gradient-btn btn-lg ripple" style="border-radius:12px; padding:10px 28px;">Create Referral</button>
-                                    </div>
+                                    <div class="col-12 d-flex justify-content-between align-items-center submit_btn_assign "></div>
                                 </div>
                             </form>
 
@@ -269,7 +267,40 @@
 </section>
 
     <script>
+
+        function checkUnique(field, value, errorBox){
+            if(value === '') return;
+
+            $.ajax({
+                url: "/check-unique",
+                type: "POST",
+                data: {
+                    field: field,
+                    value: value
+                },
+                success: function(res){
+                    if(res.status === 'error'){
+                        $(errorBox).text(res.message);
+                        $('.submit_btn_assign').html(``);
+                    }else{
+                        $('.submit_btn_assign').html(`
+                            <button type="submit" class=" mx-auto mt-3 btn text-white gradient-btn btn-lg ripple" style="border-radius:12px; padding:10px 28px;">
+                                Create Referral
+                            </button>
+                        `);
+                        $(errorBox).text('');
+                    }
+                }
+            });
+        }
+
+
+
         (function(){
+            $('#email').on('blur', function(){checkUnique('email', $(this).val(), '#emailError');});
+            $('#phone').on('blur', function(){checkUnique('phone', $(this).val(), '#phoneError');});
+            $('#username').on('blur', function(){checkUnique('username', $(this).val(), '#usernameError');});
+
             const form = document.getElementById('referralForm');
             const pwd = document.getElementById('password');
             const cpwd = document.getElementById('confirm_password');

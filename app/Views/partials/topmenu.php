@@ -53,47 +53,8 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="right-side">
-                                        <?php if ($session->get('isLoggedIn')) { ?>
-                                            <div class="onhover-dropdown header-badge ">
-                                                <button class="btn btn-sm wallet-pill rounded-pill px-3 py-2 d-flex align-items-center gap-2" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" title="Wallet details">
-                                                    <i class="bi bi-wallet2"></i>
-                                                    <span class="text-secondary-emphasis">Balance</span>
-                                                    <span id="balance-amount" class="fw-bold">৳ <span class="wallet_balance_amount" >12,540.00</span></span>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        <?php } ?>
-                                    </li>
                                     <li class="right-side onhover-dropdown">
-                                        <?php if ($session->get('isLoggedIn')) { ?>
-                                            <div class="delivery-login-box">
-                                                <div class="delivery-icon">
-                                                    <i data-feather="user"></i>
-                                                    <div class="">
-                                                        <h6>Hello,</h6>
-                                                        <h5><?= $session->get('userName'); ?></h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="onhover-div onhover-div-login">
-                                                <ul class="user-box-name">
-                                                    <li class="product-box-contain">
-                                                        <a href="">Profile</a>
-                                                    </li>
-                                                    <li class="product-box-contain">
-                                                        <a href="sign-up.html">Register</a>
-                                                    </li>
-                                                    <li class="product-box-contain">
-                                                        <a href="forgot.html">Forgot Password</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        <?php }else { ?>
-                                            <a href="login" class="btn btn-primary bg-primary text-white " >Login</a>
-                                        <?php } ?>
-
+                                        <a href="login" class="btn btn-primary bg-primary text-white " >Login</a>
                                     </li>
                                 </ul>
                             </div>

@@ -62,6 +62,12 @@ class User extends BaseController
                                            ->get()
                                            ->getRow();
 
+        $data['my_invest_package'] = $this->db->table('user_badge_s')
+                                            ->where('batch_user_inf_ids', $userId)
+                                            ->join('batch_details', 'batch_details.batch_detail_idd = user_badge_s.batch_b_detail_idds', 'left')
+                                            ->get()
+                                            ->getRow();
+
         $downlines = $this->getDownline($userId);
         $data['downline_count'] = count($downlines);
 
@@ -228,6 +234,7 @@ class User extends BaseController
         $data['product_sells'] = $this->db
                                  ->table('product_sells_infos')
                                  ->where('sell_user_idd', $userInfoId)
+                                 ->orderBy('product_sells_info_idd', 'DESC')
                                  ->join('product_information', 'product_sells_infos.product_unq_idd = product_information.id', 'left')
                                  ->get()
                                  ->getResult();

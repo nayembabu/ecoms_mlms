@@ -226,6 +226,10 @@
                       <i class="fas fa-history"></i>
                       <span>রেফার হিস্টোরি</span>
                   </a>
+                  <a href="user/inactive_referrals" class="action-btn btn-games">
+                      <i class="fa fa-user-times"></i>
+                      <span>ইনএকটিভ রেফার </span>
+                  </a>
                   <a href="user/add_referral" class="action-btn btn-games">
                       <i class="fas fa-user"></i>
                       <span>নতুন রেফারাল যোগ </span>
@@ -284,89 +288,63 @@
                 </div>
 
                 <!-- Investment Packages -->
-                <h2 class="text-center mb-5">আমার অ্যাকটিভ ইনভেস্টমেন্ট প্যাকেজসমূহ</h2>
                 <div class="row g-5">
-                    <!-- Package 1 -->
+
+                    <!--
                     <div class="col-lg-4 col-md-6">
-                        <div class="card-investment text-white p-4">
-                            <div class="text-center mb-4">
-                                <h4 class="fw-bold">Starter Pack</h4>
-                                <h2>৳৩০,০০০</h2>
-                            </div>
-                            <div class="progress-circle">
-                                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                    <h3 class="mb-0">70%</h3>
-                                    <small>সম্পন্ন</small>
+                            <div class="card-investment text-white p-4">
+                                <div class="text-center mb-4">
+                                    <h4 class="fw-bold">Starter Pack</h4>
+                                    <h2>৳৩০,০০০</h2>
                                 </div>
-                            </div>
-                            <ul class="list-unstyled mt-4 text-center">
-                                <li><strong>ROI পেয়েছেন:</strong> ৳২১,০০০</li>
-                                <li><strong>মেয়াদ:</strong> ১৮০ দিন</li>
-                                <li><strong>বাকি:</strong> ৫৪ দিন</li>
-                                <li><strong>দৈনিক রিটার্ন:</strong> ০.৮%</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Package 2 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card-investment text-white p-4">
-                            <div class="text-center mb-4">
-                                <h4 class="fw-bold text-success">Pro Pack</h4>
-                                <h2>৳৭৫,০০০</h2>
-                            </div>
-                            <div class="progress-circle">
-                                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                    <h3 class="mb-0">60%</h3>
-                                    <small>সম্পন্ন</small>
+                                <div class="progress-circle">
+                                    <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                        <h3 class="mb-0">70%</h3>
+                                        <small>সম্পন্ন</small>
+                                    </div>
                                 </div>
+                                <ul class="list-unstyled mt-4 text-center">
+                                    <li><strong>ROI পেয়েছেন:</strong> ৳২১,০০০</li>
+                                    <li><strong>মেয়াদ:</strong> ১৮০ দিন</li>
+                                    <li><strong>বাকি:</strong> ৫৪ দিন</li>
+                                    <li><strong>দৈনিক রিটার্ন:</strong> ০.৮%</li>
+                                </ul>
                             </div>
-                            <ul class="list-unstyled mt-4 text-center">
-                                <li><strong>ROI পেয়েছেন:</strong> ৳৪৫,০০০</li>
-                                <li><strong>মেয়াদ:</strong> ২৪০ দিন</li>
-                                <li><strong>বাকি:</strong> ৯৬ দিন</li>
-                                <li><strong>দৈনিক রিটার্ন:</strong> ১.০%</li>
-                            </ul>
                         </div>
-                    </div>
 
-                    <!-- Package 3 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card-investment text-white p-4">
-                            <div class="text-center mb-4">
-                                <h4 class="fw-bold text-warning">Premium Pack</h4>
-                                <h2>৳১,৫০,০০০</h2>
-                            </div>
-                            <div class="progress-circle">
-                                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                    <h3 class="mb-0">40%</h3>
-                                    <small>সম্পন্ন</small>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled mt-4 text-center">
-                                <li><strong>ROI পেয়েছেন:</strong> ৳৬০,০০০</li>
-                                <li><strong>মেয়াদ:</strong> ৩৬৫ দিন</li>
-                                <li><strong>বাকি:</strong> ২১৯ দিন</li>
-                                <li><strong>দৈনিক রিটার্ন:</strong> ১.২%</li>
-                            </ul>
+                    </div> -->
+
+                    <!-- Referral Link -->
+                    <div class="glass p-5 rounded-4 mt-5 text-center">
+                        <h4 class="mb-4">তোমার ব্যক্তিগত রেফারেল লিঙ্ক</h4>
+                        <div class="input-group input-group-lg w-75 mx-auto">
+                            <input type="text" class="form-control" value="<?= base_url('register_ref/' . $my_info->user_reffer_code_times) ?>" id="referralLink" readonly>
+                            <button class="btn btn-outline-light btn-lg px-5"  onclick="copyLink()"><i class="fas fa-copy me-2"></i>কপি করুন</button>
                         </div>
+                        <p class="mt-4 fs-5 opacity-90">এখন পর্যন্ত <strong class="text-warning"><?= $downline_count; ?> জন</strong> তোমার টিম যোগ হয়েছে! 🔥</p>
                     </div>
-                </div>
-
-                <!-- Referral Link -->
-                <div class="glass p-5 rounded-4 mt-5 text-center">
-                    <h4 class="mb-4">তোমার ব্যক্তিগত রেফারেল লিঙ্ক</h4>
-                    <div class="input-group input-group-lg w-75 mx-auto">
-                        <input type="text" class="form-control text-center fs-5" value="https://elitemlm.com/ref=rahim2025" readonly>
-                        <button class="btn btn-outline-light btn-lg px-5"><i class="fas fa-copy me-2"></i>কপি করুন</button>
-                    </div>
-                    <p class="mt-4 fs-5 opacity-90">এখন পর্যন্ত <strong class="text-warning">৯২ জন</strong> তোমার লিঙ্ক থেকে জয়েন করেছে! 🔥</p>
-                </div>
-
 
               <?php } ?>
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("referralLink");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Referral link copied!");
+        }
+    </script>
+
+
+
+
+
+
+
 
 

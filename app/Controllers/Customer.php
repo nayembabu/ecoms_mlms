@@ -418,12 +418,13 @@ class Customer extends BaseController
         $new_user_id = $this->db->insertID();
         // Insert into user_login_details
         $data_login = [
-            'user_name'      => $username,
-            'user_emails'    => $email_no,
-            'user_password'  => password_hash($password, PASSWORD_BCRYPT),
-            'password_show'  => $password,
-            'status'         => 1,
-            'login_user_idd' => $new_user_id
+            'user_name'             => $username,
+            'user_emails'           => $email_no,
+            'user_password'         => password_hash($password, PASSWORD_BCRYPT),
+            'password_show'         => $password,
+            'user_phone_numbers'    => $phone,
+            'status'                => 1,
+            'login_user_idd'        => $new_user_id
         ];
         $this->db->table('user_login_details')->insert($data_login);
 
@@ -654,7 +655,6 @@ class Customer extends BaseController
                                             ->getResult();
                 return $this->template->front('user/my_invest_package_single_view_file', $data);
             }
-
         }
     }
 
@@ -668,9 +668,15 @@ class Customer extends BaseController
         return $this->template->front('user/withdraw_history_all', $data);
     }
 
-
-
-
-
+    public function my_inactive_referral_lists()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['referrals'] = $this->db->table('temp_user_reffer')
+                                        ->where('rreffer_main_id', $userInfoId)
+                                        ->join('user_full_info', 'user_full_info.user_full_info_idd = temp_user_reffer.ref_reffer_user_idd', 'left')
+                                        ->get()
+                                        ->getResult();
+        return $this->template->front('user/my_inactive_referrals_file', $data);
+    }
 
 }

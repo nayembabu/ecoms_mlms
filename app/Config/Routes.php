@@ -14,6 +14,7 @@
 
     $routes->post('login_check', 'Auth::login_check');
     $routes->post('new_referral_added', 'Home::new_referral_added_user');
+    $routes->post('check-unique', 'Home::checkUnique');
 
     // Only allow users with session userRole == 'super' to access admin routes
     $routes->group('admin', ['filter' => 'auth'], function($routes) {
@@ -35,6 +36,7 @@
         $routes->get('withdraw', 'Customer::withdraw_my_wallet_balance');
         $routes->get('set_account_number', 'Customer::set_account_number');
         $routes->get('referrals', 'Customer::my_referrals_list');
+        $routes->get('inactive_referrals', 'Customer::my_inactive_referral_lists');
         $routes->get('add_referral', 'Customer::add_new_referral_view');
         $routes->get('viewAllProducts', 'Customer::view_all_products');
         $routes->get('incomeDetails', 'User::income_details_sho_here_view_file');

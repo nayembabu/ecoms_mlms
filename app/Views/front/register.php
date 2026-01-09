@@ -155,7 +155,7 @@
                       <i class="fa-solid fa-id-card"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <input type="text" class="form-control rk-control" id="full_name" name="user_full_name" required>
+                      <input type="text" class="form-control rk-control" id="full_name" name="user_full_name" required >
                       <label for="full_name">Full Name</label>
                     </div>
                   </div>
@@ -168,8 +168,8 @@
                       <i class="fa-solid fa-user"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <input type="text" class="form-control rk-control" id="u_name" name="userNam" required>
-                      <label for="u_name">Username</label>
+                      <input type="text" class="form-control rk-control" id="username" name="userNam" required >
+                      <label for="username">Username</label>
                     </div>
                   </div>
                 </div>
@@ -181,7 +181,7 @@
                       <i class="fa-solid fa-phone"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <input type="text" class="form-control rk-control" id="phone" name="user_phone" required>
+                      <input type="text" class="form-control rk-control" id="phone" name="user_phone" required >
                       <label for="phone">Phone</label>
                     </div>
                   </div>
@@ -194,8 +194,8 @@
                       <i class="fa-solid fa-envelope"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <input type="email" class="form-control rk-control" id="user_email" name="user_email" required>
-                      <label for="user_email">Email</label>
+                      <input type="email" class="form-control rk-control" id="email" name="user_email" required >
+                      <label for="email">Email</label>
                     </div>
                   </div>
                 </div>
@@ -218,7 +218,7 @@
                       <i class="fa-solid fa-location-dot"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <textarea class="form-control rk-control" id="user_full_address" name="user_full_address" style="height: 100px;" required></textarea>
+                      <textarea class="form-control rk-control" id="user_full_address" name="user_full_address" style="height: 100px;" required ></textarea>
                       <label for="user_full_address">Address</label>
                     </div>
                   </div>
@@ -231,7 +231,7 @@
                       <i class="fa-solid fa-lock"></i>
                     </span>
                     <div class="form-floating flex-grow-1">
-                      <input type="password" class="form-control rk-control" id="user_password" name="user_password" required>
+                      <input type="password" class="form-control rk-control" id="user_password" name="user_password" required >
                       <label for="user_password">Password</label>
                     </div>
                   </div>
@@ -240,7 +240,7 @@
                 <!-- Terms -->
                 <div class="col-12 d-flex align-items-center">
                   <div class="form-check m-0">
-                    <input class="form-check-input" type="checkbox" id="agree" required>
+                    <input class="form-check-input" type="checkbox" id="agree" required >
                     <label class="form-check-label text-white-50" for="agree">
                       I agree to the Terms & Privacy Policy
                     </label>
@@ -248,12 +248,7 @@
                 </div>
 
                 <!-- Submit -->
-                <div class="col-12">
-                  <button class="btn rk-btn w-100 text-white fw-bold" type="submit">
-                    <span class="rk-sheen"></span>
-                    <i class="fa-solid fa-user-check me-2"></i> Create Account
-                  </button>
-                </div>
+                <div class="col-12 submit_btn_assign "></div>
               </form>
 
               <div class="text-center mt-4">
@@ -269,6 +264,39 @@
 
   <!-- Particle Animation Script -->
   <script>
+
+    function checkUnique(field, value, errorBox){
+        if(value === '') return;
+
+        $.ajax({
+            url: "/check-unique",
+            type: "POST",
+            data: {
+                field: field,
+                value: value
+            },
+            success: function(res){
+                if(res.status === 'error'){
+                    $(errorBox).text(res.message);
+                    $('.submit_btn_assign').html(``);
+                }else{
+                    $('.submit_btn_assign').html(`
+                      <button type="submit" class="btn rk-btn w-100 text-white fw-bold" >
+                        <span class="rk-sheen"></span>
+                        <i class="fa-solid fa-user-check me-2"></i> Create Account
+                      </button>
+                    `);
+                    $(errorBox).text('');
+                }
+            }
+        });
+    }
+
+    $('#email').on('blur', function(){checkUnique('email', $(this).val(), '#emailError');});
+    $('#phone').on('blur', function(){checkUnique('phone', $(this).val(), '#phoneError');});
+    $('#username').on('blur', function(){checkUnique('username', $(this).val(), '#usernameError');});
+
+
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
