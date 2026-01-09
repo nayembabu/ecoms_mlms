@@ -378,6 +378,14 @@ class Customer extends BaseController
                                     ->get()
                                     ->getRow();
 
+        $data['present_reffers'] = $this->db->table('user_reffer a')
+                                    ->where('a.reffer_main_idd', $userInfoId)
+                                    ->join('user_full_info b', 'a.reffer_ref_user_idd = b.user_full_info_idd', 'left')
+                                    ->join('user_badge_s c', 'a.reffer_ref_user_idd = c.batch_user_inf_ids', 'left')
+                                    ->where('c.batch_b_detail_idds', $data['batch_users']->batch_detail_idd)
+                                    ->get()
+                                    ->getResult();
+
         $this->template->front('user/my_referrals_list_view', $data);
     }
 

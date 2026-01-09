@@ -16,6 +16,14 @@
 
 <body>
 
+<style>
+    @media (max-width: 1000px) {
+        .navbar-brand img {
+            display: none !important;
+        }
+    }
+</style>
+
     <!-- Loader Start -->
     <div class="fullpage-loader">
         <span></span>
@@ -36,7 +44,7 @@
                     <div class="col-12" >
                         <div class="navbar-top">
                             <a href="" class="web-logo nav-logo">
-                                <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 40% !important; border-radius: 20px;  " class="img-fluid blur-up lazyload" alt="">
+                                <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 40% !important; border-radius: 20px !important;  " class="img-fluid blur-up lazyload" alt="">
                             </a>
 
 
@@ -70,18 +78,21 @@
     <!-- Top Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-diagram-3-fill me-2"></i><?= $setting->vendor_name; ?></a>
-                <div class="navbar-w-250 me-auto d-flex align-items-center">
-                    <div class="btn-group align-items-center">
-                        <a href="user/myWallet" class="bg-light btn btn-sm btn-light d-flex align-items-center rounded" title="Wallet">
-                            <i class="fas fa-hand-holding-usd fs-3 me-3"></i>
-                            <div class="text-start">
-                                <small class="d-block fs-6 ">Balance</small>
-                                <strong class="d-block fs-5 ">৳ <span class="this_wallet_amount " >0</span></strong>
-                            </div>
-                        </a>
-                    </div>
+            <a class="navbar-brand fw-bold" href="/user/dashboard">
+                <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 10% !important; border-radius: 20px !important;  " class="img-fluid blur-up lazyload d-none d-sm-inline-block d-md-inline-block" alt="">
+                <b><?= $setting->vendor_name; ?></b>
+            </a>
+            <div class="navbar-w-250 me-auto d-flex align-items-center " style="background-color: #f8f9fa; border-radius: 10px;" >
+                <div class="btn-group align-items-center">
+                    <a href="user/myWallet" class="bg-light btn btn-sm btn-light d-flex align-items-center rounded" title="Wallet">
+                        <i class="fas fa-hand-holding-usd fs-3 me-3"></i>
+                        <div class="text-start">
+                            <small class="d-block fs-6 ">Balance</small>
+                            <strong class="d-block fs-5 ">৳ <span class="this_wallet_amount " >0</span></strong>
+                        </div>
+                    </a>
                 </div>
+            </div>
             <button class="navbar-toggler" onclick="toggleMenu()"  data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" type="button" ><span class="navbar-toggler-icon"></span></button>
             <div class=" collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">

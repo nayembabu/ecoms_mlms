@@ -59,7 +59,7 @@
                                         <div class="small text-white-50">Available</div>
                                     </div>
                                     <div class="text-end">
-                                        <span class="balance-badge bg-white text-dark">Fee: 5%</span>
+                                        <span class="balance-badge bg-white text-dark">Fee: <?php echo $setting->withdraw_percentige; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 
                                     <div class="mb-3 row g-2">
                                         <div class="col">
-                                            <label class="form-label small text-muted">Fee (5%)</label>
+                                            <label class="form-label small text-muted">Fee (<?php echo $setting->withdraw_percentige; ?>%)</label>
                                             <div class="form-control-plaintext" id="feeDisplay">0.00</div>
                                         </div>
                                         <div class="col">

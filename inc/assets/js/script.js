@@ -318,12 +318,19 @@ document.addEventListener("readystatechange", (event) => {
     const readyState = "complete";
     if (document.readyState == readyState) {
         loaderEl.classList.add("fullpage-loader--invisible");
-
         setTimeout(() => {
             loaderEl.parentNode.removeChild(loaderEl);
         }, 100);
     }
 });
+
+
+
+
+
+
+
+
 
 /*=====================
     15. header Dropdown Js
