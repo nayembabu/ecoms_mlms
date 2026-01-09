@@ -293,6 +293,13 @@ class User extends BaseController
         $product_buy_id = $this->request->getPost('product_buy_id');
         $product_id = $this->request->getPost('product_id');
 
+        $product_profit_check = $this->db
+                                    ->table('product_profit_continue_check')
+                                    ->where('product_sells_lot_id', $sells_id)
+                                    ->where('now_profit_days_date', date('Y-m-d', time()))
+                                    ->get()
+                                    ->getRow();
+
         $product_sells_info = $this->db
                                  ->table('product_sells_infos')
                                  ->where('product_sells_info_idd', $sells_id)
@@ -300,45 +307,48 @@ class User extends BaseController
                                  ->get()
                                  ->getRow();
 
-        if ($product_sells_info) {
-            $ths = $this->db
-                        ->table('product_profit_continue_check')
-                        ->where('product_sells_lot_id', $product_sells_info->product_sells_info_idd)
-                        ->countAllResults();
-            if ($ths < 7) {
-                $this->db->table('product_profit_continue_check')->insert([
-                    "user_info_id_info"         => $userInfoId,
-                    "product_id_infosss"        => $product_sells_info->product_unq_idd,
-                    "product_buy_lot_iddsdds"   => $product_sells_info->product_buy_lot_id,
-                    "product_sells_lot_id"      => $product_sells_info->product_sells_info_idd,
-                    "profit_amountsss"          => $product_sells_info->profit_amounts,
-                    "now_profit_days_date"      => date('Y-m-d', time()),
-                    "now_profit_days_times"     => time(),
-                ]);
+        if ($product_profit_check) {
+            return;
+        }else {
+            if ($product_sells_info) {
+                $ths = $this->db
+                            ->table('product_profit_continue_check')
+                            ->where('product_sells_lot_id', $product_sells_info->product_sells_info_idd)
+                            ->countAllResults();
+                if ($ths < 7) {
+                    $this->db->table('product_profit_continue_check')->insert([
+                        "user_info_id_info"         => $userInfoId,
+                        "product_id_infosss"        => $product_sells_info->product_unq_idd,
+                        "product_buy_lot_iddsdds"   => $product_sells_info->product_buy_lot_id,
+                        "product_sells_lot_id"      => $product_sells_info->product_sells_info_idd,
+                        "profit_amountsss"          => $product_sells_info->profit_amounts,
+                        "now_profit_days_date"      => date('Y-m-d', time()),
+                        "now_profit_days_times"     => time(),
+                    ]);
 
-                $this->db->table('user_added_amounts')->insert([
-                    "added_amount"                  => $product_sells_info->profit_amounts,
-                    "user_info_id_addeds"           => $userInfoId,
-                    "amount_perpose"                => 'Products Profit added',
-                    "times_stamps"                  => time(),
-                ]);
+                    $this->db->table('user_added_amounts')->insert([
+                        "added_amount"                  => $product_sells_info->profit_amounts,
+                        "user_info_id_addeds"           => $userInfoId,
+                        "amount_perpose"                => 'Products Profit added',
+                        "times_stamps"                  => time(),
+                    ]);
 
-            }else if ($ths >= 7) {
-                $this->db->table('product_sells_infos')
-                         ->where('product_sells_info_idd', $product_sells_info->product_sells_info_idd)
-                         ->update([
-                            "return_product_price"  => 1,
-                            "return_date"           => date('Y-m-d', time())
-                         ]);
+                }else if ($ths >= 7) {
+                    $this->db->table('product_sells_infos')
+                            ->where('product_sells_info_idd', $product_sells_info->product_sells_info_idd)
+                            ->update([
+                                "return_product_price"  => 1,
+                                "return_date"           => date('Y-m-d', time())
+                            ]);
 
-                $this->db->table('user_added_amounts')->insert([
-                    "added_amount"                  => $product_sells_info->product_sell_price,
-                    "user_info_id_addeds"           => $userInfoId,
-                    "amount_perpose"                => 'Products Price Return',
-                    "times_stamps"                  => time(),
-                    "any_id_here"                   => $product_sells_info->product_unq_idd
-                ]);
-
+                    $this->db->table('user_added_amounts')->insert([
+                        "added_amount"                  => $product_sells_info->product_sell_price,
+                        "user_info_id_addeds"           => $userInfoId,
+                        "amount_perpose"                => 'Products Price Return',
+                        "times_stamps"                  => time(),
+                        "any_id_here"                   => $product_sells_info->product_unq_idd
+                    ]);
+                }
             }
         }
 

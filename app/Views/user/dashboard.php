@@ -163,6 +163,119 @@
             text-shadow: 0 2px 8px rgba(0,0,0,.6);
             line-height: 1.2;
         }
+
+
+        /* Profit Button css */
+
+        /* Floating Profit Button - Glow + Beautiful Bounce */
+        .floating-profit-btn {
+            position: absolute;
+            top: 150px;
+            right: 60px;
+            z-index: 1000;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ffcc00, #ffaa00);
+            color: #000;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            overflow: hidden;
+            animation: 
+                beautifulBounce 1.8s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                glowPulse 2.8s infinite ease-in-out;
+        }
+
+        /* Beautiful Bounce - উপর-নিচে লাফানো + হালকা ঘুরে + স্মুথ */
+        @keyframes beautifulBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            40% {
+                transform: translateY(-45px) scale(1.05) rotate(5deg);
+            }
+            60% {
+                transform: translateY(-20px) scale(0.98) rotate(-3deg);
+            }
+        }
+
+        /* Glow + হালকা পালস মিলিয়ে চকচকে ইফেক্ট */
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.7),
+                    0 0 40px rgba(255, 215, 0, 0.5),
+                    0 0 70px rgba(168, 85, 247, 0.4);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(255, 215, 0, 1),
+                    0 0 70px rgba(255, 215, 0, 0.8),
+                    0 0 120px rgba(168, 85, 247, 0.7);
+            }
+        }
+
+        .floating-profit-btn:hover {
+            animation-play-state: paused;
+            transform: translateY(-15px) scale(1.18);
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 1),
+                0 0 100px rgba(168, 85, 247, 0.9);
+            background: linear-gradient(135deg, #ffeb3b, #ffc107, #ff9800);
+        }
+
+        .floating-profit-btn:active {
+            transform: translateY(-5px) scale(1.08);
+        }
+
+        .profit-icon {
+            font-size: 2.6rem;
+            margin-bottom: 6px;
+            transition: transform 0.5s ease;
+        }
+
+        .profit-text {
+            font-size: 1.15rem;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .floating-profit-btn:hover .profit-icon {
+            transform: rotate(360deg) scale(1.35);
+        }
+
+        /* মোবাইল অ্যাডজাস্টমেন্ট */
+        @media (max-width: 576px) {
+            .floating-profit-btn {
+                width: 85px;
+                height: 85px;
+                top: 100px;
+                right: 20px;
+                font-size: 1rem;
+            }
+            .profit-icon {
+                font-size: 2.2rem;
+            }
+            .profit-text {
+                font-size: 0.9rem;
+            }
+            @keyframes beautifulBounce {
+                0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+                40% { transform: translateY(-35px) scale(1.04) rotate(4deg); }
+                60% { transform: translateY(-15px) scale(0.97) rotate(-2deg); }
+            }
+        }
+
+
+
+
+
+
     </style>
 
 
@@ -190,6 +303,14 @@
                   </div>
                 </div>
               <?php }else{ ?>
+
+                <!-- Animated Profit Button -->
+                 <div class="add_products_profit_show"></div>
+
+
+
+
+
 
                 <h2 class="text-center mb-4">দ্রুত অ্যাকশন</h2>
                 <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
@@ -249,8 +370,6 @@
 
 
 <h2 class="text-center mb-3 fw-bold">জনপ্রিয় গেমসগুলি</h2>
-
-
 <div class="row g-3 mb-5 ">
 
   <div class="col-6 col-md-3 col-lg-3">
@@ -341,6 +460,81 @@
             document.execCommand("copy");
             alert("Referral link copied!");
         }
+
+
+
+
+        get_uncompleted_products()
+        function get_uncompleted_products() {
+            $.ajax({
+                type: "post",
+                url: "user/getUncompletedProducts",
+                data: "",
+                dataType: "json",
+                success: function (r) {
+
+                    if (r.product_sell_status && r.product_sell_status.length > 0) {
+                        let html_view = '';
+
+                        for (let l = 0; l < r.product_sell_status.length; l++) {
+                            if (r.product_sell_status[l].status == 'n') {
+                                html_view += `<div class="floating-profit-btn add_profit_btns" id="profitBtn" sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" style="cursor: pointer;">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <i class="fas fa-trophy profit-icon"></i>
+                                                    <span class="profit-text"> Profit</span>
+                                                </div>
+                                            </div>`;
+                            }else if(r.product_sell_status[l].status == 'c') {
+                                html_view += `<div class="floating-profit-btn add_profit_btns" id="profitBtn" sells_id="${r.product_sell_status[l].sel_id}" product_id="${r.product_sell_status[l].prod_id}" product_buy_id="${r.product_sell_status[l].prod_buy_id}" profit="${r.product_sell_status[l].profit}" style="cursor: pointer;">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <i class="fas fa-trophy profit-icon"></i>
+                                                    <span class="profit-text"> Profit</span>
+                                                </div>
+                                            </div>`;
+                            }
+                        }
+                        $('.add_products_profit_show').html(html_view);
+                        assign_wallet_balance();
+                    }else {
+                        $('.add_products_profit_show').html('');
+                        assign_wallet_balance();
+                    }
+                }
+            });
+        }
+
+        $(document).on('click', '.add_profit_btns', function () {
+            let sells_id = $(this).attr('sells_id');
+            let product_id = $(this).attr('product_id');
+            let product_buy_id = $(this).attr('product_buy_id');
+            let profit = $(this).attr('profit');
+
+            $.ajax({
+                type: "post",
+                url: "user/add_profit_in_sell_products",
+                beaforeSend: function () {
+                    $('.add_products_profit_show').html(' ');
+                },
+                data: {
+                    sells_id: sells_id,
+                    product_buy_id: product_buy_id,
+                    product_id: product_id
+                },
+                success: function (ress) {
+                    get_uncompleted_products();
+                    assign_wallet_balance();
+                    Swal.fire({
+                        title: `অভিনন্দন! ${profit}/- যোগ হয়েছে।`,
+                        text: `অভিনন্দন! আপনার ক্রয়কৃত প্রোডাক্ট এর আজকের বোনাস যোগ হয়েছে। ${profit}/- `,
+                        icon: "success"
+                    });
+                }
+            });
+        });
+
+
+
+
     </script>
 
 
