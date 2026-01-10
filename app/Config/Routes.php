@@ -21,6 +21,7 @@
         $routes->get('dashboard', 'Admin::index');
         $routes->get('user', 'Admin::user_management');
         $routes->post('search_user_info', 'Admin::search_user_info');
+        $routes->post('single_user_profile', 'Admin::single_user_profile_info');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

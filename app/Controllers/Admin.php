@@ -51,23 +51,24 @@ class Admin extends BaseController
     public function search_user_info()
     {
         $query = $this->request->getPost('query');
-        $users = $this->db->table('user_full_info')
+        $users = $this->db->table('user_login_details')
                         ->groupStart()
                             ->where('user_emails', $query)
                             ->orWhere('user_name', $query)
                             ->orWhere('user_phone_numbers', $query)
+                            ->orWhere('user_reffer_code_times', $query)
                         ->groupEnd()
-                        ->join('user_in_role', '', 'left')
-                        ->join('role_details', '', 'left')
-                        ->join('user_login_details', '', 'left')
-                        ->join('user_badge_s', '', 'left')
-                        ->join('batch_details', ' ', 'left')
+                        ->join('user_full_info', 'user_login_details.login_user_idd = user_full_info.user_full_info_idd', 'left')
                         ->get()
                         ->getResult();
-
-
-        // $users = ;
         return $this->response->setJSON($users);
+    }
+
+    public function single_user_profile_info()
+    {
+        $user_id = $this->request->getPost('user_id');
+
+        
     }
 
 }

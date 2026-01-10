@@ -45,21 +45,7 @@
           <input type="text" class="form-control search_user_type_info " placeholder="মোবাইল, ইউজারনেম, ইমেইল লিখুন ">
           <div class="btn bg-dark text-white search_btn" >Search</div>
         </div>
-
-        <div class="result-dropdown shadow row g-4" id="searchResults">
-
-          <div class="col-md-4">
-              <div class="card shadow-sm" style="cursor: pointer; " >
-                  <div class="card-body text-center">
-                      <h5 class="card-title">Rahim Ahmed</h5>
-                      <p class="card-text mb-1"><strong>Email:</strong> rahim@gmail.com</p>
-                      <p class="card-text mb-1"><strong>Phone:</strong> 017XXXXXXXX</p>
-                      <span class="badge bg-success">Active</span>
-                  </div>
-              </div>
-          </div>
-
-        </div>
+        <div class="result-dropdown shadow row g-4 pb-4" id="searchResults"></div>
       </div>
     </div>
 
@@ -248,11 +234,44 @@ $(document).ready(function() {
         },
         dataType: "json",
         success: function (rsp) {
+        let html_card = '';
 
+        for (let l = 0; l < rsp.length; l++) {
+          html_card += `<div class="col-md-4">
+                          <div class="card shadow-sm single_user_info " user_info_id="${rsp[l].user_full_info_idd}" style="cursor: pointer; " >
+                              <div class="card-body text-center">
+                                  <h4 class="card-title"><b>${rsp[l].user_full_name}</b></h4>
+                                  <p class="card-text mb-1"><strong>Email:</strong> ${rsp[l].user_email_no}</p>
+                                  <p class="card-text mb-1"><strong>Phone:</strong> ${rsp[l].user_phone_no}</p>
+                                  <p class="card-text mb-1"><strong>Username:</strong> ${rsp[l].user_name}</p>
+                                  <p class="card-text mb-1"><strong>Address:</strong> ${rsp[l].user_full_address}</p>
+                                  <p class="card-text mb-1"><strong>ID:</strong> <span class="badge bg-success">${rsp[l].user_reffer_code_times}</span></p>
+                              </div>
+                          </div>
+                        </div>`;
+        }
+          $('#searchResults').html(html_card);
         }
       });
 
     }
+  });
+
+  $(document).on('click', '.single_user_info', function () {
+    let user_info_id = $(this).attr('user_info_id');
+
+    $.ajax({
+      type: "post",
+      url: "lead/single_user_profile",
+      data: {
+        user_id: user_info_id
+      },
+      dataType: "json",
+      success: function (response) {
+        
+      }
+    });
+
   });
 
 });
