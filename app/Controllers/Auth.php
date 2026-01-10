@@ -61,9 +61,9 @@ class Auth extends BaseController
 
         $user_find = $this->userModel
                     ->groupStart()
-                        ->where('user_emails', $email_no)
-                        ->orWhere('user_name', $username)
-                        ->orWhere('user_phone_numbers', $phone)
+                        ->where('user_emails', $user_email_no)
+                        ->orWhere('user_name', $user_name)
+                        ->orWhere('user_phone_numbers', $user_phone_no)
                     ->groupEnd()
                     ->first();
         if ($user_find) {
