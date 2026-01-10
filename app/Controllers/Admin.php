@@ -48,4 +48,26 @@ class Admin extends BaseController
         return $this->template->back('admin/user_management');
     }
 
+    public function search_user_info()
+    {
+        $query = $this->request->getPost('query');
+        $users = $this->db->table('user_full_info')
+                        ->groupStart()
+                            ->where('user_emails', $query)
+                            ->orWhere('user_name', $query)
+                            ->orWhere('user_phone_numbers', $query)
+                        ->groupEnd()
+                        ->join('user_in_role', '', 'left')
+                        ->join('role_details', '', 'left')
+                        ->join('user_login_details', '', 'left')
+                        ->join('user_badge_s', '', 'left')
+                        ->join('batch_details', '', 'left')
+                        ->get()
+                        ->getResult();
+
+
+        // $users = ;
+        return $this->response->setJSON($users);
+    }
+
 }

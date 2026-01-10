@@ -20,6 +20,7 @@
     $routes->group('lead', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'Admin::index');
         $routes->get('user', 'Admin::user_management');
+        $routes->post('search_user_info', 'Admin::search_user_info');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {
