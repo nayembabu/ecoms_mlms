@@ -17,8 +17,9 @@
     $routes->post('check-unique', 'Home::checkUnique');
 
     // Only allow users with session userRole == 'super' to access admin routes
-    $routes->group('admin', ['filter' => 'auth'], function($routes) {
+    $routes->group('lead', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'Admin::index');
+        $routes->get('user', 'Admin::user_management');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

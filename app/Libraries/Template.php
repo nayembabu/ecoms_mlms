@@ -46,9 +46,10 @@ class Template
 
     public function back($view, $data = [])
     {
-        echo view('partials/header', $data);
+        echo view('partials/ahead', $data);
+        echo view('partials/adminmenu', $data);
         echo view($view, $data);
-        echo view('partials/footer', $data);
+        echo view('partials/afoot', $data);
     }
 
 }

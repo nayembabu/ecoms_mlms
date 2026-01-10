@@ -39,7 +39,7 @@
     <?php $session = $session ?? \Config\Services::session(); if ($session->get('isLoggedIn')) { ?>
         <style>
             body {background: #f7f9fc;font-family: 'Times New Roman';}
-            .navbar {background: linear-gradient(90deg, #0d6efd, #2563eb);box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+            .navbar {background: linear-gradient(90deg, #032d6c, #0e327f);box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
             .navbar-brand, .navbar-nav .nav-link {color: #fff !important; transition: 0.3s ease;}
             .navbar-nav .nav-link:hover {color: #ffe082 !important;}
             .user-info {display: flex; align-items: center; gap: 10px; color: #fff;}

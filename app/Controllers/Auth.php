@@ -142,7 +142,7 @@ class Auth extends BaseController
 
                 if ($user['role_names'] === 'super') {
                     $session->setFlashdata('success', 'Login successful');
-                    return redirect()->to('/admin/dashboard');
+                    return redirect()->to('/lead/dashboard');
                 }elseif ($user['role_names'] === 'cust') {
                     $session->setFlashdata('success', 'Login successful');
                     return redirect()->to('/user/dashboard');

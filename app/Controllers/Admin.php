@@ -43,5 +43,9 @@ class Admin extends BaseController
     {
         return $this->template->back('admin/dashboard');
     }
+    public function user_management()
+    {
+        return $this->template->back('admin/user_management');
+    }
 
 }
