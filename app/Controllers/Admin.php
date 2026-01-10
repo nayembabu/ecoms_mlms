@@ -61,7 +61,7 @@ class Admin extends BaseController
                         ->join('role_details', '', 'left')
                         ->join('user_login_details', '', 'left')
                         ->join('user_badge_s', '', 'left')
-                        ->join('batch_details', '', 'left')
+                        ->join('batch_details', ' ', 'left')
                         ->get()
                         ->getResult();
 
