@@ -85,6 +85,9 @@ class Teams
                 $data['message'] = 'Product purchased successfully.';
                 echo json_encode($data);
             }else {
+                $this->db->table('user_full_info')
+                         ->where('user_full_info_idd', $userInfoId)
+                         ->update(['sts' => 1]);
                 $this->db->table('user_cutted_amnt')->insert([
                     'user_cut_user_idd' => $userInfoId,
                     'cutting_perpose'   => 'Product Purchase - ' . $user_buying_id->product_name,

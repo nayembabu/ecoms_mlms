@@ -8,7 +8,7 @@ class RegModel extends Model
 {
     protected $table='user_full_info';
     protected $primaryKey='user_full_info_idd';
-    protected $allowedFields=[ 'user_full_info_idd', 'user_full_name', 'user_full_address', 'user_email_no', 'user_phone_no', 'user_pro_pic_paths', ];
+    protected $allowedFields=[ 'user_full_info_idd', 'user_full_name', 'user_full_address', 'user_email_no', 'user_phone_no', 'user_pro_pic_paths', 'user_reffer_code_times', 'sts', 'join_date', 'join_timming'];
 
     public function insertData($userData, $loginData, $roleData)
     {

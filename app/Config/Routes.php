@@ -22,6 +22,8 @@
         $routes->get('user', 'Admin::user_management');
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
+        $routes->post('add_user_wallet_amount', 'Admin::add_user_wallet_amount');
+        $routes->post('user_wallet_amount_cut', 'Admin::user_wallet_amount_cut');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

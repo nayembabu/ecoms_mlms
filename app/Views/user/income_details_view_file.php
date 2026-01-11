@@ -74,13 +74,15 @@
                             <h3 class="text-warning">৳ <?= number_format($games_income_amnt, 2); ?></h3>
                         </div>
                     </a>
-                    <a class="col-xl-3 col-md-6" href="user/daily_check" >
-                        <div class="glass p-4 text-center income-card shadow">
-                            <i class="bi bi-calendar-check fs-1 text-primary"></i>
-                            <h5 class="mt-3">ডেইলি চেক-ইন বোনাস</h5>
-                            <h3 class="text-primary">৳ <?= number_format($daily_income_amnt, 2); ?></h3>
-                        </div>
-                    </a>
+                    <!--
+                        <a class="col-xl-3 col-md-6" href="user/daily_check" >
+                            <div class="glass p-4 text-center income-card shadow">
+                                <i class="bi bi-calendar-check fs-1 text-primary"></i>
+                                <h5 class="mt-3">ডেইলি চেক-ইন বোনাস</h5>
+                                <h3 class="text-primary">৳ <?= number_format($daily_income_amnt, 2); ?></h3>
+                            </div>
+                        </a>
+                     -->
                 </div>
 
                 <!-- বিস্তারিত ইনকাম টেবিল (এই মাসের) -->

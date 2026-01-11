@@ -77,6 +77,8 @@ class Auth extends BaseController
             'user_pro_pic_paths'        => $user_pro_pic_paths,
             'user_reffer_code_times'    => time(),
             'sts'                       => 0,
+            'join_date'                 => date('Y-m-d',time()),
+            'join_timming'              => time(),
         ];
 
         $loginData = [
