@@ -132,6 +132,7 @@
       renderProducts(filtered);
     });
 
+    // <del>৳ <span class="text-danger">${parseFloat(product.selling_pricess) + (parseFloat(product.selling_pricess)*20/100)}</span></del>
     function renderProducts(products) {
       let html_view = '';
       products.forEach(product => {
@@ -144,7 +145,7 @@
                           </div>
                           <div class="card-body">
                             <h3 class="fw-semibold mb-1">${product.product_name.split(' ').slice(0, 2).join(' ')}</h3>
-                            <div class="price mb-2 fs-5">৳ <span>${product.selling_pricess}</span> <del>৳ <span class="text-danger">${parseFloat(product.selling_pricess) + (parseFloat(product.selling_pricess)*20/100)}</span></del></div>
+                            <div class="price mb-2 fs-5">৳ <span>${product.selling_pricess}</span> </div>
                             <div class="d-flex gap-2">
                               <button class="btn btn-primary bg-primary text-white btn-sm flex-fill fw-bold rounded-3 buy_this_products_single" data_product_id="${product.id}" data_buying_id="${product.product_buying_info_idd}"><i class="fas fa-shopping-bag me-1"></i> Buy Now</button>
                               <button class="btn btn-outline-dark btn-sm bg-dark text-white view_this_products" data-bs-toggle="modal" data-bs-target="#products_view_modal" data_product_id="${product.id}" data_buying_id="${product.product_buying_info_idd}" ><i class="fas fa-eye"></i></button>

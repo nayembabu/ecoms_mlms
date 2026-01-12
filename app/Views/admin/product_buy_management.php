@@ -62,23 +62,9 @@
         <div class="container py-5">
 
             <!-- Product Grid -->
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 assign_product_here ">
 
-                <div class="col">
-                    <div class="card h-100 product-card shadow-lg bg-white">
-                        <div class="position-relative">
-                            <img src="https://media.istockphoto.com/id/2162431408/photo/sleek-blue-headphones-on-white-background.jpg?s=612x612&w=0&k=20&c=WyQ-bUslLSnirpxZ6zJNQnht7jnEtCz0bSkfasG1cSc=" class="card-img-top" alt="হেডফোন Wireless">
-                            <span class="position-absolute top-0 end-0 bg-danger text-white px-3 py-1 rounded-start m-2 fw-bold">Sale 20%</span>
-                        </div>
-                        <div class="card-body d-flex flex-column" style="cursor: pointer; ">
-                            <h5 class="card-title fw-bold">হেডফোন Wireless</h5>
-                            <p class="card-text text-muted flex-grow-1">নয়েজ ক্যানসেলেশন সহ প্রিমিয়াম সাউন্ড কোয়ালিটি।</p>
-                            <div class="mt-auto">
-                                <span class="price-badge text-primary">৳৮,৫০০</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
             </div>
         </div>
@@ -97,7 +83,22 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">প্রোডাক্টের নাম</label>
+                                    <select name="product_name" id="product_name" class="form-control" required>
+                                        <option value="" disabled selected>প্রোডাক্ট নির্বাচন করুন</option>
+                                        <?php foreach ($products as $pd) { ?>
+                                            <option value="<?php echo $pd->id; ?>"><?php echo $pd->product_name; ?> - <?php echo $pd->product_model; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">দাম (৳)</label>
+                                    <input type="text" class="form-control" placeholder="35000" required>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold">প্রোডাক্টের নাম</label>
@@ -105,19 +106,14 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold">দাম (৳)</label>
-                                    <input type="number" class="form-control" placeholder="35000" required>
+                                    <input type="text" class="form-control" placeholder="35000" required>
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">প্রোডাক্ট ইমেজ</label>
-                                <input type="file" class="form-control" id="productImage" accept="image/*">
-                                <img id="imagePreview" class="img-fluid d-none" alt="প্রিভিউ">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">বিবরণ</label>
                                 <textarea class="form-control" rows="4" placeholder="প্রোডাক্টের বিস্তারিত বিবরণ..."></textarea>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-danger rounded-pill text-white " data-bs-dismiss="modal">বাতিল</button>
@@ -127,29 +123,89 @@
             </div>
         </div>
 
-
-
-
+            <!-- Edit Product Modal -->
+        <div class="modal fade" id="editProductModalThis" tabindex="-1" aria-labelledby="editProductModalThisLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalThisLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <script>
-            document.getElementById('productImage').addEventListener('change', function(e) {
-                const preview = document.getElementById('imagePreview');
-                if (e.target.files && e.target.files[0]) {
-                    preview.src = URL.createObjectURL(e.target.files[0]);
-                    preview.classList.remove('d-none');
-                }
+            // <p class="price-badge text-danger text-end"><del>৳৮,৫০০</del></p>
+            function getAllProductBuyIno() {
+                $.ajax({
+                    type: "get",
+                    url: "lead/getAllProductBuyIno",
+                    data: "",
+                    dataType: "json",
+                    success: function (resp) {
+                        let html = '';
+                        resp.forEach(function(item) {
+                            html += `<div class="col">
+                                        <div class="card h-100 product-card shadow-lg bg-white">
+                                            <div class="position-relative">
+                                                <img src="${item.image_thumb}" class="card-img-top" alt="${item.product_name}">
+                                                <span class="position-absolute top-0 end-0 bg-danger text-white px-3 py-1 rounded-start m-2 fw-bold">${item.product_in_stock}/${item.product_buy_qnty}</span>
+                                                <span class="position-absolute top-0 start-0 bg-success text-white px-3 py-1 rounded-start m-2 fw-bold">${item.daily_profits_amount} × ${item.continue_days}</span>
+                                            </div>
+                                            <div class="card-body d-flex flex-column editProductThis" style="cursor: pointer; " data-bs-toggle="modal" data-bs-target="#editProductModalThis" product_id="${item.id}" >
+                                                <h5 class="card-title fw-bold">${item.product_name}</h5>
+                                                <p class="card-text text-muted flex-grow-1">${item.product_model}</p>
+                                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                                    <p class="price-badge text-primary text-start">৳${item.selling_pricess}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                        });
+                        $('.assign_product_here').html(html);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                getAllProductBuyIno();
+
+                $(document).on('click', '.editProductThis', function() {
+                    const productId = $(this).attr('product_id');
+
+                    $.ajax({
+                        type: "post",
+                        url: "lead/single_product_buy_profile_info",
+                        data: { product_id: productId },
+                        dataType: "json",
+                        success: function (resp) {
+                            let modalBody = `
+                                <div class="modal-header">
+                                    <h5 class="modal-title">${resp.product_name}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body
+                                    <img src="${resp.image_thumb}" class="img-fluid mb-3" alt="${resp.product_name}">
+                                    <p><strong>মডেল:</strong> ${resp.product_model}</p>
+                                    <p><strong>বিবরণ:</strong> ${resp.product_description}</p>
+                                    <p><strong>মূল্য:</strong> ৳${resp.selling_pricess}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            `;
+                            $('#editProductModalThis .modal-content').html(modalBody);
+                        }
+                    });
+                });
             });
         </script>
-
-
-
-
-
-
-
-
-
 
 
 

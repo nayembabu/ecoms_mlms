@@ -190,14 +190,38 @@ class Admin extends BaseController
     }
 
     public function get_all_products()
+        {
+            $all_products = $this->db->table('product_information')
+                                        ->orderBy('id', 'DESC')
+                                        ->join('category', 'category.cat_id = product_information.category_id', 'left')
+                                        ->join('sub_category', 'sub_category.sub_cat_idd = product_information.product_subcat_id', 'left')
+                                        ->get()
+                                        ->getResult();
+            return $this->response->setJSON($all_products);
+    }
+
+    public function get_all_product_buy_info()
     {
-        $all_products = $this->db->table('product_information')
-                                    ->orderBy('id', 'DESC')
-                                    ->join('category', 'category.cat_id = product_information.category_id', 'left')
-                                    ->join('sub_category', 'sub_category.sub_cat_idd = product_information.product_subcat_id', 'left')
-                                    ->get()
-                                    ->getResult();
-        return $this->response->setJSON($all_products);
+        $data = $this->db->table('product_buying_info')
+                        ->where('product_in_stock !=', 0)
+                        ->orderBy('product_buying_info_idd', 'DESC')
+                        ->join('product_information', 'product_information.id = product_buying_info.product_buy_product_idd', 'left')
+                        ->join('category', 'category.cat_id = product_information.category_id', 'left')
+                        ->join('sub_category', 'sub_category.sub_cat_idd = product_information.product_subcat_id', 'left')
+                        ->get()
+                        ->getResult();
+        return $this->response->setJSON($data);
+    }
+
+    public function single_product_buy_profile_info()
+    {
+        $product_id = $this->request->getPost('product_id');
+        $data = $this->db->table('product_buying_info')
+                        ->where('product_buying_info_idd', $product_id)
+                        ->join('product_information', 'product_information.id = product_buying_info.product_buy_product_idd', 'left')
+                        ->get()
+                        ->getRow();
+        return $this->response->setJSON($data);
     }
 
     public function delete_product_this()
@@ -235,7 +259,7 @@ class Admin extends BaseController
                             'category_id'           => $this->request->getPost('category'),
                             'product_subcat_id'     => $this->request->getPost('subcategory'),
                             'product_details'       => $this->request->getPost('details'),
-                            'image_thumb'           => $newName,
+                            'image_thumb'           => $uploadPath.''.$newName,
                         ]);
 
         return $this->response->setJSON([
