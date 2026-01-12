@@ -126,6 +126,10 @@ class Auth extends BaseController
                         ->first();
             if ($user && password_verify($password, $user['user_password'])) {
 
+                if ($user['status'] == 2) {
+                    return redirect()->to('/login')->with('error', 'Your account is suspended.');
+                }
+
                 $this->db_login_info->insert([
                     'logged_user_id'    => $user['login_user_idd'],
                     'logged_time'       => time(),

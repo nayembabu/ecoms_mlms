@@ -122,4 +122,123 @@ class Admin extends BaseController
         return $this->response->setJSON(['status' => 'success']);
     }
 
+    public function account_activate_deactivate()
+    {
+        $user_id = $this->request->getPost('user_id');
+        
+        $current_status = $this->db->table('user_login_details')
+                                ->where('login_user_idd', $user_id)
+                                ->get()
+                                ->getRow()
+                                ->status;
+        $new_status = ($current_status == 1) ? 0 : 1;
+        $this->db->table('user_login_details')
+                ->where('login_user_idd', $user_id)
+                ->update(['status' => $new_status]);
+        $this->db->table('user_full_info')
+                ->where('user_full_info_idd', $user_id)
+                ->update(['sts' => $new_status]);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function account_suspend_activate()
+    {
+        $user_id = $this->request->getPost('user_id');
+        $current_status = $this->db->table('user_login_details')
+                                ->where('login_user_idd', $user_id)
+                                ->get()
+                                ->getRow()
+                                ->status;
+        $new_status = ($current_status == 2) ? 1 : 2;
+        $this->db->table('user_login_details')
+                ->where('login_user_idd', $user_id)
+                ->update(['status' => $new_status]);
+        $this->db->table('user_full_info')
+                ->where('user_full_info_idd', $user_id)
+                ->update(['sts' => $new_status]);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function product_management()
+    {
+        $data['categories'] = $this->db->table('category')
+                                    ->get()
+                                    ->getResult();
+        $data['sub_categories'] = $this->db->table('sub_category')
+                                    ->get()
+                                    ->getResult();
+        return $this->template->back('admin/product_management', $data);
+    }
+
+    public function product_buy_management()
+    {
+        return $this->template->back('admin/product_buy_management');
+    }
+
+    public function category_management()
+    {
+        return $this->template->back('admin/category_management');
+    }
+
+    public function subcategory_management()
+    {
+        return $this->template->back('admin/subcategory_management');
+    }
+
+    public function get_all_products()
+    {
+        $all_products = $this->db->table('product_information')
+                                    ->orderBy('id', 'DESC')
+                                    ->join('category', 'category.cat_id = product_information.category_id', 'left')
+                                    ->join('sub_category', 'sub_category.sub_cat_idd = product_information.product_subcat_id', 'left')
+                                    ->get()
+                                    ->getResult();
+        return $this->response->setJSON($all_products);
+    }
+
+    public function delete_product_this()
+    {
+        $product_id = $this->request->getPost('product_id');
+        $this->db->table('product_information')
+                ->where('id', $product_id)
+                ->delete();
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function store_new_product()
+    {
+        $image = $this->request->getFile('image');
+
+        if (!$image->isValid()) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'ছবি সঠিক নয়'
+            ]);
+        }
+
+        $newName = $image->getRandomName();
+        $uploadPath = 'inc/img/products_img/';
+        $image->move($uploadPath, $newName);
+
+        // 🔥 Resize & Compress
+        $imageService = Services::image()
+            ->withFile($uploadPath . $newName)
+            ->resize(600, 600, true, 'width')
+            ->save($uploadPath . $newName, 65);
+
+        $this->db->table('product_information')->insert([
+                            'product_name'          => $this->request->getPost('name'),
+                            'category_id'           => $this->request->getPost('category'),
+                            'product_subcat_id'     => $this->request->getPost('subcategory'),
+                            'product_details'       => $this->request->getPost('details'),
+                            'image_thumb'           => $newName,
+                        ]);
+
+        return $this->response->setJSON([
+            'status' => 'success'
+        ]);
+    }
+
+
+
 }

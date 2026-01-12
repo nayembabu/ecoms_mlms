@@ -20,10 +20,21 @@
     $routes->group('lead', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'Admin::index');
         $routes->get('user', 'Admin::user_management');
+        $routes->get('product', 'Admin::product_management');
+        $routes->get('product_buy', 'Admin::product_buy_management');
+        $routes->get('category', 'Admin::category_management');
+        $routes->get('subcat', 'Admin::subcategory_management');
+
+        $routes->get('getAllProducts', 'Admin::get_all_products');
+
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
         $routes->post('add_user_wallet_amount', 'Admin::add_user_wallet_amount');
         $routes->post('user_wallet_amount_cut', 'Admin::user_wallet_amount_cut');
+        $routes->post('account_activate_deactivate', 'Admin::account_activate_deactivate');
+        $routes->post('account_suspend_activate', 'Admin::account_suspend_activate');
+        $routes->post('deleteProduct', 'Admin::delete_product_this');
+        $routes->post('store_new_product', 'Admin::store_new_product');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {
