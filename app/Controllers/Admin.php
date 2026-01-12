@@ -31,6 +31,7 @@ class Admin extends BaseController
         $this->userModel    = new UserModel();
 
         $role = $this->session->get('userRole');
+        $userInfoId = $this->session->get('userInfoId');
         if ($role == 'cust') {
             $this->session->destroy();
             helper('url');
@@ -125,7 +126,7 @@ class Admin extends BaseController
     public function account_activate_deactivate()
     {
         $user_id = $this->request->getPost('user_id');
-        
+
         $current_status = $this->db->table('user_login_details')
                                 ->where('login_user_idd', $user_id)
                                 ->get()
@@ -172,7 +173,10 @@ class Admin extends BaseController
 
     public function product_buy_management()
     {
-        return $this->template->back('admin/product_buy_management');
+        $data['products'] = $this->db->table('product_information')
+                                    ->get()
+                                    ->getResult();
+        return $this->template->back('admin/product_buy_management', $data);
     }
 
     public function category_management()

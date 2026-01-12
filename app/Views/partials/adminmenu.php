@@ -30,25 +30,27 @@
     <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="lead/dashboard">হোম</a>
+          <a class="nav-link fs-5 fw-bold " href="lead/dashboard">হোম</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="lead/user">পোলাপান</a>
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="lead/user">পোলাপান</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="lead/product">পন্য</a>
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="lead/product">পন্য</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="lead/product_buy">পন্য ক্রয়</a>
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="lead/product_buy">পন্য ক্রয়</a>
         </li>
+        <!--
         <li class="nav-item">
           <a class="nav-link" href="lead/category">Cat</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="lead/subcat">SubCat</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="logout">লগআউট</a>
+        -->
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="logout">লগআউট</a>
         </li>
       </ul>
     </div>
