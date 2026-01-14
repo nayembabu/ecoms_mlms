@@ -119,9 +119,6 @@
                         <label class="form-label">সাব-ক্যাটাগরি</label>
                         <select class="form-select addProduct_subcategory">
                             <option selected>সাব-ক্যাটাগরি নির্বাচন করুন</option>
-                            <?php foreach($sub_categories as $subcat): ?>
-                                <option value="<?= $subcat->sub_cat_idd; ?>"><?= $subcat->sub_cat_names; ?></option>
-                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -339,6 +336,27 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $(document).on('change', '.addProduct_category', function () {
+        let category_id = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "lead/getSubcategories",
+            data: { category_id: category_id },
+            dataType: "json",
+            success: function (response) {
+                $('.addProduct_subcategory').empty();
+                $.each(response, function (key, value) {
+                    $('.addProduct_subcategory').append('<option selected>সাব-ক্যাটাগরি নির্বাচন করুন</option><option value="' + value.sub_cat_idd + '">' + value.sub_cat_names + '</option>');
+                });
+            }
+        });
+    });
+
+
+
+
+
 </script>
 
 

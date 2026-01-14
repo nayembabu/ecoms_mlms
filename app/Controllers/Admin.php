@@ -267,6 +267,42 @@ class Admin extends BaseController
         ]);
     }
 
+    public function get_subcategories_by_category()
+    {
+        $category_id = $this->request->getGet('category_id');
+        $subcategories = $this->db->table('sub_category')
+                                ->where('subcat_cat_id', $category_id)
+                                ->get()
+                                ->getResult();
+        return $this->response->setJSON($subcategories);
+    }
+
+    public function add_product_buy_info()
+    {
+        $product_id         = $this->request->getPost('product_id');
+        $product_buy_price  = $this->request->getPost('product_buy_price');
+        $product_buy_qnty   = $this->request->getPost('product_buy_qnty');
+        $daily_profits_percent = $this->request->getPost('daily_profits_percent');
+        $daily_profits_amount  = $this->request->getPost('daily_profits_amount');
+        $continue_days         = $this->request->getPost('continue_days');
+
+        // product_buy_product_idd	buying_dates	continue_days	expire_datess	daily_profits_amount	product_buy_qnty	product_in_stock	timesstampss	buying_prices	selling_pricess	discount_price	profit_percentagessss 
+        $this->db->table('product_buying_info')->insert([
+                'product_buy_product_idd'     => $product_id,
+                'buying_dates'                => date('Y-m-d', time()),
+                'continue_days'               => $continue_days,
+                'expire_datess'               => date('Y-m-d', strtotime('+'.$continue_days.' days')),
+                'daily_profits_amount'        => $daily_profits_amount,
+                'product_buy_qnty'            => $product_buy_qnty,
+                'product_in_stock'            => $product_buy_qnty,
+                'timesstampss'                => time(),
+                'selling_pricess'             => $product_buy_price,
+                'profit_percentagessss'       => $daily_profits_percent,
+            ]);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
 
 
 }

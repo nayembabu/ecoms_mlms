@@ -27,6 +27,7 @@
 
         $routes->get('getAllProducts', 'Admin::get_all_products');
         $routes->get('getAllProductBuyIno', 'Admin::get_all_product_buy_info');
+        $routes->get('getSubcategories', 'Admin::get_subcategories_by_category');
 
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
@@ -37,6 +38,7 @@
         $routes->post('deleteProduct', 'Admin::delete_product_this');
         $routes->post('store_new_product', 'Admin::store_new_product');
         $routes->post('single_product_buy_profile_info', 'Admin::single_product_buy_profile_info');
+        $routes->post('add_product_buy_info', 'Admin::add_product_buy_info');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

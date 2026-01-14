@@ -479,8 +479,6 @@ class Customer extends BaseController
         ];
         $this->db->table('user_cutted_amnt')->insert($data_deduct);
 
-	// user_added_amount_idd 	added_amount 	user_info_id_addeds 	amount_perpose 	payment_description 	times_stamps 	any_id_here
-
         $data_added = [
             'added_amount'               => $transfer_amount,
             'user_info_id_addeds'        => $user_id_transfer,

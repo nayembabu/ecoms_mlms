@@ -341,13 +341,13 @@ class User extends BaseController
                                 "return_date"           => date('Y-m-d', time())
                             ]);
 
-                    $this->db->table('user_added_amounts')->insert([
-                        "added_amount"                  => $product_sells_info->product_sell_price,
-                        "user_info_id_addeds"           => $userInfoId,
-                        "amount_perpose"                => 'Products Price Return',
-                        "times_stamps"                  => time(),
-                        "any_id_here"                   => $product_sells_info->product_unq_idd
-                    ]);
+                    // $this->db->table('user_added_amounts')->insert([
+                    //     "added_amount"                  => $product_sells_info->product_sell_price,
+                    //     "user_info_id_addeds"           => $userInfoId,
+                    //     "amount_perpose"                => 'Products Price Return',
+                    //     "times_stamps"                  => time(),
+                    //     "any_id_here"                   => $product_sells_info->product_unq_idd
+                    // ]);
                 }
             }
         }
