@@ -262,40 +262,68 @@ body { background:#f4f6f9; }
                 },
                 dataType: "json",
                 success: function (resp) {
-                    $('.user_info_show').html(
-                        `<div class="card-body d-flex justify-content-between align-items-center ${(resp.users_data.status == 2 ? 'bg-danger text-white' : '')} flex-wrap gap-3">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="avatar"><img src="${resp.users_data.user_pro_pic_paths}" style="width: 70px;border-radius: 20px;" alt="IMG"></div>
-                                <div class="user_detail_s" user_id="${resp.users_data.user_full_info_idd}" >
-                                    <h5 class="mb-0">${resp.users_data.user_full_name}</h5>
-                                    <small>ID: #${resp.users_data.user_reffer_code_times} | Rank: ${resp.users_data.batch_name}</small><br>
-                                    <span class="badge ${(resp.users_data.status == 0 ? 'bg-secondary' : 'bg-success')}">${(resp.users_data.status == 1 ? 'Active' : resp.users_data.status == 2 ? 'Suspend' : resp.users_data.status == 0 ? 'Inactive' : 'Error')}</span>
-                                    <span class="badge bg-info">KYC Verified</span>
+                    if (resp.users_data.role_role_idd == 1) {
+                            $('.user_info_show').html(
+                            `<div class="card-body d-flex justify-content-between align-items-center ${(resp.users_data.status == 2 ? 'bg-danger text-white' : '')} flex-wrap gap-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar"><img src="${resp.users_data.user_pro_pic_paths}" style="width: 70px;border-radius: 20px;" alt="IMG"></div>
+                                    <div class="user_detail_s" user_id="${resp.users_data.user_full_info_idd}" >
+                                        <h5 class="mb-0">${resp.users_data.user_full_name}</h5>
+                                        <small>ID: #${resp.users_data.user_reffer_code_times} | Rank: ${resp.users_data.batch_name}</small><br>
+                                        <span class="badge ${(resp.users_data.status == 0 ? 'bg-secondary' : 'bg-success')}">${(resp.users_data.status == 1 ? 'Active' : resp.users_data.status == 2 ? 'Suspend' : resp.users_data.status == 0 ? 'Inactive' : 'Error')}</span>
+                                        <span class="badge bg-info">KYC Verified</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="">
-                                <div class="card bg-dark text-white p-3 mb-2">
-                                    <small>Username: ${resp.users_data.user_name}</small>
-                                    <small>Password: ${resp.users_data.password_show}</small>
+                                <div class="">
+                                    <div class="card bg-dark text-white p-3 mb-2">
+                                        <small>Username: ${resp.users_data.user_name}</small>
+                                        <small>Password: ${resp.users_data.password_show}</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="">
-                                <div class="card stat-card p-3">
-                                    <small>Main Balance</small>
-                                    <h4>৳ ${resp.current_wallet_balance}</h4>
+                                <div class="">
+                                    <div class="card stat-card p-3">
+                                        <small>Main Balance</small>
+                                        <h4>৳ ${resp.current_wallet_balance}</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="btn btn-sm bg-danger text-white action-btn suspend_this_account "><i class="bi bi-lock"></i>Suspend</div>
-                                <div class="btn btn-sm ${(resp.users_data.status == 1 ? 'bg-secondary' : 'bg-success')} text-white action-btn ${(resp.users_data.status == 1 ? 'accountActivate' : 'accountActivate')}">${(resp.users_data.status == 1 ? '<i class="fas fa-times-circle"></i>' : '<i class="fas fa-check-circle"></i>')} ${(resp.users_data.status == 1 ? 'Inactive' : 'Active')}</div>
-                            </div>
-                            <div>
-                                <div class="btn btn-sm bg-success text-white action-btn amount_add_btn "><i class="fa fa-dollar"></i>Add Amount</div>
-                                <div class="btn btn-sm bg-warning text-white action-btn cut_amount_btn "><i class="fas fa-hand-holding-usd"></i>Cut Amount</div>
-                                <div class="custom-popover" id="customPopover"></div>
-                            </div>
-                        </div>`
-                    );
+                            </div>`
+                        );
+                    }else {
+                        $('.user_info_show').html(
+                            `<div class="card-body d-flex justify-content-between align-items-center ${(resp.users_data.status == 2 ? 'bg-danger text-white' : '')} flex-wrap gap-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar"><img src="${resp.users_data.user_pro_pic_paths}" style="width: 70px;border-radius: 20px;" alt="IMG"></div>
+                                    <div class="user_detail_s" user_id="${resp.users_data.user_full_info_idd}" >
+                                        <h5 class="mb-0">${resp.users_data.user_full_name}</h5>
+                                        <small>ID: #${resp.users_data.user_reffer_code_times} | Rank: ${resp.users_data.batch_name}</small><br>
+                                        <span class="badge ${(resp.users_data.status == 0 ? 'bg-secondary' : 'bg-success')}">${(resp.users_data.status == 1 ? 'Active' : resp.users_data.status == 2 ? 'Suspend' : resp.users_data.status == 0 ? 'Inactive' : 'Error')}</span>
+                                        <span class="badge bg-info">KYC Verified</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="card bg-dark text-white p-3 mb-2">
+                                        <small>Username: ${resp.users_data.user_name}</small>
+                                        <small>Password: ${resp.users_data.password_show}</small>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="card stat-card p-3">
+                                        <small>Main Balance</small>
+                                        <h4>৳ ${resp.current_wallet_balance}</h4>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn btn-sm bg-danger text-white action-btn suspend_this_account "><i class="bi bi-lock"></i>Suspend</div>
+                                    <div class="btn btn-sm ${(resp.users_data.status == 1 ? 'bg-secondary' : 'bg-success')} text-white action-btn ${(resp.users_data.status == 1 ? 'accountActivate' : 'accountActivate')}">${(resp.users_data.status == 1 ? '<i class="fas fa-times-circle"></i>' : '<i class="fas fa-check-circle"></i>')} ${(resp.users_data.status == 1 ? 'Inactive' : 'Active')}</div>
+                                </div>
+                                <div>
+                                    <div class="btn btn-sm bg-success text-white action-btn amount_add_btn "><i class="fa fa-dollar"></i>Add Amount</div>
+                                    <div class="btn btn-sm bg-warning text-white action-btn cut_amount_btn "><i class="fas fa-hand-holding-usd"></i>Cut Amount</div>
+                                    <div class="custom-popover" id="customPopover"></div>
+                                </div>
+                            </div>`
+                        );
+                    }
                 }
             });
         }

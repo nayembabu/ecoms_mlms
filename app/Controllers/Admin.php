@@ -32,7 +32,8 @@ class Admin extends BaseController
 
         $role = $this->session->get('userRole');
         $userInfoId = $this->session->get('userInfoId');
-        if ($role == 'cust') {
+
+        if ($role != 'super') {
             $this->session->destroy();
             helper('url');
             header('Location: ' . site_url('logout'));
