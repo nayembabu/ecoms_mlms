@@ -286,21 +286,34 @@ class Admin extends BaseController
         $daily_profits_amount  = $this->request->getPost('daily_profits_amount');
         $continue_days         = $this->request->getPost('continue_days');
 
-        // product_buy_product_idd	buying_dates	continue_days	expire_datess	daily_profits_amount	product_buy_qnty	product_in_stock	timesstampss	buying_prices	selling_pricess	discount_price	profit_percentagessss 
-        $this->db->table('product_buying_info')->insert([
-                'product_buy_product_idd'     => $product_id,
-                'buying_dates'                => date('Y-m-d', time()),
-                'continue_days'               => $continue_days,
-                'expire_datess'               => date('Y-m-d', strtotime('+'.$continue_days.' days')),
-                'daily_profits_amount'        => $daily_profits_amount,
-                'product_buy_qnty'            => $product_buy_qnty,
-                'product_in_stock'            => $product_buy_qnty,
-                'timesstampss'                => time(),
-                'selling_pricess'             => $product_buy_price,
-                'profit_percentagessss'       => $daily_profits_percent,
-            ]);
+        if (empty($product_id) || empty($product_buy_price) || empty($product_buy_qnty) || empty($daily_profits_percent) || empty($daily_profits_amount) || empty($continue_days)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'সব তথ্য প্রদান করুন।']);
+        }elseif (!is_numeric($product_buy_price) || !is_numeric($product_buy_qnty) || !is_numeric($daily_profits_percent) || !is_numeric($daily_profits_amount) || !is_numeric($continue_days)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'সংখ্যাগত মান প্রদান করুন।']);
+        }elseif ($product_buy_qnty <= 0 || $daily_profits_percent <= 0 || $daily_profits_amount <= 0 || $continue_days <= 0) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'শূন্য বা ঋণাত্মক মান গ্রহণযোগ্য নয়।']);
+        }elseif ($daily_profits_amount > $product_buy_price) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'দৈনিক লাভের পরিমাণ প্রোডাক্টের মূল্যের চেয়ে বেশি হতে পারে না।']);
+        }elseif (($daily_profits_percent / 100) * $product_buy_price != $daily_profits_amount) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'দৈনিক লাভের শতাংশ এবং পরিমাণের মধ্যে সামঞ্জস্য নেই।']);
+        }elseif ($continue_days < 1) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'চালানোর দিন সংখ্যা কমপক্ষে ১ হতে হবে।']);
+        }else {
+            $this->db->table('product_buying_info')->insert([
+                    'product_buy_product_idd'     => $product_id,
+                    'buying_dates'                => date('Y-m-d', time()),
+                    'continue_days'               => $continue_days,
+                    'expire_datess'               => date('Y-m-d', strtotime('+'.$continue_days.' days')),
+                    'daily_profits_amount'        => $daily_profits_amount,
+                    'product_buy_qnty'            => $product_buy_qnty,
+                    'product_in_stock'            => $product_buy_qnty,
+                    'timesstampss'                => time(),
+                    'selling_pricess'             => $product_buy_price,
+                    'profit_percentagessss'       => $daily_profits_percent,
+                ]);
 
-        return $this->response->setJSON(['status' => 'success']);
+            return $this->response->setJSON(['status' => 'success']);
+        }
     }
 
 

@@ -247,7 +247,7 @@
                                     timer: 2500
                                 });
                             } else {
-                                toastr.warning(res.message);
+                                toastr.warning(resp.message);
                             }
                         },
                         error: function () {
