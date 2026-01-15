@@ -262,7 +262,7 @@ body { background:#f4f6f9; }
                 },
                 dataType: "json",
                 success: function (resp) {
-                    if (resp.users_data.role_role_idd == 1) {
+                    if (resp.users_data.user_full_info_idd == 1 || resp.users_data.user_full_info_idd == 2 ) {
                             $('.user_info_show').html(
                             `<div class="card-body d-flex justify-content-between align-items-center ${(resp.users_data.status == 2 ? 'bg-danger text-white' : '')} flex-wrap gap-3">
                                 <div class="d-flex align-items-center gap-3">
