@@ -461,9 +461,6 @@
             alert("Referral link copied!");
         }
 
-
-
-
         get_uncompleted_products()
         function get_uncompleted_products() {
             $.ajax({

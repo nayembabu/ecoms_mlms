@@ -43,7 +43,32 @@ class Admin extends BaseController
 
     public function index()
     {
-        return $this->template->back('admin/dashboard');
+        $data['user_added_wallet'] = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $data['user_used_wallet'] = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $data['current_wallet_balance'] = $data['user_added_wallet'] - $data['user_used_wallet'];
+
+        $data['ttl_product_sell'] = $this->db->table('product_sells_infos')
+                                    ->selectSum('product_sell_price')
+                                    ->get()
+                                    ->getRow()
+                                    ->product_sell_price;
+        $data['package_enroll_total'] = $this->db->table('user_package_enroll')
+                                    ->selectSum('invested_amount')
+                                    ->get()
+                                    ->getRow()
+                                    ->invested_amount;
+
+
+
+        return $this->template->back('admin/dashboard', $data);
     }
     public function user_management()
     {
