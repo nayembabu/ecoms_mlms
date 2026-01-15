@@ -226,7 +226,7 @@
                         type: "post",
                         url: "lead/add_product_buy_info",
                         data: {
-                            product_name: productName,
+                            product_id: productName,
                             product_buy_price: productBuyPrice,
                             product_buy_qnty: productBuyQnty,
                             daily_profits_percent: dailyProfitsPercent,
@@ -237,7 +237,7 @@
                         success: function (resp) {
                             if (resp.status === 'success') {
                                 getAllProductBuyIno();
-                                $('#addModalForm').modal('hide');
+                                $('#addProductModal').modal('hide');
                                 Swal.fire({
                                     title: "সফল!",
                                     text: "নতুন প্রোডাক্ট সফলভাবে যোগ করা হয়েছে!",

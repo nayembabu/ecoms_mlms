@@ -62,6 +62,7 @@
                                     <th>প্রোডাক্টের নাম</th>
                                     <th>ক্যাটাগরি</th>
                                     <th>সাব-ক্যাটাগরি</th>
+                                    <th>মডেল</th>
                                     <th>পন্য বিস্তারিত</th>
                                     <th>অ্যাকশন</th>
                                 </tr>
@@ -124,6 +125,12 @@
 
                     <!-- Product Details -->
                     <div class="mb-3">
+                        <label class="form-label">পণ্যের মডেল</label>
+                        <input type="text" class="form-control addProduct_modelDetails" placeholder="প্রোডাক্টের মডেল লিখুন">
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="mb-3">
                         <label class="form-label">পণ্য বিস্তারিত</label>
                         <textarea class="form-control addProduct_details" rows="4" placeholder="পণ্যের বিস্তারিত লিখুন"></textarea>
                     </div>
@@ -149,8 +156,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-
 
 
                 <div>
@@ -241,6 +246,9 @@
                                 ${product.sub_cat_names}
                             </td>
                             <td>
+                                ${product.product_model}
+                            </td>
+                            <td>
                                 ${product.product_details}
                             </td>
                             <td>
@@ -292,6 +300,7 @@
                 formData.append('name', $('.addProduct_name').val());
                 formData.append('category', $('.addProduct_category').val());
                 formData.append('subcategory', $('.addProduct_subcategory').val());
+                formData.append('model', $('.addProduct_modelDetails').val());
                 formData.append('details', $('.addProduct_details').val());
 
                 $.ajax({
@@ -304,6 +313,7 @@
                     success: function (res) {
                         if (res.status === 'success') {
                             fetchTotalProducts();
+                            $('#addModalForm').modal('hide');
                             Swal.fire({
                                 title: "সফল!",
                                 text: "নতুন প্রোডাক্ট সফলভাবে যোগ করা হয়েছে!",
@@ -347,7 +357,7 @@
             success: function (response) {
                 $('.addProduct_subcategory').empty();
                 $.each(response, function (key, value) {
-                    $('.addProduct_subcategory').append('<option selected>সাব-ক্যাটাগরি নির্বাচন করুন</option><option value="' + value.sub_cat_idd + '">' + value.sub_cat_names + '</option>');
+                    $('.addProduct_subcategory').append('<option value="' + value.sub_cat_idd + '">' + value.sub_cat_names + '</option>');
                 });
             }
         });

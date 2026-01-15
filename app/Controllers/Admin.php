@@ -284,6 +284,7 @@ class Admin extends BaseController
                             'product_name'          => $this->request->getPost('name'),
                             'category_id'           => $this->request->getPost('category'),
                             'product_subcat_id'     => $this->request->getPost('subcategory'),
+                            'product_model'     => $this->request->getPost('model'),
                             'product_details'       => $this->request->getPost('details'),
                             'image_thumb'           => $uploadPath.''.$newName,
                         ]);
