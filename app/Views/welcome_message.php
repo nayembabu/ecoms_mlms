@@ -14,11 +14,20 @@
 		<link type="text/css" rel="stylesheet" href="inc/front/electro/css/nouislider.min.css"/>
 		<link rel="stylesheet" href="inc/front/electro/css/font-awesome.min.css">
 		<link type="text/css" rel="stylesheet" href="inc/front/electro/css/style.css"/>
+        <style>
+            #top-header{
+                position: fixed;
+                left: 0;
+                width: 100%;
+                z-index: 9999;
+                background: #111; /* আপনার হেডারের ব্যাকগ্রাউন্ড */
+            }
+        </style>
     </head>
 	<body>
 
 		<header>
-			<div id="top-header">
+			<div id="top-header" >
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a href="#"><i class="fa fa-phone"></i> +88016169533</a></li>
@@ -26,6 +35,8 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stone Collony Road, Dhaka</a></li>
 					</ul>
 					<ul class="header-links pull-right">
+						<li><a href="login" class="btn btn-primary text-white ">Login</a></li>
+						<li><a href="register" class="btn btn-success text-white ">Register</a></li>
 						<li><a href="#">৳ BDT</a></li>
 					</ul>
 				</div>
@@ -37,12 +48,12 @@
 				<!-- container -->
 				<div class="container">
 					<!-- row -->
-					<div class="row">
+					<div class="row" style="margin-top: 50px;">
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
                                 <a href="" class="web-logo nav-logo">
-                                    <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 30% !important; border-radius: 20px !important;  " class="img-fluid blur-up lazyload" alt="">
+                                    <img src="inc/front/assets/imgs/bg_icons.png" style="max-width: 20% !important; border-radius: 20px !important; " class="img-fluid blur-up lazyload" alt="">
                                 </a>
 							</div>
 						</div>
@@ -64,50 +75,10 @@
 
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
+                            <a href="login" class="btn btn-lg btn-primary text-white">Login</a>
+                            <a href="register" class="btn btn-lg btn-success text-white">Register</a>
 							<div class="header-ctn">
 
-								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<div class="qty">0</div>
-									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-
-											<div class="product-widget">
-												<div class="product-img">
-													<!-- <img src="inc/front/electro/img/product01.png" alt=""> -->
-												</div>
-												<div class="product-body">
-													<!-- <h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4> -->
-												</div>
-												<!-- <button class="delete"><i class="fa fa-close"></i></button> -->
-											</div>
-
-										</div>
-										<div class="cart-summary">
-											<small>0 Item(s) selected</small>
-											<h5>SUBTOTAL: ৳0.00</h5>
-										</div>
-										<div class="cart-btns">
-											<a href="#">View Cart</a>
-											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<!-- /Cart -->
-
-								<!-- Menu Toogle -->
-								<div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-								</div>
-								<!-- /Menu Toogle -->
 							</div>
 						</div>
 						<!-- /ACCOUNT -->
@@ -924,11 +895,6 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
 							<ul class="newsletter-follow">
 								<li>
 									<a href="https://www.facebook.com/royalchainnet"><i class="fa fa-facebook"></i></a>
@@ -969,9 +935,6 @@
 								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
 								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 							</ul>
-							<span class="copyright">
-								 <a href="https://templatespoint.net" target="_blank">TemplatesPoint</a>
-							</span>
 						</div>
 					</div>
 						<!-- /row -->
