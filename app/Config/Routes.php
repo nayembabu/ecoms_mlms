@@ -24,6 +24,8 @@
         $routes->get('product_buy', 'Admin::product_buy_management');
         $routes->get('category', 'Admin::category_management');
         $routes->get('subcat', 'Admin::subcategory_management');
+        $routes->get('addMoneySys', 'Admin::add_money_system');
+        $routes->get('costMoneySys', 'Admin::admin_cost_money_system');
 
         $routes->get('getAllProducts', 'Admin::get_all_products');
         $routes->get('getAllProductBuyIno', 'Admin::get_all_product_buy_info');
@@ -39,6 +41,8 @@
         $routes->post('store_new_product', 'Admin::store_new_product');
         $routes->post('single_product_buy_profile_info', 'Admin::single_product_buy_profile_info');
         $routes->post('add_product_buy_info', 'Admin::add_product_buy_info');
+        $routes->post('add_money_post_form', 'Admin::add_money_post_form');
+        $routes->post('add_post', 'Admin::add_post');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

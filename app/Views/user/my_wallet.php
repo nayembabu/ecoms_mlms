@@ -128,11 +128,14 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-primary text-white ">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Added Money Wallet </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body mb-5 mt-5 ">
-          <center><h1> Join our Telegram Group and recharge. </h1></center>
+          <center>
+            <h2> Join our Telegram Group and recharge. </h2>
+            <h1><a href="https://t.me/royalchainnet">Telegram Group</a></h1>
+          </center>
         </div>
       </div>
     </div>

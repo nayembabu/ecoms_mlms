@@ -41,14 +41,12 @@
         <li class="nav-item" style="margin-left: 20px;">
           <a class="nav-link fs-5 fw-bold " href="lead/product_buy">পন্য ক্রয়</a>
         </li>
-        <!--
-        <li class="nav-item">
-          <a class="nav-link" href="lead/category">Cat</a>
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="lead/addMoneySys">টাকা</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="lead/subcat">SubCat</a>
+        <li class="nav-item" style="margin-left: 20px;">
+          <a class="nav-link fs-5 fw-bold " href="lead/costMoneySys">খরচ</a>
         </li>
-        -->
         <li class="nav-item" style="margin-left: 20px;">
           <a class="nav-link fs-5 fw-bold " href="logout">লগআউট</a>
         </li>

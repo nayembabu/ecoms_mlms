@@ -65,8 +65,32 @@ class Admin extends BaseController
                                     ->get()
                                     ->getRow()
                                     ->invested_amount;
+        $data['approve_user'] = $this->db->table('user_reffer')
+                        ->get()
+                        ->getResult();
+        $data['temp_user'] = $this->db->table('temp_user_reffer')
+                        ->get()
+                        ->getResult();
 
-
+        $data['admin_add_money_total'] = $this->db->table('add_money_in_number')
+                                        ->orderBy('add_money_in_number', 'DESC')
+                                        ->get()
+                                        ->getResult();
+        $data['admin_added_amounts'] = $this->db->table('add_money_in_number')
+                                    ->selectSum('amount')
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        $data['admin_cost_money_total'] = $this->db->table('admin_cost_acount_system')
+                                    ->selectSum('amont_cost')
+                                    ->get()
+                                    ->getRow()
+                                    ->amont_cost;
+        $data['admin_cost_moneys'] = $this->db->table('admin_cost_acount_system')
+                                        ->orderBy('admin_cost_acount_system_iddd', 'DESC')
+                                        ->join('user_full_info', 'user_full_info.user_full_info_idd = admin_cost_acount_system.cost_user_idd', 'left')
+                                        ->get()
+                                        ->getResult();
 
         return $this->template->back('admin/dashboard', $data);
     }
@@ -341,6 +365,73 @@ class Admin extends BaseController
 
             return $this->response->setJSON(['status' => 'success']);
         }
+    }
+
+    public function add_money_system()
+    {
+        $data['add_money_in_numbers'] = $this->db->table('add_money_in_number')
+                                        ->orderBy('add_money_in_number', 'DESC')
+                                        ->get()
+                                        ->getResult();
+        $data['added_amount'] = $this->db->table('add_money_in_number')
+                                    ->selectSum('amount')
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        return $this->template->back('admin/add_money_system_form', $data);
+    }
+
+    public function admin_cost_money_system()
+    {
+        $data['cost_money_total'] = $this->db->table('admin_cost_acount_system')
+                                    ->selectSum('amont_cost')
+                                    ->get()
+                                    ->getRow()
+                                    ->amont_cost;
+        $data['admin_cost_money'] = $this->db->table('admin_cost_acount_system')
+                                        ->orderBy('admin_cost_acount_system_iddd', 'DESC')
+                                        ->join('user_full_info', 'user_full_info.user_full_info_idd = admin_cost_acount_system.cost_user_idd', 'left')
+                                        ->get()
+                                        ->getResult();
+        return $this->template->back('admin/cost_money_system_form', $data);
+    }
+
+    public function add_money_post_form()
+    {
+        $amount = $this->request->getPost('amount');
+        $payment_method = $this->request->getPost('payment_method');
+        $sender_mobile = $this->request->getPost('sender_mobile');
+        $our_mobile = $this->request->getPost('our_mobile');
+        $transaction_id = $this->request->getPost('transaction_id');
+        $transaction_date = $this->request->getPost('transaction_date');
+        $reference = $this->request->getPost('reference');
+
+        $this->db->table('add_money_in_number')->insert([
+            'amount'                => $amount,
+            'payment_typess'        => $payment_method,
+            'customer_number'       => $sender_mobile,
+            'number_account'        => $our_mobile,
+            'trnx_iddddd'           => $transaction_id,
+            'trx_datess'            => date('Y-m-d H:i:s', strtotime($transaction_date)),
+            'timessss'              => time(),
+            'adde_cause'            => 'added by admin',
+            'notesss'               => $reference,
+            'user_id'               => $this->session->get('userInfoId'),
+        ]);
+        return redirect()->back()->with('success', 'Success: Amount added successfully.');
+    }
+
+    public function add_post()
+    {
+        $this->db->table('admin_cost_acount_system')->insert([
+            'amont_cost'          => $this->request->getPost('amont_cost'),
+            'cost_user_idd'       => $this->session->get('userInfoId'),
+            'cost_causes_proper'  => $this->request->getPost('cost_causes_proper'),
+            'timessssss'          => time(),
+            'cost_provide_dates'  => date('Y-m-d', strtotime($this->request->getPost('submit_date'))),
+            'cost_provide_dates'  => date('Y-m-d', time()),
+        ]);
+        return redirect()->back()->with('success', 'Cost Added Successfully');
     }
 
 

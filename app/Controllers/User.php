@@ -113,6 +113,11 @@ class User extends BaseController
                                  ->profits_takas_amnt;
         $data['current_wallet_balance'] = $user_added_wallet - $user_used_wallet;
 
+        $data['dummy_user_data'] = $this->db->table('dummy_user_data')
+                                            ->where('id', 1)
+                                            ->get()
+                                            ->getRow();
+
         return $this->template->front('user/dashboard', $data);
     }
 

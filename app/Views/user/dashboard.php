@@ -1,4 +1,18 @@
 <?php use App\Libraries\BanglaConverter; ?>
+<?php
+
+    $names = json_decode($dummy_user_data->username);
+
+    // Step 2: Interval & Timestamp
+    $interval = 6 * 60 * 60; // 6 hours in seconds
+    $now = time();
+
+    // Step 3: Calculate index
+    $index = floor($now / $interval) % count($names);
+
+?>
+
+
 
 
 
@@ -276,6 +290,45 @@
 
 
 
+
+
+
+
+
+.casino-winner {
+    font-family: 'Impact', sans-serif;
+    font-size: 1.6rem;
+    background: linear-gradient(90deg, #ffd700, #ff6ec7, #00f0ff); /* gold → pink → cyan */
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px #ffd700, 0 0 10px #ff6ec7, 0 0 15px #00f0ff;
+    display: inline-block;
+    animation: neonShine 2.5s ease-in-out infinite alternate;
+}
+
+.casino-winner strong {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+@keyframes neonShine {
+    0% {
+        background-position: 0% 50%;
+        text-shadow: 0 0 5px #ffd700, 0 0 10px #ff6ec7, 0 0 15px #00f0ff;
+    }
+    50% {
+        background-position: 100% 50%;
+        text-shadow: 0 0 10px #f50101, 0 0 15px #3b0909, 0 0 25px #033636;
+    }
+    100% {
+        background-position: 0% 50%;
+        text-shadow: 0 0 5px #ffd700, 0 0 10px #ff6ec7, 0 0 15px #00f0ff;
+    }
+}
+
+
+
     </style>
 
 
@@ -283,13 +336,48 @@
         <div class="row g-0 ">
 
             <!-- Main Content -->
-            <div class="col-md-12 col-lg-12 p-5 mt-4 ">
+            <div class="col-md-12 col-lg-12 p-5  ">
+
+                <div class="" style="width: 80%; ">
+                    <marquee class="text-center py-3">
+                        <span style="font-family: 'Impact', sans-serif;font-size: 1.6rem;">সর্বোচ্চ রেফার দিয়ে ২,০০০/- জিতেছেন: <span class="casino-winner"> <?php echo " <strong> " . $names[$index].' </strong>'; ?> </span> অভিনন্দন! ✨</span>
+                    </marquee>
+                </div>
+
+
               <!-- Welcome Section Start -->
               <div class="glass p-5 rounded-4 mb-5 text-center">
                   <h1 class="display-4 mb-3">স্বাগতম, <strong style="background: linear-gradient(135deg,#ff9a9e,#fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><?= $my_info->user_full_name; ?></strong> <img width="80px" height="80px" src="<?= $user_batch->batch_img_path; ?>" alt="">✨</h1>
                   <p class="lead opacity-90">তারিখ: <?= date('d F, Y'); ?></p>
                   <span class="badge-premium fs-5"> <?= strtoupper($user_batch->batch_name.' Member'); ?> </span>
-              </div>
+
+                    <!-- Social Buttons -->
+                    <div class="d-flex justify-content-center gap-3 mt-3">
+
+                        <!-- Telegram -->
+                        <a href="https://t.me/royalchainnet" target="_blank" class="btn bg-primary text-white btn-lg rounded-circle p-3 shadow-sm" title="Telegram">
+                            <i class="fa-brands fa-telegram fa-lg"></i>
+                        </a>
+
+                        <!-- WhatsApp -->
+                        <a href="https://chat.whatsapp.com/B8BmwlfCr2t7ogo1ncv5Bm" target="_blank" class="btn bg-success text-white btn-lg rounded-circle p-3 shadow-sm" title="WhatsApp">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i>
+                        </a>
+
+                        <!-- Facebook Page -->
+                        <a href="https://facebook.com/royalchainnet" target="_blank" class="btn bg-primary text-white btn-lg rounded-circle p-3 shadow-sm" title="Facebook Page">
+                            <i class="fa-brands fa-facebook-f fa-lg"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
               <!-- Welcome Section End -->
               <?php if ($my_info->sts != 1) { ?>
                 <div class="glass p-5 rounded-4 mb-5 text-center">
@@ -311,7 +399,6 @@
 
 
 
-
                 <h2 class="text-center mb-4">দ্রুত অ্যাকশন</h2>
                 <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
                   <a href="user/product-sells-income" class="action-btn btn-games">
@@ -328,7 +415,7 @@
                   </a>
                   <a href="user/myWallet" class="action-btn btn-deposit">
                       <i class="fas fa-money-bill-wave"></i>
-                      <span>ওয়ালেট</span>
+                      <span>রিচার্জ</span>
                   </a>
                   <a href="user/withdraw" class="action-btn btn-withdraw">
                       <i class="fas fa-wallet"></i>
