@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="clckd" content="1b9426ff5dde5e9cee1b9034894eef48" />
     <base href="<?php echo base_url(); ?>" target="">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,8 +9,13 @@
     <meta name="description" content="Fastkart">
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
-    <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
 
+
+
+
+
+
+    <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
 
     <title>Royal Chain - Online Banking & Finance</title>
 

@@ -9,7 +9,7 @@
 		<!-- <meta name="pushsdk" content="7b21838f76778e9414bb918f1d156af6">
 		<meta name="ppck-ver" content="0a7bf77b8b055487cfd992913fbc9b83" />
 		<meta name="41f04eefc2c894ca45c05abb8be336623260fe33" content="41f04eefc2c894ca45c05abb8be336623260fe33" /> -->
-<meta name='admaven-placement' content=Bqjw6rTUH>
+		<!-- <meta name='admaven-placement' content=Bqjw6rTUH> -->
 
         <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
         <title>Royal Chain - Online Banking & Finance</title>
@@ -47,7 +47,7 @@
 	l.parentNode.insertBefore(s, l);
 	})({})
 </script> -->
-		
+
     </head>
 	<body>
 
@@ -981,5 +981,7 @@
 
 
 		<!-- <script type="text/javascript"> var infolinks_pid = 3443057; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script> -->
+
+
 	</body>
 </html>

@@ -76,6 +76,9 @@
         $routes->get('myPackage', 'Customer::my_invest_package_show_here');
         $routes->get('mySinglePackage/(:num)', 'Customer::my_invest_package_show_here_single_package/$1');
 
+        $routes->get('incomePage', 'Faucet::index');
+        $routes->get('autoIncomePage', 'Faucet::auto_income_page_view_fun');
+
         $routes->post('edit-profile','User::editProfile');
 
         $routes->post('buySingleProduct', 'Customer::buy_a_single_product');
@@ -95,6 +98,7 @@
         $routes->post('get_daily_check', 'User::get_daily_check_func');
         $routes->post('buy_a_ticket_s', 'User::buy_ticket_func');
         $routes->post('buySinglePackage', 'Customer::buy_single_package_action_form');
+        $routes->post('getAllAds', 'Faucet::get_all_ads_listing');
 
     });
 
