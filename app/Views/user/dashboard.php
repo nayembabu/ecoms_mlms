@@ -344,7 +344,6 @@
                     </marquee>
                 </div>
 
-
               <!-- Welcome Section Start -->
               <div class="glass p-5 rounded-4 mb-5 text-center">
                   <h1 class="display-4 mb-3">স্বাগতম, <strong style="background: linear-gradient(135deg,#ff9a9e,#fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><?= $my_info->user_full_name; ?></strong> <img width="80px" height="80px" src="<?= $user_batch->batch_img_path; ?>" alt="">✨</h1>
@@ -393,11 +392,7 @@
               <?php }else{ ?>
 
                 <!-- Animated Profit Button -->
-                 <div class="add_products_profit_show"></div>
-
-
-
-
+                <div class="add_products_profit_show"></div>
 
                 <h2 class="text-center mb-4">দ্রুত অ্যাকশন</h2>
                 <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">

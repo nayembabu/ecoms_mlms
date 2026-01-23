@@ -5,6 +5,12 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- <meta name="pushsdk" content="7b21838f76778e9414bb918f1d156af6">
+		<meta name="ppck-ver" content="0a7bf77b8b055487cfd992913fbc9b83" />
+		<meta name="41f04eefc2c894ca45c05abb8be336623260fe33" content="41f04eefc2c894ca45c05abb8be336623260fe33" /> -->
+<meta name='admaven-placement' content=Bqjw6rTUH>
+
         <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
         <title>Royal Chain - Online Banking & Finance</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -23,6 +29,25 @@
                 background: #111; /* আপনার হেডারের ব্যাকগ্রাউন্ড */
             }
         </style>
+
+
+
+        <!-- Popunder  -->
+		<!-- <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script>
+		<script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script> -->
+<!-- <script>
+	(function(foxc){
+	var d = document,
+		s = d.createElement('script'),
+		l = d.scripts[d.scripts.length - 1];
+	s.settings = foxc || {};
+	s.src = "\/\/humiliating-jump.com\/c\/D.9s6KbL2L5Tl_SdWEQ-9pN\/jHcR1\/NqTlQrxdNFCJ0-2uNKzHUw1sNIDsEP1S";
+	s.async = true;
+	s.referrerPolicy = 'no-referrer-when-downgrade';
+	l.parentNode.insertBefore(s, l);
+	})({})
+</script> -->
+		
     </head>
 	<body>
 
@@ -953,5 +978,8 @@
 		<script src="inc/front/electro/js/jquery.zoom.min.js"></script>
 		<script src="inc/front/electro/js/main.js"></script>
 
+
+
+		<!-- <script type="text/javascript"> var infolinks_pid = 3443057; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script> -->
 	</body>
 </html>

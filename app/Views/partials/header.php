@@ -9,6 +9,8 @@
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
     <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
+
+
     <title>Royal Chain - Online Banking & Finance</title>
 
     <!-- Google font -->
@@ -55,11 +57,14 @@
     <?php } ?>
 
         <!-- jQuery Connect  -->
-    <script src="inc/plugin/jq3.min.js"></script>
+    <script src="inc/plugin/jq3.min.js"></script> 
 
     <!-- jquery ui-->
     <script src="inc/plugin/jqui/jquery-ui.min.js"></script>
     <script src="inc/plugin/sweetalert2/dist/sweetalert2.min.js"></script>
+
+
+
 
 </head>
 

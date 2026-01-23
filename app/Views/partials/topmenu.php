@@ -16,6 +16,8 @@
 
 <body>
 
+ 
+ 
 <style>
     @media (max-width: 1000px) {
         .navbar-brand img {

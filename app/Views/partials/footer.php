@@ -83,6 +83,8 @@
             toastr.error("<?= esc(session()->getFlashdata('error')) ?>");
           </script>
         <?php endif; ?>
+         
+<script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
 
 
   </body>

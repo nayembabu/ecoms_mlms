@@ -305,41 +305,94 @@ class Customer extends BaseController
                                     ->get()
                                     ->getRow();
         $data['withdraw_history'] = $this->db->table('user_withdraw_request')
+                                    ->orderBy('user_withdraw_request_iddd', 'DESC')
                                     ->where('user_id_unp', $userInfoId)
                                     ->where('approve_status', 0)
                                     ->get()
                                     ->getResult();
+        $data['allReffer'] = $this->db->table('user_reffer')
+                             ->where('reffer_main_idd', $userInfoId)
+                             ->get()
+                             ->getResult();
         $this->template->front('user/withdraw_my_account_balanced', $data);
     }
 
-    public function withdraw_request() 
+    public function withdraw_request()
     {
         $userInfoId = $this->session->get('userInfoId');
-        $withdraw_amount = $this->request->getPost('withdraw_amount');
-        $additional_notes = $this->request->getPost('additional_notes');
 
-        $data = [
-            'user_id_unp' => $userInfoId,
-            'requ_amount_taka' => $withdraw_amount,
-            'additional_notes' => $additional_notes,
-            'approve_status' => 0,
-            'date_today' => date('Y-m-d'),
-            'today_times' => time()
+        $rules = [
+            'withdraw_amount' => [
+                'label'     => 'Withdraw Amount',
+                'rules'     => 'required|numeric|greater_than_equal_to[1000]|less_than_equal_to[25000]',
+                'errors'    => [
+                    'required'              => 'Withdraw amount দেওয়া বাধ্যতামূলক',
+                    'numeric'               => 'Withdraw amount অবশ্যই সংখ্যা হতে হবে',
+                    'greater_than_equal_to' => 'সর্বনিম্ন Withdraw Amount 1000 টাকা',
+                    'less_than_equal_to'    => 'সর্বোচ্চ Withdraw Amount 25000 টাকা'
+                ]
+            ],
+            'additional_notes' => [
+                'rules' => 'permit_empty|string|max_length[255]'
+            ]
         ];
-        $this->db->table('user_withdraw_request')->insert($data);
-        $last = $this->db->insertID();
 
-        $data = [
-            'user_cut_user_idd' => $userInfoId,
-            'cutting_amounts' => $withdraw_amount,
-            'cut_descs'     => $additional_notes,
-            'cutting_perpose' => 'withdraw_request',
-            'time_stamps' => time(),
-            'cut_any_idd' => $last
-        ];
-        $this->db->table('user_cutted_amnt')->insert($data);
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
 
-        return redirect()->to('/user/withdraw')->with('success', 'Your withdrawal request has been submitted successfully.');
+        $withdraw_amount    = $this->request->getPost('withdraw_amount');
+        $additional_notes   = $this->request->getPost('additional_notes');
+
+
+        $allReffer = $this->db->table('user_reffer')
+                             ->where('reffer_main_idd', $userInfoId)
+                             ->get()
+                             ->getResult();
+
+        $user_added_wallet = $this->db->table('user_added_amounts')
+                                    ->selectSum('added_amount')
+                                    ->where('user_info_id_addeds', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->added_amount;
+        $user_used_wallet = $this->db->table('user_cutted_amnt')
+                                    ->selectSum('cutting_amounts')
+                                    ->where('user_cut_user_idd', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->cutting_amounts;
+        $current_wallet_balance = ($user_added_wallet - $user_used_wallet) - 2000;
+        if (count($allReffer) >= 4) {
+            if ($current_wallet_balance > $withdraw_amount) {
+                $data = [
+                    'user_id_unp'       => $userInfoId,
+                    'requ_amount_taka'  => $withdraw_amount,
+                    'additional_notes'  => $additional_notes,
+                    'approve_status'    => 0,
+                    'date_today'        => date('Y-m-d'),
+                    'today_times'       => time()
+                ];
+                $this->db->table('user_withdraw_request')->insert($data);
+                $last = $this->db->insertID();
+
+                $data = [
+                    'user_cut_user_idd' => $userInfoId,
+                    'cutting_amounts'   => $withdraw_amount,
+                    'cut_descs'         => $additional_notes,
+                    'cutting_perpose'   => 'withdraw_request',
+                    'time_stamps'       => time(),
+                    'cut_any_idd'       => $last
+                ];
+                $this->db->table('user_cutted_amnt')->insert($data);
+
+                return redirect()->to('/user/withdraw')->with('success', 'Your withdrawal request has been submitted successfully.');
+            }else {
+                return redirect()->to('/user/withdraw')->with('error', 'Your withdrawal balance is low. Your account value is ৳2,000 .');
+            }
+        }else {
+            return redirect()->to('/user/withdraw')->with('error', 'টাকা তুলতে হলে 4 জন রেফার করা লাগবে. ');
+        }
     }
 
     public function set_account_number()
@@ -418,6 +471,7 @@ class Customer extends BaseController
             'user_email_no'         => $email_no,
             'user_phone_no'         => $phone,
             'sts'                   => 0,
+            'user_pro_pic_paths'    => 'inc/img/user_pic/'.rand(0, 102).'.png',
             'user_reffer_code_times'=> time(),
             'join_date'             => date('Y-m-d'),
             'join_timming'          => time(),
@@ -449,6 +503,11 @@ class Customer extends BaseController
         ];
         $this->db->table('user_in_role')->insert($data_reffer);
 
+        $this->db->table('user_badge_s')->insert([
+            'batch_user_inf_ids'   => $new_user_id,
+            'batch_b_detail_idds'  => 1,
+            'timess'               => time(),
+        ]);
         return redirect()->to('/user/referrals')->with('success', 'New referral added successfully.');
     }
 
