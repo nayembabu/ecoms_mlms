@@ -1,4 +1,34 @@
 <?php use App\Libraries\BanglaConverter; ?>
+<style>
+    .action-btn {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border-radius: 50px;
+        padding: 12px 24px;
+        min-width: 180px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        transition: all 0.4s ease;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .action-btn i {
+        font-size: 1.8rem;
+        margin-right: 15px;
+        transition: all 0.3s;
+    }
+    .action-btn span {
+        font-size: 1.1rem;
+    }
+    .action-btn:hover {
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+    .action-btn:hover i {
+        transform: scale(1.2) rotate(10deg);
+    }
+</style>
 
 <div class="container">
     <div class="row">
@@ -75,4 +105,14 @@
     </div>
 </div>
 
+<div class="" >
+    <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
+
+        <a href="lead/adsManage" class="action-btn btn-games">
+            <i class="fas fa-basket-shopping"></i>
+            <span>Ads Management</span>
+        </a>
+
+    </div>
+</div>
 

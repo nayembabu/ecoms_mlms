@@ -10,6 +10,7 @@
 		<meta name="ppck-ver" content="0a7bf77b8b055487cfd992913fbc9b83" />
 		<meta name="41f04eefc2c894ca45c05abb8be336623260fe33" content="41f04eefc2c894ca45c05abb8be336623260fe33" /> -->
 		<!-- <meta name='admaven-placement' content=Bqjw6rTUH> -->
+		 <meta name="mnd-ver" content="e0kwfpcrw5ejvjohttyjw" />
 
         <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
         <title>Royal Chain - Online Banking & Finance</title>

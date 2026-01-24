@@ -434,6 +434,41 @@ class Admin extends BaseController
         return redirect()->back()->with('success', 'Cost Added Successfully');
     }
 
+    public function ads_management_check()
+    {
+        return $this->template->back('admin/ads_management');
+    }
+
+    public function get_all_ads_management_check()
+    {
+        $allAds = $this->db->table('ads_management_s')
+                                ->orderBy('id', 'DESC')
+                                ->get()
+                                ->getResult();
+        return $this->response->setJSON($allAds);
+    }
+
+    public function insert_new_ads_manage()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $adFormTitle     = $this->request->getPost('adFormTitle');
+        $adFormLink      = $this->request->getPost('adFormLink');
+        $adFormReward    = $this->request->getPost('adFormReward');
+        $adFormTime      = $this->request->getPost('adFormTime');
+
+        $this->db->table('ads_management_s')->insert([
+            'ads_image'          => 'inc/img/faucet_img/'.rand(1, 33).'.jpg',
+            'ads_title'          => $adFormTitle,
+            'ads_reward'         => $adFormReward,
+            'ads_view_time_sec'  => $adFormTime,
+            'views_k'            => rand(0.1, 4),
+            'ads_link'           => $adFormLink,
+            'create_user_id'     => $userInfoId,
+            'create_time'        => time(),
+        ]);
+
+    }
+
 
 
 }

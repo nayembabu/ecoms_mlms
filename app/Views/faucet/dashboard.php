@@ -31,7 +31,7 @@
     <style>
         body { background: #f8f9fa; color: #212529; }
         .navbar { background: linear-gradient(135deg, #0d6efd, #0a58ca); }
-        .hero-section { background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 50px 0; border-radius: 20px; }
+        .hero-section { background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 10px 0; border-radius: 20px; }
         .stat-card { background: white; border: none; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: all 0.4s; }
         .stat-card:hover { transform: translateY(-10px); }
         .ad-card { background: white; border: none; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: all 0.4s; overflow: hidden; }
@@ -119,9 +119,8 @@
     <script src="inc/plugin/sweetalert2/dist/sweetalert2.min.js"></script>
 
 
-
-
-    <!-- <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script> -->
+        <!-- Monetag Ads 
+    <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script>-->
 </head>
 <body>
     <!-- Navbar -->
@@ -150,10 +149,12 @@
 
     <div class="container py-4">
         <!-- Hero Section -->
+
         <div class="hero-section text-center mb-5" data-aos="fade-down">
             <h1 class="display-5 fw-bold">Welcome back, <?= $my_info->user_full_name; ?>! 🚀</h1>
-            <p class="lead fs-4">Total Balance: <strong class="text-primary"><span class="fw-bold fs-3 ">00</span> <?= $setting->coin_name; ?></strong></p>
-            <p class="fs-5">Watch ads below and earn more coin instantly!</p>
+            <p class="lead fs-4">Total Balance: <strong class="text-primary"><span class="fw-bold fs-3 show_your_rcn_here ">00</span> <?= $setting->coin_name; ?></strong></p>
+            <p class="fs-5">বেশী বেশী View Ad বাটনে ক্লিক করো, কিছু সেকেন্ড অপেক্ষা করে rcn ইনকাম করে নাও। </p>
+            <p class="fs-4">এই পেইজে কোন Ad আসলে সেটা কেটে দিন। এই পেইজ থেকে আপনাকে ইনকাম করতে হবে। </p>
         </div>
 
         <!-- Stats Section -->
@@ -164,7 +165,7 @@
                 <div class="stat-card p-4 text-center rounded-4">
                     <i class="bi bi-currency-bitcoin fs-1 text-primary"></i>
                     <h5 class="mt-3">Total Earnings</h5>
-                    <h4 class="fw-bold text-primary"><span class="fw-bold fs-3 ">00</span> <?= $setting->coin_name; ?></h4>
+                    <h4 class="fw-bold text-primary"><span class="fw-bold fs-3 show_your_rcn_here ">00</span> <?= $setting->coin_name; ?></h4>
                 </div>
             </div>
 
@@ -230,9 +231,9 @@
 
         <div class="row g-4 ads_data_assign "></div>
 
-        <!-- <div class="text-center mt-5" data-aos="fade-up">
-            <button class="btn btn-primary btn-lg px-5 shadow">Load More Ads</button>
-        </div> -->
+        <div class="text-center mt-5" data-aos="fade-up">
+            <!-- <button class="btn btn-primary btn-lg px-5 shadow">Load More Ads</button> -->
+        </div>
     </div>
 
     <footer class="py-5 text-center bg-light mt-5">
@@ -242,41 +243,49 @@
 
 
 
-<div class="vireta-auto-popup" id="viretaAutoPopup">
-    <button class="vireta-auto-close" onclick="viretaAutoClose()">×</button>
+    <div class="vireta-auto-popup" id="viretaAutoPopup">
+        <button class="vireta-auto-close" onclick="viretaAutoClose()">×</button>
 
-    <a href="user/autoIncomePage" class="text-decoration-none">
-        <div class="vireta-auto-card">
-            <div class="vireta-auto-content">
-                <h4 class="mb-2 fw-bold">🤑 অটো ইনকাম করতে চাও?</h4>
-                <p class="mb-3">
-                    <strong>Auto Income</strong> পেইজে ঢুকে পড়ো!<br>
-                    <span class="text-warning fw-bold">50rcn – 5000rcn</span>
-                </p>
-                <button class="btn vireta-auto-btn">
-                    🚀 এখানে ক্লিক করো
-                </button>
+        <a href="user/autoIncomePage" target="_blank" class="text-decoration-none">
+            <div class="vireta-auto-card">
+                <div class="vireta-auto-content">
+                    <h4 class="mb-2 fw-bold">🤑 অটো ইনকাম করতে চাও?</h4>
+                    <p class="mb-3">
+                        <strong>Auto Income</strong> পেইজে ঢুকে পড়ো!<br>
+                        <span class="text-warning fw-bold">50rcn – 5000rcn</span>
+                    </p>
+                    <button class="btn vireta-auto-btn">
+                        🚀 এখানে ক্লিক করো
+                    </button>
+                </div>
             </div>
-        </div>
-    </a>
-</div>
-<script>
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const popup = document.getElementById('viretaAutoPopup');
-            if (popup) popup.style.display = 'block';
-        }, 1500);
+        </a>
+    </div>
+    <script>
+        let viretaPopupInterval = null;
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showViretaPopup();
+                viretaPopupInterval = setInterval(() => {
+                    showViretaPopup();
+                }, 30000);
+            }, 1500);
+        });
 
-        setInterval(() => {
+        function showViretaPopup() {
             const popup = document.getElementById('viretaAutoPopup');
-            if (popup) popup.style.display = 'block';
-        }, 15000);
-    });
+            if (popup) {
+                popup.style.display = 'block';
+            }
+        }
 
-    function viretaAutoClose() {
-        document.getElementById('viretaAutoPopup')?.remove();
-    }
-</script>
+        function viretaAutoClose() {
+            const popup = document.getElementById('viretaAutoPopup');
+            if (popup) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
 
 
       <!-- Bootstrap js-->
@@ -322,7 +331,8 @@
 
     <script>
         $(document).ready(function () {
-            get_ads_list()
+            get_ads_list();
+            get_total_rcn_balance();
 
 
             function get_ads_list() {
@@ -335,13 +345,14 @@
                         // res[n]
                         let ads_html = '';
                         for (let n = 0; n < res.length; n++) {
-                            ads_html += `<div class="col-lg-3 col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
-                                            <div class="ad-card h-100 p-3 text-center rounded-4">
+                            ads_html += `<div class="col-lg-3 col-md-4 col-sm-6 " data-aos="zoom-in" data-aos-delay="100">
+                                            <div class="ad-card h-100 p-3 text-center rounded-4 ads_main_div_view ">
                                                 <img src="${res[n].ads_image}" class="img-fluid ad-img rounded mb-3" alt="Crypto Ad">
                                                 <span class="category-badge d-block mb-2">${res[n].ads_title || 'Marketing'}</span>
                                                 <span class="reward-badge d-block mb-3">Reward: ${res[n].ads_reward} rcn</span>
-                                                <p class="small text-muted"><i class="bi bi-clock"></i> ${res[n].ads_view_time_sec} sec | <i class="bi bi-eye"></i> 2.1k views</p>
-                                                <a href="${res[n].ads_link}" target="_blank" class="btn btn-primary w-100">View Ad</a>
+                                                <p class="small text-muted"><i class="bi bi-clock"></i> <span class="time_left_count">${res[n].ads_view_time_sec}</span> sec | <i class="bi bi-eye"></i> 2.1k views</p>
+                                                <a href="javascript:void(0)" data-link="${res[n].ads_link}" data-id="${res[n].id}" class="btn btn-primary w-100 view_this_is_ads"> View Ad </a>
+                                                <div class="mt-2 text-center countdown_text "></div>
                                             </div>
                                         </div>`;
                         }
@@ -351,9 +362,81 @@
                 });
             }
 
+            $(document).on('click', '.view_this_is_ads', function () {
 
+                let adsLink = $(this).data('link');
+                let adsID = $(this).data('id');
+                let popup = window.open(adsLink, '_blank');
 
+                if (!popup) {
+                    alert('Popup blocked! Please allow popups.');
+                    return;
+                }
 
+                let timeLeft = parseInt($(this).parent('.ads_main_div_view').find('.time_left_count').text());
+                let $countdownBox = $(this).parent('.ads_main_div_view').find('.countdown_text');
+                let $view_ad_btn = $(this)
+                $view_ad_btn.hide();
+
+                $countdownBox.html('⏳ ' + timeLeft + ' seconds remaining');
+
+                let timer = setInterval(function () {
+
+                    // 🔴 যদি user ট্যাব বন্ধ করে দেয়
+                    if (popup.closed) {
+                        clearInterval(timer);
+                        $countdownBox.html('');
+                        $view_ad_btn.show();
+                        alert('⚠️ Ad tab closed! Countdown stopped.');
+                        return;
+                    }
+
+                    timeLeft--;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        $view_ad_btn.hide();
+                        $countdownBox.html(`
+                            <div class="btn btn-success w-100 claim_now" ads_id="${adsID}">
+                                🎁 Claim
+                            </div>
+                        `);
+                    } else {
+                        $view_ad_btn.hide();
+                        $countdownBox.html('⏳ ' + timeLeft + ' seconds remaining');
+                    }
+
+                }, 1000);
+            });
+
+            $(document).on('click', '.claim_now', function () {
+                let claimid = $(this).attr('ads_id');
+                $(this).closest('.ads_main_div_view').find('.view_this_is_ads').show();
+                $(this).remove();
+                $.ajax({
+                    type: "post",
+                    url: "user/addMyRCNPoint",
+                    data: {
+                        id: claimid
+                    },
+                    success: function (rsp) {
+                        get_total_rcn_balance();
+                        toastr.success('success', rsp.message);
+                    }
+                });
+            });
+
+            function get_total_rcn_balance() {
+                $.ajax({
+                    type: "post",
+                    url: "user/getMyTotalRCN",
+                    data: "",
+                    dataType: "json",
+                    success: function (r) {
+                        $('.show_your_rcn_here').text(r);
+                    }
+                });
+            }
 
         });
     </script>
@@ -380,7 +463,7 @@
     <?php endif; ?>
 
 
-    <!-- <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>  -->
+    <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
+    <!-- <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>  -->
 </body>
 </html>

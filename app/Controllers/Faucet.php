@@ -68,6 +68,54 @@ class Faucet extends BaseController
         return view('faucet/auto_income', $data);
     }
 
+    public function get_my_total_rcn_balance()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['user_added_wallet'] = $this->db->table('ads_point_add')
+                                    ->selectSum('amount')
+                                    ->where('user_id', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        $data['user_used_wallet'] = $this->db->table('ads_cut_point')
+                                    ->selectSum('amount')
+                                    ->where('user_id', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        $current_rcn_balance = $data['user_added_wallet'] - $data['user_used_wallet'];
+        echo json_encode($current_rcn_balance);
+    }
+
+    public function add_my_rcn_point_balance()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $ads_id = $this->request->getPost('id');
+        $data['ads_view'] = $this->db->table('ads_management_s')
+                             ->where('id', $ads_id)
+                             ->get()
+                             ->getRow();
+        $this->db->table('ads_point_add')
+                ->insert([
+                    'user_id'                       => $userInfoId,
+                    'wallet_address'                => 'rcn-0',
+                    'source_type'                   => 'View Ads',
+                    'source_id'                     => $ads_id,
+                    'ad_network'                    => $data['ads_view']->ads_link,
+                    'amount'                        => $data['ads_view']->ads_reward,
+                    'currency'                      => 'rcn',
+                    'ip_address'                    => $this->request->getIPAddress(),
+                    'user_agent'                    => $this->request->getUserAgent()->getAgentString(),
+                    'created_at'                    => time(),
+                ]);
+        $response = [
+            'success' => true,
+            'message' => $data['ads_view']->ads_reward. ' rcn add successfully.'
+        ];
+        echo json_encode($response);
+        return;
+    }
+
 
 
 

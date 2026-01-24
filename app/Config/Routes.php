@@ -27,6 +27,9 @@
         $routes->get('addMoneySys', 'Admin::add_money_system');
         $routes->get('costMoneySys', 'Admin::admin_cost_money_system');
 
+        $routes->get('adsManage', 'Admin::ads_management_check');
+        $routes->get('getAds', 'Admin::get_all_ads_management_check');
+
         $routes->get('getAllProducts', 'Admin::get_all_products');
         $routes->get('getAllProductBuyIno', 'Admin::get_all_product_buy_info');
         $routes->get('getSubcategories', 'Admin::get_subcategories_by_category');
@@ -43,6 +46,7 @@
         $routes->post('add_product_buy_info', 'Admin::add_product_buy_info');
         $routes->post('add_money_post_form', 'Admin::add_money_post_form');
         $routes->post('add_post', 'Admin::add_post');
+        $routes->post('insertNewAds', 'Admin::insert_new_ads_manage');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {
@@ -99,6 +103,8 @@
         $routes->post('buy_a_ticket_s', 'User::buy_ticket_func');
         $routes->post('buySinglePackage', 'Customer::buy_single_package_action_form');
         $routes->post('getAllAds', 'Faucet::get_all_ads_listing');
+        $routes->post('getMyTotalRCN', 'Faucet::get_my_total_rcn_balance');
+        $routes->post('addMyRCNPoint', 'Faucet::add_my_rcn_point_balance');
 
     });
 

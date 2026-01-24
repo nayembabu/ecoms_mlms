@@ -85,7 +85,16 @@
         <script src="inc/plugin/jqui/jquery-ui.min.js"></script>
         <script src="inc/plugin/sweetalert2/dist/sweetalert2.min.js"></script>
 
-        <!-- <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script> -->
+        <!-- ads here -->
+        <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script>
+
+        <script type="text/javascript" data-cfasync="false">
+            /*<![CDATA[/* */
+            (function(){var b=window,d="fdf656761b101bbd96650b729f3e5797",x=[["siteId",51*777-838+5232627],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],g=["d3d3LmRpc3BsYXl2ZXJ0aXNpbmcuY29tL05xcy9Bc3RDL250aHJlZS5taW4uanM=","ZDNtem9rdHk5NTFjNXcuY2xvdWRmcm9udC5uZXQvcmJhc2lsLm1pbi5qcw=="],p=-1,c,i,k=function(){clearTimeout(i);p++;if(g[p]&&!(1795203504000<(new Date).getTime()&&1<p)){c=b.document.createElement("script");c.type="text/javascript";c.async=!0;var s=b.document.getElementsByTagName("script")[0];c.src="https://"+atob(g[p]);c.crossOrigin="anonymous";c.onerror=k;c.onload=function(){clearTimeout(i);b[d.slice(0,16)+d.slice(0,16)]||k()};i=setTimeout(k,5E3);s.parentNode.insertBefore(c,s)}};if(!b[d]){try{Object.freeze(b[d]=x)}catch(e){}k()}})();
+            /*]]>/* */
+        </script>
+
+
     </head>
     <body>
         <!-- Navbar -->
@@ -142,7 +151,7 @@
                 <div class="col-lg-5">
                     <div class="income-card p-5 text-center">
                         <h3 class="fw-bold mb-4 display-6"><i class="bi bi-gem"></i> Your Earnings</h3>
-                        
+
                         <div class="mb-5">
                             <h5 class="opacity-90">Today's Income from Ads</h5>
                             <h2 class="fw-bold display-4">0.000125 BTC</h2>
@@ -230,7 +239,40 @@
         <?php endif; ?>
 
 
-        <!-- <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
-        <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>  -->
+        <!-- ads here -->
+         <script type="text/javascript">
+            var uid = '498953';
+            var wid = '750949';
+            var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
+            pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
+        </script>
+        <script type="text/javascript">
+            var uid = '498953';
+            var wid = '750949';
+            var pop_fback = 'up';
+            var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
+            pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
+        </script>
+        <script>
+            (function(nogmk){
+            var d = document,
+                s = d.createElement('script'),
+                l = d.scripts[d.scripts.length - 1];
+            s.settings = nogmk || {};
+            s.src = "\/\/cylindrical-presentation.com\/b\/XcVYsCd.GTlo0rYsWxcs\/bezmq9AurZVUKlEk-PeTZYv3NNMTAYM1SNPjFgttZNFjWcy1jNVjoUZ2IOQQR";
+            s.async = true;
+            s.referrerPolicy = 'no-referrer-when-downgrade';
+            l.parentNode.insertBefore(s, l);
+            })({})
+        </script>
+        <script>
+            (function(s){s.dataset.zone='10513504',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+        </script>
+
+
+
+
+        <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
+        <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>
     </body>
 </html>
