@@ -68,6 +68,15 @@ class Faucet extends BaseController
         return view('faucet/auto_income', $data);
     }
 
+    public function auto_income_second_page_fun()
+    {
+        $data['setting'] = $this->db->table('settings')
+                             ->where('vendor_idd', 1)
+                             ->get()
+                             ->getRow();
+        return view('faucet/auto_income_two', $data);
+    }
+
     public function get_my_total_rcn_balance()
     {
         $userInfoId = $this->session->get('userInfoId');

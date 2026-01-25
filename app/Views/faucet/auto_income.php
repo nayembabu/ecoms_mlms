@@ -134,14 +134,14 @@
                         <div class="card-body p-5 text-center text-white">
                             <span class="badge bg-warning text-dark mb-3 fs-6">Crypto Exchange Promo</span>
                             <h3 class="card-title fw-bold">Watch & Earn Big Today! 🎉</h3>
-                            <div class="reward-badge d-inline-block mb-4">Reward: 45 Satoshi</div>
+                            <div class="reward-badge d-inline-block mb-4">Reward: 30 rcn</div>
                             <p class="fs-5 mb-4">
-                                <i class="bi bi-clock-fill text-warning"></i> Duration: 45 sec<br>
+                                <i class="bi bi-clock-fill text-warning"></i> Duration: 30 sec<br>
                                 <i class="bi bi-eye-fill text-info"></i> Views: 4.8k
                             </p>
-                            <button class="btn btn-light btn-lg w-100 shadow-lg fw-bold" style="background: linear-gradient(45deg, #ffeaa7, #fab1a0);">
+                            <div class="btn btn-light btn-lg w-100 shadow-lg fw-bold" style="background: linear-gradient(45deg, #ffeaa7, #fab1a0);">
                                 <i class="bi bi-play-btn-fill"></i> View Ad Now
-                            </button>
+                            </div>
                             <small class="d-block mt-4 opacity-75">New random ad loads after viewing</small>
                         </div>
                     </div>
@@ -153,10 +153,10 @@
                         <h3 class="fw-bold mb-4 display-6"><i class="bi bi-gem"></i> Your Earnings</h3>
 
                         <div class="mb-5">
-                            <h5 class="opacity-90">Today's Income from Ads</h5>
-                            <h2 class="fw-bold display-4">0.000125 BTC</h2>
+                            <h5 class="opacity-90">Total Income from Ads</h5>
+                            <h2 class="fw-bold display-4"><span class="show_your_rcn_here">0</span> rcn</h2>
                             <div class="progress mt-3">
-                                <div class="progress-bar" style="width: 78%;">78% of daily goal</div>
+                                <div class="progress-bar" style="width: 0%;">0% of daily goal</div>
                             </div>
                         </div>
 
@@ -164,13 +164,9 @@
 
                         <div class="mt-5">
                             <h5 class="opacity-90">All-Time Total Income</h5>
-                            <h2 class="fw-bold display-4">0.003850 BTC</h2>
-                            <p class="fs-5 mb-0">≈ $225.70 USD</p>
+                            <h2 class="fw-bold display-4"><span class="show_your_rcn_here">0</span> rcn</h2>
                         </div>
 
-                        <button class="btn btn-warning btn-lg w-100 mt-5 shadow-lg fw-bold" style="background: linear-gradient(45deg, #feca57, #ff9ff3);">
-                            <i class="bi bi-wallet2"></i> Withdraw Now
-                        </button>
                     </div>
                 </div>
             </div>
@@ -269,6 +265,20 @@
             (function(s){s.dataset.zone='10513504',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
         </script>
 
+        <script>
+            get_total_rcn_balance();
+            function get_total_rcn_balance() {
+                $.ajax({
+                    type: "post",
+                    url: "user/getMyTotalRCN",
+                    data: "",
+                    dataType: "json",
+                    success: function (r) {
+                        $('.show_your_rcn_here').text(r);
+                    }
+                });
+            }
+        </script>
 
 
 

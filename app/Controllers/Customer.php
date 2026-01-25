@@ -277,11 +277,100 @@ class Customer extends BaseController
     public function deposite_my_account()
     {
         $userInfoId = $this->session->get('userInfoId');
-        $data_ref_users = $this->db->table('user_recharge_history')
+        $data['user_recharge'] = $this->db->table('user_recharge_history')
                                     ->where('user_info_idsq', $userInfoId)
                                     ->get()
                                     ->getResult();
-        $this->template->front('user/deposite_my_wallet_balance_view');
+        $data['wallet_address'] = $this->db->table('deposite_number_added')
+                                    ->join('wallet_sub_cat', 'wallet_sub_cat.id = deposite_number_added.walletsubcat_id', 'left')
+                                    ->join('wallet_cat', 'wallet_sub_cat.wallet_id = wallet_cat.walletid', 'left')
+                                    ->get()
+                                    ->getResult();
+        $this->template->front('user/deposite_my_wallet_balance_view', $data);
+    }
+
+    public function get_the_wallet_full_info()
+    {
+        $data['wallet'] = $this->db->table('deposite_number_added')
+                                    ->where('deposite_number_added_id', $this->request->getPost('wallet'))
+                                    ->join('wallet_sub_cat', 'wallet_sub_cat.id = deposite_number_added.walletsubcat_id', 'left')
+                                    ->join('wallet_cat', 'wallet_sub_cat.wallet_id = wallet_cat.walletid', 'left')
+                                    ->get()
+                                    ->getRow();
+        echo json_encode($data);
+    }
+
+    public function pament_request_submit_fun()
+    {
+        $this->db->table('user_recharge_history')->insert([
+                    'user_info_idsq'=> $this->session->get('userInfoId'),
+                    'amount_dep'    => $this->request->getPost('amount'),
+                    'payment_text'  => $this->request->getPost('payText'),
+                    'trxids'        => $this->request->getPost('trxid'),
+                    'timesssssss'   => time(),
+                    'dateing'       => date('Y-m-d', time()),
+                    'descaaaa'      => $this->request->getPost('note'),
+                ]);
+                $last = $this->db->insertID();
+        $this->sendDepositTelegram($last, $this->session->get('userInfoId'), $this->request->getPost('amount'), $this->request->getPost('payText'), $this->request->getPost('trxid'));
+    }
+
+    function sendDepositTelegram($deposit_id, $user, $amount, $method, $txn_id)
+    {
+        $botToken = "8245289808:AAFGK1gZF18dMqgWWYAEg3OEamEgJLfq4VA";
+        
+        $adminChatIds = [
+            '8054315438',
+            '8415759767'
+        ];
+
+        $text = "💰 *New Deposit Request*\n\n"
+            . "👤 User: {$user}\n"
+            . "💳 Method: {$method}\n"
+            . "💵 Amount: ৳{$amount}\n"
+            . "🧾 Txn ID: {$txn_id}";
+
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => '✅ Approve',
+                        'callback_data' => 'approve_'.$deposit_id
+                    ],
+                    [
+                        'text' => '❌ Reject',
+                        'callback_data' => 'reject_'.$deposit_id
+                    ]
+                ]
+            ]
+        ];
+
+        foreach ($adminChatIds as $chatId) {
+
+            $data = [
+                'chat_id' => $chatId,
+                'text' => $text,
+                'parse_mode' => 'Markdown',
+                'reply_markup' => json_encode($keyboard)
+            ];
+
+            file_get_contents(
+                "https://api.telegram.org/bot{$botToken}/sendMessage?" .
+                http_build_query($data)
+            );
+        }
+    }
+
+
+    public function recharge_history_getting_fun()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data_user_recharge = $this->db->table('user_recharge_history')
+                                    ->where('user_info_idsq', $userInfoId)
+                                    ->orderBy('user_recharge_history_idd', 'DESC')
+                                    ->get()
+                                    ->getResult();
+        echo json_encode($data_user_recharge);
     }
 
     public function withdraw_my_wallet_balance()

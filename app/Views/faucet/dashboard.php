@@ -109,6 +109,57 @@
         .vireta-auto-btn:hover {
             transform: scale(1.1);
         }
+        .stat_card_ex{
+            background: linear-gradient(135deg, #f7971e, #ff512f, #ff2f86);
+            color: #fff;
+            transition: .35s ease;
+        }
+        .stat_card_ex::after{
+            content: "₿";
+            position: absolute;
+            font-size: 110px;
+            font-weight: 900;
+            color: rgba(247, 147, 26, 0.12);
+            right: -10px;
+            bottom: -25px;
+            transform: rotate(-18deg);
+            pointer-events: none;
+        }
+        .stat_card_ex:hover{
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.35);
+        }
+        .stat_card_ex i,
+        .stat_card_ex h4,
+        .stat_card_ex h5{
+            color:#fff !important;
+        }
+        .stat_card_ex2{
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            transition: .35s ease;
+        }
+        .stat_card_ex2::after{
+            content: "₿";
+            position: absolute;
+            font-size: 110px;
+            font-weight: 900;
+            color: rgba(247, 147, 26, 0.12);
+            right: -10px;
+            bottom: -25px;
+            transform: rotate(-18deg);
+            pointer-events: none;
+        }
+        .stat_card_ex2:hover{
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.35);
+        }
+        .stat_card_ex2 i,
+        .stat_card_ex2 h4,
+        .stat_card_ex2 h5{
+            color:#fff !important;
+        }
+
     </style>
 
         <!-- jQuery Connect  -->
@@ -177,16 +228,25 @@
                 </div>
             </div>
 
-
-<!--
-            <a  href="" target="_blank" class="col-lg-7 col-md-6 col-6" data-aos="fade-up" data-aos-delay="300" >
+            <a href="user/autoIncomePage" target="_blank" class="col-lg-2 col-md-4 col-6 text-decoration-none" data-aos="fade-up" data-aos-delay="300"  >
                 <div class="stat_card_ex stat-card p-4 text-center rounded-4">
-                    <i class="bi bi-list-check fs-1 text-info"></i>
-                    <h5 class="mt-3 text-white text-decoration-none ">যদি  অটো ইনকাম করতে চাও, ক্লিক করে Auto Income পেইজে চলে যাও, আর বেশী বেশী ইনকাম করো। </h5>
-                    <h4 class="fw-bold text-info text-white">50rcn থেকে 5000rcn পর্যন্ত ইনকাম করতে পারবে।</h4>
+                    <i class="bi bi-graph-up-arrow fs-1 text-info"></i>
+                    <h5 class="mt-3 "> Auto Income </h5>
+                    <h4 class="fw-bold text-info "> 01 </h4>
                 </div>
             </a>
 
+            <a href="user/autoIncomePageTwo" target="_blank" class="col-lg-2 col-md-4 col-6 text-decoration-none" data-aos="fade-up" data-aos-delay="300"  >
+                <div class="stat_card_ex2 stat-card p-4 text-center rounded-4">
+                    <i class="bi bi-box-arrow-up-right fs-1 text-info"></i>
+                    <h5 class="mt-3 "> Auto Income </h5>
+                    <h4 class="fw-bold text-info "> 02 </h4>
+                </div>
+            </a>
+
+
+
+<!--
             <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="stat-card p-4 text-center rounded-4">
                     <i class="bi bi-list-check fs-1 text-info"></i>
@@ -376,7 +436,9 @@
                 let timeLeft = parseInt($(this).parent('.ads_main_div_view').find('.time_left_count').text());
                 let $countdownBox = $(this).parent('.ads_main_div_view').find('.countdown_text');
                 let $view_ad_btn = $(this)
+                let $all_view_ad_btn = $('.view_this_is_ads')
                 $view_ad_btn.hide();
+                $all_view_ad_btn.hide();
 
                 $countdownBox.html('⏳ ' + timeLeft + ' seconds remaining');
 
@@ -387,6 +449,7 @@
                         clearInterval(timer);
                         $countdownBox.html('');
                         $view_ad_btn.show();
+                        $all_view_ad_btn.show();
                         alert('⚠️ Ad tab closed! Countdown stopped.');
                         return;
                     }
@@ -395,6 +458,7 @@
 
                     if (timeLeft <= 0) {
                         clearInterval(timer);
+                        $all_view_ad_btn.show();
                         $view_ad_btn.hide();
                         $countdownBox.html(`
                             <div class="btn btn-success w-100 claim_now" ads_id="${adsID}">
@@ -403,6 +467,7 @@
                         `);
                     } else {
                         $view_ad_btn.hide();
+                        $all_view_ad_btn.hide();
                         $countdownBox.html('⏳ ' + timeLeft + ' seconds remaining');
                     }
 

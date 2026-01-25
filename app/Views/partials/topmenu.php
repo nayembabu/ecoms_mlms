@@ -106,7 +106,7 @@
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/allPackage">প্যাকেজ</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
-                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                         <?php } else { ?>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য ক্রয়</a></li>

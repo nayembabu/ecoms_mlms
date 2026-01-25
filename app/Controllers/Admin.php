@@ -469,6 +469,12 @@ class Admin extends BaseController
 
     }
 
+    public function cust_recharge_history_checking()
+    {
+        return $this->template->back('admin/recharge_check');
+    }
+
+
 
 
 }

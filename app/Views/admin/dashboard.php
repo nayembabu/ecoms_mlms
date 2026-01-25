@@ -112,6 +112,10 @@
             <i class="fas fa-basket-shopping"></i>
             <span>Ads Management</span>
         </a>
+        <a href="lead/custRechargeCheck" class="action-btn btn-games">
+            <i class="fas fa-usd"></i>
+            <span>deposite history</span>
+        </a>
 
     </div>
 </div>

@@ -15,6 +15,7 @@
     $routes->post('login_check', 'Auth::login_check');
     $routes->post('new_referral_added', 'Home::new_referral_added_user');
     $routes->post('check-unique', 'Home::checkUnique');
+    $routes->post('telegram/webhook', 'TelegramWebhook::index');
 
     // Only allow users with session userRole == 'super' to access admin routes
     $routes->group('lead', ['filter' => 'auth'], function($routes) {
@@ -26,6 +27,7 @@
         $routes->get('subcat', 'Admin::subcategory_management');
         $routes->get('addMoneySys', 'Admin::add_money_system');
         $routes->get('costMoneySys', 'Admin::admin_cost_money_system');
+        $routes->get('custRechargeCheck', 'Admin::cust_recharge_history_checking');
 
         $routes->get('adsManage', 'Admin::ads_management_check');
         $routes->get('getAds', 'Admin::get_all_ads_management_check');
@@ -82,6 +84,7 @@
 
         $routes->get('incomePage', 'Faucet::index');
         $routes->get('autoIncomePage', 'Faucet::auto_income_page_view_fun');
+        $routes->get('autoIncomePageTwo', 'Faucet::auto_income_second_page_fun');
 
         $routes->post('edit-profile','User::editProfile');
 
@@ -105,6 +108,9 @@
         $routes->post('getAllAds', 'Faucet::get_all_ads_listing');
         $routes->post('getMyTotalRCN', 'Faucet::get_my_total_rcn_balance');
         $routes->post('addMyRCNPoint', 'Faucet::add_my_rcn_point_balance');
+        $routes->post('getWalletInfo', 'Customer::get_the_wallet_full_info');
+        $routes->post('pamentRequestSubmit', 'Customer::pament_request_submit_fun');
+        $routes->post('rechargeHistoryGetting', 'Customer::recharge_history_getting_fun');
 
     });
 

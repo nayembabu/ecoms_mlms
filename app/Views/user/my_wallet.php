@@ -21,7 +21,8 @@
                             <h2 class="fw-bold text-gold" style="color: #FFD700; font-size: 3rem; text-shadow: 0 2px 8px rgba(255,215,0,0.3);">৳<?php echo number_format($current_wallet_balance, 1); ?></h2>
                         </div>
                         <div class="col-3 col-md-3">
-                            <a class="btn btn-lg casino-btn-deposit w-100 py-3" data-bs-toggle="modal" data-bs-target="#depositeModals" style="background: #006400; color: white; font-weight: bold; border: 2px solid #90EE90;">
+                            <!-- data-bs-toggle="modal" data-bs-target="#depositeModals" -->
+                            <a class="btn btn-lg casino-btn-deposit w-100 py-3" href="user/deposites" style="background: #006400; color: white; font-weight: bold; border: 2px solid #90EE90;">
                                 <i class="fas fa-plus-circle me-2"></i>Deposit
                             </a>
                         </div>
