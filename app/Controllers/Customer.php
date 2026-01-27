@@ -318,7 +318,7 @@ class Customer extends BaseController
     function sendDepositTelegram($deposit_id, $user, $amount, $method, $txn_id)
     {
         $botToken = "8245289808:AAFGK1gZF18dMqgWWYAEg3OEamEgJLfq4VA";
-        
+
         $adminChatIds = [
             '8054315438',
             '8415759767'

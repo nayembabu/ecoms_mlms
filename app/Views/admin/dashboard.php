@@ -91,7 +91,7 @@
         <div class="col-md-6">
             <div class="card text-center">
                 <div class="card-body">
-                    <h2 class="card-title ">মোট ইউজার<br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($approve_user ?? []))); ?></h2>
+                    <h2 class="card-title ">মোট ইউজার<br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($total_user ?? []) - count($temp_user ?? []) - 4)); ?></h2>
                 </div>
             </div>
         </div>
@@ -114,7 +114,11 @@
         </a>
         <a href="lead/custRechargeCheck" class="action-btn btn-games">
             <i class="fas fa-usd"></i>
-            <span>deposite history</span>
+            <span>deposite check</span>
+        </a>
+        <a href="lead/custWithdrawCheck" class="action-btn btn-games">
+            <i class="fa fa-dollar"></i>
+            <span>withdraw check</span>
         </a>
 
     </div>

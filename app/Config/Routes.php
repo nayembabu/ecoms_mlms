@@ -28,6 +28,7 @@
         $routes->get('addMoneySys', 'Admin::add_money_system');
         $routes->get('costMoneySys', 'Admin::admin_cost_money_system');
         $routes->get('custRechargeCheck', 'Admin::cust_recharge_history_checking');
+        $routes->get('custWithdrawCheck', 'Admin::cust_withdraw_check_history');
 
         $routes->get('adsManage', 'Admin::ads_management_check');
         $routes->get('getAds', 'Admin::get_all_ads_management_check');
@@ -35,6 +36,8 @@
         $routes->get('getAllProducts', 'Admin::get_all_products');
         $routes->get('getAllProductBuyIno', 'Admin::get_all_product_buy_info');
         $routes->get('getSubcategories', 'Admin::get_subcategories_by_category');
+
+        $routes->get('getUnApproveRecharge', 'Admin::get_all_unapproved_deposite_history');
 
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
@@ -49,6 +52,12 @@
         $routes->post('add_money_post_form', 'Admin::add_money_post_form');
         $routes->post('add_post', 'Admin::add_post');
         $routes->post('insertNewAds', 'Admin::insert_new_ads_manage');
+        $routes->post('getWithdrawLog', 'Admin::get_withdraw_logs');
+        $routes->post('withdrawApproved', 'Admin::withdraw_approval_system_fun');
+        $routes->post('withdrawRejects', 'Admin::withdraw_reject_fun_system_fun');
+
+        $routes->post('approveDepositeAmount', 'Admin::approveDepositeAmount');
+        $routes->post('rejectRechargeAmount', 'Admin::rejected_recharge_amount');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

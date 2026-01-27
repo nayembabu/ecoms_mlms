@@ -65,7 +65,7 @@ class Admin extends BaseController
                                     ->get()
                                     ->getRow()
                                     ->invested_amount;
-        $data['approve_user'] = $this->db->table('user_reffer')
+        $data['total_user'] = $this->db->table('user_full_info')
                         ->get()
                         ->getResult();
         $data['temp_user'] = $this->db->table('temp_user_reffer')
@@ -450,7 +450,7 @@ class Admin extends BaseController
 
     public function insert_new_ads_manage()
     {
-        $userInfoId = $this->session->get('userInfoId');
+        $userInfoId      = $this->session->get('userInfoId');
         $adFormTitle     = $this->request->getPost('adFormTitle');
         $adFormLink      = $this->request->getPost('adFormLink');
         $adFormReward    = $this->request->getPost('adFormReward');
@@ -472,6 +472,119 @@ class Admin extends BaseController
     public function cust_recharge_history_checking()
     {
         return $this->template->back('admin/recharge_check');
+    }
+
+    public function cust_withdraw_check_history()
+    {
+        return $this->template->back('admin/withdraw_check');
+    }
+
+    public function get_withdraw_logs()
+    {
+        $data['with_draws'] = $this->db->table('user_withdraw_request')
+                                ->where('approve_status', 0)
+                                ->orderBy('user_withdraw_request_iddd', 'DESC')
+                                ->join('user_full_info', 'user_withdraw_request.user_id_unp = user_full_info.user_full_info_idd', 'left')
+                                ->get()
+                                ->getResult();
+        return $this->response->setJSON($data);
+    }
+
+    public function withdraw_approval_system_fun()
+    {
+        $id = $this->request->getPost('id');
+        $this->db->table('user_withdraw_request')
+                ->where('user_withdraw_request_iddd', $id)
+                ->update([
+                    'admin_remarks' => 'Approve Success',
+                    'approve_status' => 1,
+                    'approve_user_idd' => $this->session->get('userInfoId'),
+                ]);
+    }
+
+    public function withdraw_reject_fun_system_fun()
+    {
+        $id = $this->request->getPost('id');
+        $withdraw_data = $this->db->table('user_withdraw_request')
+                 ->where('user_withdraw_request_iddd', $id)
+                 ->get()
+                 ->getRow();
+
+        if ($withdraw_data && $withdraw_data->approve_status == 0) {
+            $this->db->table('user_withdraw_request')
+                    ->where('user_withdraw_request_iddd', $id)
+                    ->update([
+                        'admin_remarks' => 'Admin Rejected check your information. ',
+                        'approve_status' => 2,
+                        'approve_user_idd' => $this->session->get('userInfoId'),
+                    ]);
+            $this->db->table('user_added_amounts')->insert([
+                        'added_amount'        => $withdraw_data->requ_amount_taka,
+                        'user_info_id_addeds' => $withdraw_data->user_id_unp,
+                        'amount_perpose'      => 'withdraw amount return',
+                        'payment_description' => 'withdraw amount return your account balance',
+                        'times_stamps'        => time(),
+                        'any_id_here'         => $id,
+                    ]);
+        }
+    }
+
+    public function get_all_unapproved_deposite_history()
+    {
+        $withdraw_data = $this->db->table('user_recharge_history')
+                 ->where('styatus', 0)
+                 ->join('user_full_info', 'user_recharge_history.user_info_idsq = user_full_info.user_full_info_idd', 'left')
+                 ->get()
+                 ->getResult();
+        return $this->response->setJSON($withdraw_data);
+    }
+
+    public function approveDepositeAmount()
+    {
+        $id = $this->request->getPost('id');
+        $withdraw_data = $this->db->table('user_recharge_history')
+                 ->where('user_recharge_history_idd', $id)
+                 ->join('user_full_info', 'user_recharge_history.user_info_idsq = user_full_info.user_full_info_idd', 'left')
+                 ->get()
+                 ->getRow();
+
+        if ($withdraw_data && $withdraw_data->styatus == 0) {
+            $this->db->table('user_recharge_history')
+                    ->where('user_recharge_history_idd', $id)
+                    ->update([
+                        'styatus' => 1,
+                        'app_by' => $this->session->get('userInfoId'),
+                    ]);
+
+            $this->db->table('user_added_amounts')->insert([
+                        'added_amount'        => $withdraw_data->amount_dep,
+                        'user_info_id_addeds' => $withdraw_data->user_info_idsq,
+                        'amount_perpose'      => 'Deposite Amount Added',
+                        'payment_description' => 'Deposite amount add in your account balance',
+                        'times_stamps'        => time(),
+                        'any_id_here'         => $id,
+                    ]);
+        }
+    }
+    
+
+    public function rejected_recharge_amount()
+    {
+        $id = $this->request->getPost('id');
+        $withdraw_data = $this->db->table('user_recharge_history')
+                 ->where('user_recharge_history_idd', $id)
+                 ->join('user_full_info', 'user_recharge_history.user_info_idsq = user_full_info.user_full_info_idd', 'left')
+                 ->get()
+                 ->getRow();
+
+        if ($withdraw_data && $withdraw_data->styatus == 0) {
+            $this->db->table('user_recharge_history')
+                    ->where('user_recharge_history_idd', $id)
+                    ->update([
+                        'styatus' => 2,
+                        'app_by' => $this->session->get('userInfoId'),
+                    ]);
+        }
     }
 
 

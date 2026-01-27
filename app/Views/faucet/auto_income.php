@@ -416,5 +416,49 @@
 
         <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
         <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>
+
+
+
+
+        <script>
+            function detectAdBlock(callback) {
+                let adUrl = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", adUrl, true);
+                xhr.timeout = 3000;
+
+                xhr.onload = function () {
+                    callback(false); // No AdBlock
+                };
+
+                xhr.onerror = function () {
+                    callback(true); // AdBlock detected
+                };
+
+                xhr.ontimeout = function () {
+                    callback(true); // Assume AdBlock
+                };
+
+                xhr.send();
+            }
+
+            detectAdBlock(function(isBlocked) {
+                if (isBlocked) {
+                    console.log("🚫 AdBlock Enabled");
+                    document.body.innerHTML = `
+                        <div style="text-align:center;padding:50px">
+                            <h2>⚠️ AdBlock বন্ধ করুন</h2>
+                            <p>আমাদের সাইট চালাতে AdBlock বন্ধ করা প্রয়োজন</p>
+                        </div>
+                    `;
+                } else {
+                    console.log("✅ No AdBlock");
+                }
+            });
+
+        </script>
+
+
     </body>
 </html>
