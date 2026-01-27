@@ -76,10 +76,22 @@
             .progress-bar { 
                 background: linear-gradient(90deg, #48dbfb, #0abde3); 
             }
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #fff;
+            }
+            .user-info img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+            }
         </style>
 
             <!-- jQuery Connect  -->
-        <script src="inc/plugin/jq3.min.js"></script> 
+        <script src="inc/plugin/jq3.min.js"></script>
 
         <!-- jquery ui-->
         <script src="inc/plugin/jqui/jquery-ui.min.js"></script>
@@ -116,6 +128,16 @@
                         <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                         <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
                         <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="logout">Logout</a></li>
+                        <!-- Logged-in User Info -->
+                        <li class="nav-item ms-lg-4">
+                            <div class="user-info">
+                                <img src="<?= $my_info->user_pro_pic_paths; ?>" alt="user">
+                                <a href="user/profile" class="text-white text-decoration-none ms-2">
+                                    <strong><?= $my_info->user_full_name; ?></strong>
+                                    <small>ID: <?= $my_info->user_reffer_code_times; ?></small>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -126,20 +148,29 @@
                 <i class="bi bi-stars"></i> Random Ads & Earnings Dashboard
             </h2>
 
-            <div class="row g-5 align-items-center">
+            <div>
+                <div class="btn btn-light btn-lg shadow-lg fw-bold count_down_2 " style="background: linear-gradient(45deg, #ffeaa7, #fab1a0); display: none;">
+                    <i class="bi bi-play-btn-fill"></i> Count
+                </div>
+            </div>
+
+            <div class="row g-5 align-items-center mt-5">
                 <!-- Random Ad Card (Left) -->
                 <div class="col-lg-7">
                     <div class="ad-card">
-                        <img src="https://img.freepik.com/free-psd/cryptocurrency-horizontal-banner-template_23-2149141280.jpg" class="img-fluid ad-img w-100 rounded-top" alt="Random Ad">
+                        <img src="inc/img/site_bg/ads_bg_1.jpg" class="img-fluid ad-img w-100 rounded-top" alt="Random Ad">
                         <div class="card-body p-5 text-center text-white">
                             <span class="badge bg-warning text-dark mb-3 fs-6">Crypto Exchange Promo</span>
                             <h3 class="card-title fw-bold">Watch & Earn Big Today! 🎉</h3>
-                            <div class="reward-badge d-inline-block mb-4">Reward: 30 rcn</div>
+                            <div class="reward-badge d-inline-block mb-4">Reward: 150 rcn</div>
                             <p class="fs-5 mb-4">
                                 <i class="bi bi-clock-fill text-warning"></i> Duration: 30 sec<br>
                                 <i class="bi bi-eye-fill text-info"></i> Views: 4.8k
                             </p>
-                            <div class="btn btn-light btn-lg w-100 shadow-lg fw-bold" style="background: linear-gradient(45deg, #ffeaa7, #fab1a0);">
+                            <script>
+                                (function(s){s.dataset.zone='10513504',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+                            </script>
+                            <div class="btn btn-light btn-lg w-100 shadow-lg fw-bold activate_add_now " style="background: linear-gradient(45deg, #ffeaa7, #fab1a0);">
                                 <i class="bi bi-play-btn-fill"></i> View Ad Now
                             </div>
                             <small class="d-block mt-4 opacity-75">New random ad loads after viewing</small>
@@ -178,37 +209,29 @@
             </div>
         </div>
 
-
         <!-- Bootstrap js-->
         <script src="inc/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="inc/assets/js/bootstrap/bootstrap-notify.min.js"></script>
         <script src="inc/assets/js/bootstrap/popper.min.js"></script>
-
         <!-- feather icon js-->
         <script src="inc/assets/js/feather/feather.min.js"></script>
         <script src="inc/assets/js/feather/feather-icon.js"></script>
-
         <!-- Lazyload Js -->
         <script src="inc/assets/js/lazysizes.min.js"></script>
-
         <!-- Slick js-->
         <script src="inc/assets/js/slick/slick.js"></script>
         <script src="inc/assets/js/slick/slick-animation.min.js"></script>
         <script src="inc/assets/js/slick/custom_slick.js"></script>
-
         <!-- Auto Height Js -->
         <script src="inc/assets/js/auto-height.js"></script>
 
         <!-- Fly Cart Js -->
         <script src="inc/assets/js/fly-cart.js"></script>
-
         <!-- Quantity js -->
         <script src="inc/assets/js/quantity-2.js"></script>
-
         <!-- WOW js -->
         <script src="inc/assets/js/wow.min.js"></script>
         <script src="inc/assets/js/custom-wow.js"></script>
-
         <!-- toastr js  -->
         <script src="inc/plugin/toastr/build/toastr.min.js"></script>
 
@@ -233,7 +256,6 @@
                 toastr.error("<?= esc(session()->getFlashdata('error')) ?>");
             </script>
         <?php endif; ?>
-
 
         <!-- ads here -->
          <script type="text/javascript">
@@ -261,9 +283,6 @@
             l.parentNode.insertBefore(s, l);
             })({})
         </script>
-        <script>
-            (function(s){s.dataset.zone='10513504',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
-        </script>
 
         <script>
             get_total_rcn_balance();
@@ -280,7 +299,120 @@
             }
         </script>
 
+        <!-- Ad Countdown Timer Script -->
+        <script>
+            $(document).ready(function() {
+                var countdownActive = false;
+                var stage = 0; // 0: start, 1: button1 countdown, 2: button2 countdown, 3: button1 again countdown
 
+                $('.activate_add_now').click(function() {
+                    if (countdownActive) return;
+
+                    countdownActive = true;
+                    var button1 = $(this);
+                    var button2 = $('.count_down_2');
+
+                    button1.prop('disabled', true).css('opacity', '0.6');
+
+                    if (stage === 0) {
+                        // Stage 1: First 10 second countdown on activate_add_now button
+                        stage = 1;
+                        var countdown1 = 10;
+                        button1.html('<i class="bi bi-hourglass-split"></i> Wait... <span class="countdown-num">10</span>s');
+
+                        var timer1 = setInterval(function() {
+                            countdown1--;
+                            button1.find('.countdown-num').text(countdown1);
+
+                            if (countdown1 === 0) {
+                                clearInterval(timer1);
+                                button1.html('<i class="bi bi-arrow-right-circle-fill"></i> Next').prop('disabled', false).css('opacity', '1');
+                                countdownActive = false;
+                            }
+                        }, 1000);
+                    } else if (stage === 1) {
+                        // Stage 2: Show button2 and countdown
+                        stage = 2;
+                        button1.prop('disabled', true).css('opacity', '0.6');
+                        button2.show();
+                        button2.prop('disabled', true).css('opacity', '0.6');
+                        button2.html('<i class="bi bi-hourglass-split"></i> Wait... <span class="countdown-num">10</span>s');
+                        button1.html('<i class="bi bi-play-btn-fill"></i> View Ad Now');
+
+                        var countdown2 = 10;
+                        var timer2 = setInterval(function() {
+                            countdown2--;
+                            button2.find('.countdown-num').text(countdown2);
+
+                            if (countdown2 === 0) {
+                                clearInterval(timer2);
+                                button2.html('<i class="bi bi-arrow-right-circle-fill"></i> Next').prop('disabled', false).css('opacity', '1');
+                                countdownActive = false;
+                            }
+                        }, 1000);
+
+                        // Next click on button2
+                        button2.off('click').on('click', function(e) {
+                            e.stopPropagation();
+                            if (countdownActive) return;
+
+                            countdownActive = true;
+                            stage = 3;
+                            button2.hide();
+                            button1.prop('disabled', true).css('opacity', '0.6');
+                            button1.html('<i class="bi bi-hourglass-split"></i> Final... <span class="countdown-num">10</span>s');
+
+                            var countdown3 = 10;
+                            var timer3 = setInterval(function() {
+                                countdown3--;
+                                button1.find('.countdown-num').text(countdown3);
+
+                                if (countdown3 === 0) {
+                                    clearInterval(timer3);
+                                    button1.prop('disabled', false).css('opacity', '1');
+                                    button1.html('<i class="bi bi-gift-fill"></i> Claim Now').css('background', 'linear-gradient(45deg, #1dd1a1, #00d2d3)');
+                                    countdownActive = false;
+
+                                    // Claim button functionality
+                                    button1.off('click').on('click', function(e) {
+                                        e.stopPropagation();
+                                        $.ajax({
+                                            type: "post",
+                                            url: "user/addMyRCNPoint",
+                                            data: {
+                                                id: 'autoIncome',
+                                                rew: 150
+                                            },
+                                            success: function (rsp) {
+                                                get_total_rcn_balance();
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Reward Claimed!',
+                                                    text: 'You have successfully claimed 150 RCN',
+                                                    confirmButtonText: 'OK'
+                                                }).then(function() {
+                                                    // Reset everything
+                                                    stage = 0;
+                                                    button1.off('click').on('click', function() {
+                                                        arguments.callee.call(this);
+                                                    });
+                                                    button1.html('<i class="bi bi-play-btn-fill"></i> View Ad Now').css('background', 'linear-gradient(45deg, #ffeaa7, #fab1a0)');
+                                                    button2.hide();
+                                                    button2.html('<i class="bi bi-play-btn-fill"></i> Count');
+                                                    get_total_rcn_balance();
+                                                    window.location.reload();
+                                                });
+                                            }
+                                        });
+
+                                    });
+                                }
+                            }, 1000);
+                        });
+                    }
+                });
+            });
+        </script>
 
         <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
         <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>

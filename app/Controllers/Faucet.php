@@ -33,21 +33,22 @@ class Faucet extends BaseController
         $this->regModel     = new RegModel();
         $this->productModel = new ProductModel();
         $this->userModel    = new UserModel();
+        if (!$this->session->get('isLoggedIn')) {
+            return redirect()->to('/login')->with('error', 'Please login again.  ');
+        }
     }
 
     public function index()
     {
+        $user_id = $this->session->get('userInfoId');
         $data['setting'] = $this->db->table('settings')
                              ->where('vendor_idd', 1)
                              ->get()
                              ->getRow();
-        if ($this->session->get('isLoggedIn')) {
-            $user_id = $this->session->get('userInfoId');
-            $data['my_info'] = $this->db->table('user_full_info')
-                                        ->where('user_full_info_idd', $user_id)
-                                        ->get()
-                                        ->getRow();
-        }
+        $data['my_info'] = $this->db->table('user_full_info')
+                                    ->where('user_full_info_idd', $user_id)
+                                    ->get()
+                                    ->getRow();
         return view('faucet/dashboard', $data);
     }
 
@@ -61,19 +62,29 @@ class Faucet extends BaseController
 
     public function auto_income_page_view_fun()
     {
+        $user_id = $this->session->get('userInfoId');
         $data['setting'] = $this->db->table('settings')
                              ->where('vendor_idd', 1)
                              ->get()
                              ->getRow();
+        $data['my_info'] = $this->db->table('user_full_info')
+                                    ->where('user_full_info_idd', $user_id)
+                                    ->get()
+                                    ->getRow();
         return view('faucet/auto_income', $data);
     }
 
     public function auto_income_second_page_fun()
     {
+        $user_id = $this->session->get('userInfoId');
         $data['setting'] = $this->db->table('settings')
                              ->where('vendor_idd', 1)
                              ->get()
                              ->getRow();
+        $data['my_info'] = $this->db->table('user_full_info')
+                                    ->where('user_full_info_idd', $user_id)
+                                    ->get()
+                                    ->getRow();
         return view('faucet/auto_income_two', $data);
     }
 
@@ -100,18 +111,23 @@ class Faucet extends BaseController
     {
         $userInfoId = $this->session->get('userInfoId');
         $ads_id = $this->request->getPost('id');
-        $data['ads_view'] = $this->db->table('ads_management_s')
-                             ->where('id', $ads_id)
-                             ->get()
-                             ->getRow();
+        $amount_rw = $this->request->getPost('rew');
+        $data['ads_view'] = [];
+        if (is_numeric($ads_id)) {
+            $data['ads_view'] = $this->db->table('ads_management_s')
+                                 ->where('id', $ads_id)
+                                 ->get()
+                                 ->getRow();
+        }
+
         $this->db->table('ads_point_add')
                 ->insert([
                     'user_id'                       => $userInfoId,
                     'wallet_address'                => 'rcn-0',
                     'source_type'                   => 'View Ads',
                     'source_id'                     => $ads_id,
-                    'ad_network'                    => $data['ads_view']->ads_link,
-                    'amount'                        => $data['ads_view']->ads_reward,
+                    'ad_network'                    => $data['ads_view']->ads_link ?? '',
+                    'amount'                        => $data['ads_view']->ads_reward ?? $amount_rw,
                     'currency'                      => 'rcn',
                     'ip_address'                    => $this->request->getIPAddress(),
                     'user_agent'                    => $this->request->getUserAgent()->getAgentString(),
@@ -119,7 +135,7 @@ class Faucet extends BaseController
                 ]);
         $response = [
             'success' => true,
-            'message' => $data['ads_view']->ads_reward. ' rcn add successfully.'
+            'message' => $data['ads_view']->ads_reward ?? $amount_rw. ' rcn add successfully.'
         ];
         echo json_encode($response);
         return;

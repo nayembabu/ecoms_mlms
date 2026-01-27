@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Royal Chain - Online Banking & Finance</title>
+    <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -15,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-    <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="inc/assets/css/vendors/bootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -159,7 +159,18 @@
         .stat_card_ex2 h5{
             color:#fff !important;
         }
-
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
     </style>
 
         <!-- jQuery Connect  -->
@@ -193,6 +204,16 @@
                     <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
                     <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
                     <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <!-- Logged-in User Info -->
+                    <li class="nav-item ms-lg-4">
+                        <div class="user-info">
+                            <img src="<?= $my_info->user_pro_pic_paths; ?>" alt="user">
+                            <a href="user/profile" class="text-white text-decoration-none ms-2">
+                                <strong><?= $my_info->user_full_name; ?></strong>
+                                <small>ID: <?= $my_info->user_reffer_code_times; ?></small>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -482,7 +503,8 @@
                     type: "post",
                     url: "user/addMyRCNPoint",
                     data: {
-                        id: claimid
+                        id: claimid,
+                        rew: 0
                     },
                     success: function (rsp) {
                         get_total_rcn_balance();
