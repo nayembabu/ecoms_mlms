@@ -107,6 +107,70 @@ class Faucet extends BaseController
         echo json_encode($current_rcn_balance);
     }
 
+    public function withdraw_my_rcn_balance()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $data['user_added_wallet'] = $this->db->table('ads_point_add')
+                                    ->selectSum('amount')
+                                    ->where('user_id', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        $data['user_used_wallet'] = $this->db->table('ads_cut_point')
+                                    ->selectSum('amount')
+                                    ->where('user_id', $userInfoId)
+                                    ->get()
+                                    ->getRow()
+                                    ->amount;
+        $current_rcn_balance = $data['user_added_wallet'] - $data['user_used_wallet'];
+
+        $settings_info = $this->db->table('settings')
+                                ->where('vendor_idd', 1)
+                                ->get()
+                                ->getRow();
+
+        $taka_amount = intdiv($current_rcn_balance, $settings_info->coin_to_taka);
+        if ($taka_amount < 1) {
+            $response = [
+                'success' => false,
+                'message' => ''
+            ];
+            echo json_encode($response);
+            return;
+        }else {
+
+            $this->db->table('ads_cut_point')
+                    ->insert([
+                        'user_id' => $userInfoId,
+                        'wallet_address' => time(),
+                        'cut_reason' => 'Added rcn point to wallet balance',
+                        'reference_id' => rand(0, 1111),
+                        'amount' => $settings_info->coin_to_taka * $taka_amount,
+                        'currency' => '৳',
+                        'note' => '',
+                        'ip_address' => $this->request->getIPAddress(),
+                        'action_by' => $userInfoId,
+                        'created_at' => time(),
+                    ]);
+
+            $this->db->table('user_added_amounts')
+                    ->insert([
+                        'added_amount'               => $taka_amount,
+                        'user_info_id_addeds'        => $userInfoId,
+                        'amount_perpose'             => 'Withdraw rcn to Balance',
+                        'payment_description'        => 'Withdraw Balance added from rcn poin',
+                        'times_stamps'               => time(),
+                        'any_id_here'                => 0,
+                    ]);
+            $response = [
+                'success' => true,
+                'message' => 'Withdraw successfully.'
+            ];
+            echo json_encode($response);
+            return;
+        }
+    }
+
     public function add_my_rcn_point_balance()
     {
         $userInfoId = $this->session->get('userInfoId');

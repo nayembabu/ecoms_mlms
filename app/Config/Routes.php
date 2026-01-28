@@ -120,6 +120,7 @@
         $routes->post('getWalletInfo', 'Customer::get_the_wallet_full_info');
         $routes->post('pamentRequestSubmit', 'Customer::pament_request_submit_fun');
         $routes->post('rechargeHistoryGetting', 'Customer::recharge_history_getting_fun');
+        $routes->post('withdrawRCNbal', 'Faucet::withdraw_my_rcn_balance');
 
     });
 

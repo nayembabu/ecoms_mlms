@@ -224,7 +224,8 @@
 
         <div class="hero-section text-center mb-5" data-aos="fade-down">
             <h1 class="display-5 fw-bold">Welcome back, <?= $my_info->user_full_name; ?>! 🚀</h1>
-            <p class="lead fs-4">Total Balance: <strong class="text-primary"><span class="fw-bold fs-3 show_your_rcn_here ">00</span> <?= $setting->coin_name; ?></strong></p>
+            <p class="lead fs-4">Total Balance: <strong class="text-primary"><span class="fw-bold fs-3 show_your_rcn_here ">00</span> <?= $setting->coin_name; ?></strong> <b>(<?= $setting->coin_to_taka; ?><?= $setting->coin_name; ?> = ৳১/-)</b> </p>
+            <div class="btn btn-success mb-4 withdraw_my_rcn_bal "> Withdraw </div>
             <p class="fs-5">বেশী বেশী View Ad বাটনে ক্লিক করো, কিছু সেকেন্ড অপেক্ষা করে rcn ইনকাম করে নাও। </p>
             <p class="fs-4">এই পেইজে কোন Ad আসলে সেটা কেটে দিন। এই পেইজ থেকে আপনাকে ইনকাম করতে হবে। </p>
         </div>
@@ -415,7 +416,6 @@
             get_ads_list();
             get_total_rcn_balance();
 
-
             function get_ads_list() {
                 $.ajax({
                     type: "post",
@@ -524,6 +524,40 @@
                     }
                 });
             }
+
+            $(document).on('click', '.withdraw_my_rcn_bal', function () {
+
+                if (confirm('Are you sure?')) {
+                    $.ajax({
+                        type: "post",
+                        url: "user/withdrawRCNbal",
+                        data: "",
+                        success: function (rsp) {
+                            get_total_rcn_balance();
+                            if (rsp.success) {
+                                toastr.success('success', rsp.message);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: 'Your Withdraw has been Success!',
+                                    confirmButtonText: 'OK'
+                                })
+                            }else {
+                                toastr.error('error', 'your rcn balance is low. ');
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Low rcn point!',
+                                    text: 'Your Withdraw is cancel!',
+                                    confirmButtonText: 'OK'
+                                })
+                            }
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            });
+
 
         });
     </script>
