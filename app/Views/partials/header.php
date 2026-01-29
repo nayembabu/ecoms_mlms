@@ -13,8 +13,6 @@
 
 
 
-
-
     <link rel="icon" href="inc/front/assets/imgs/bg_icons.png" type="image/x-icon">
 
     <title>Royal Chain - Online Banking & Finance</title>
@@ -59,6 +57,137 @@
             .kpi-icon {font-size: 2rem; color: #0d6efd; background: #eef5ff; border-radius: 10px; padding: 12px;}
             .footer {background:#fff; padding:20px 0; box-shadow:0 -3px 10px rgba(0,0,0,0.05);}
             @keyframes fadeIn {from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:none;}}
+            
+
+                
+            /* Floating Button */
+            .lc-floating-btn {
+                position: fixed;
+                bottom: 25px;
+                right: 25px;
+                width: 60px;
+                height: 60px;
+                background: #0d6efd;
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 28px;
+                cursor: pointer;
+                z-index: 1001;
+                box-shadow: 0 4px 15px rgba(0,0,0,.3);
+                transition: .3s;
+            }
+
+            .lc-floating-btn:hover {
+                transform: scale(1.1);
+                background: #0b5ed7;
+            }
+
+            /* Chat Window */
+            .lc-chat-window {
+                position: fixed;
+                bottom: 95px;
+                right: 25px;
+                width: 300px;
+                height: 400px;
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 10px 40px rgba(0,0,0,.25);
+                display: flex;
+                flex-direction: column;
+                z-index: 1000;
+
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(30px) scale(.93);
+                transition: .5s ease;
+            }
+
+            .lc-chat-window.lc-open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+            }
+
+            /* Header */
+            .lc-chat-header {
+                background: #0d6efd;
+                color: #fff;
+                padding: 1rem;
+                border-radius: 16px 16px 0 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            /* Messages */
+            .lc-chat-messages {
+                flex: 1;
+                padding: 1rem;
+                overflow-y: auto;
+                background: #f8f9fa;
+                display: flex;
+                flex-direction: column;
+                gap: .75rem;
+            }
+
+            .lc-message {
+                max-width: 80%;
+                padding: .7rem 1rem;
+                border-radius: 18px;
+                font-size: 1.2rem;
+            }
+
+            .lc-message.sent {
+                background: #0d6efd;
+                color: #fff;
+                align-self: flex-end;
+                border-bottom-right-radius: 4px;
+            }
+
+            .lc-message.received {
+                background: #e9ecef;
+                color: #212529;
+                align-self: flex-start;
+                border-bottom-left-radius: 4px;
+            }
+
+            .lc-message-time {
+                font-size: .8rem;
+                margin-top: 4px;
+                opacity: .8;
+                color: #481818;
+            }
+
+            /* Input */
+            .lc-chat-input {
+                padding: .75rem;
+                border-top: 1px solid #dee2e6;
+                background: #fff;
+            }
+
+            /* Mobile */
+            @media (max-width: 576px) {
+                .lc-chat-window {
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: calc(var(--vh, 1vh) * 100);
+                    border-radius: 0;
+                    transform: translateY(100%);
+                }
+
+                .lc-chat-window.lc-open {
+                    transform: translateY(0);
+                }
+
+                .lc-chat-header {
+                    border-radius: 0;
+                }
+            }
         </style>
     <?php } ?>
 

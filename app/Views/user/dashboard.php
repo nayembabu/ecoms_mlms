@@ -338,7 +338,7 @@
             <!-- Main Content -->
             <div class="col-md-12 col-lg-12 p-5  ">
 
-                <div class="" style="width: 80%; ">
+                <div class="mt-3" style="width: 80%; ">
                     <marquee class="text-center py-3">
                         <span style="font-family: 'Impact', sans-serif;font-size: 1.6rem;">সর্বোচ্চ রেফার দিয়ে ২,০০০/- জিতেছেন: <span class="casino-winner"> <?php echo " <strong> " . $names[$index].' </strong>'; ?> </span> অভিনন্দন! ✨</span>
                     </marquee>

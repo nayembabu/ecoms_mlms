@@ -131,44 +131,38 @@ class Faucet extends BaseController
 
         $taka_amount = intdiv($current_rcn_balance, $settings_info->coin_to_taka);
         if ($taka_amount < 1) {
-            $response = [
+            return $this->response->setJSON([
                 'success' => false,
-                'message' => ''
-            ];
-            echo json_encode($response);
-            return;
-        }else {
-
-            $this->db->table('ads_cut_point')
-                    ->insert([
-                        'user_id' => $userInfoId,
-                        'wallet_address' => time(),
-                        'cut_reason' => 'Added rcn point to wallet balance',
-                        'reference_id' => rand(0, 1111),
-                        'amount' => $settings_info->coin_to_taka * $taka_amount,
-                        'currency' => '৳',
-                        'note' => '',
-                        'ip_address' => $this->request->getIPAddress(),
-                        'action_by' => $userInfoId,
-                        'created_at' => time(),
-                    ]);
-
-            $this->db->table('user_added_amounts')
-                    ->insert([
-                        'added_amount'               => $taka_amount,
-                        'user_info_id_addeds'        => $userInfoId,
-                        'amount_perpose'             => 'Withdraw rcn to Balance',
-                        'payment_description'        => 'Withdraw Balance added from rcn poin',
-                        'times_stamps'               => time(),
-                        'any_id_here'                => 0,
-                    ]);
-            $response = [
-                'success' => true,
-                'message' => 'Withdraw successfully.'
-            ];
-            echo json_encode($response);
-            return;
+                'message' => 'Insufficient balance.'
+            ]);
         }
+        $this->db->table('ads_cut_point')
+                ->insert([
+                    'user_id' => $userInfoId,
+                    'wallet_address' => time(),
+                    'cut_reason' => 'Added rcn point to wallet balance',
+                    'reference_id' => rand(0, 1111),
+                    'amount' => $settings_info->coin_to_taka * $taka_amount,
+                    'currency' => '৳',
+                    'note' => '',
+                    'ip_address' => $this->request->getIPAddress(),
+                    'action_by' => $userInfoId,
+                    'created_at' => time(),
+                ]);
+
+        $this->db->table('user_added_amounts')
+                ->insert([
+                    'added_amount'               => $taka_amount,
+                    'user_info_id_addeds'        => $userInfoId,
+                    'amount_perpose'             => 'Withdraw rcn to Balance',
+                    'payment_description'        => 'Withdraw Balance added from rcn poin',
+                    'times_stamps'               => time(),
+                    'any_id_here'                => 0,
+                ]);
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Withdraw successfully.'
+        ]);
     }
 
     public function add_my_rcn_point_balance()

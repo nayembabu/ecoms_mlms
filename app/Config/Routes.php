@@ -29,15 +29,13 @@
         $routes->get('costMoneySys', 'Admin::admin_cost_money_system');
         $routes->get('custRechargeCheck', 'Admin::cust_recharge_history_checking');
         $routes->get('custWithdrawCheck', 'Admin::cust_withdraw_check_history');
-
         $routes->get('adsManage', 'Admin::ads_management_check');
         $routes->get('getAds', 'Admin::get_all_ads_management_check');
-
         $routes->get('getAllProducts', 'Admin::get_all_products');
         $routes->get('getAllProductBuyIno', 'Admin::get_all_product_buy_info');
         $routes->get('getSubcategories', 'Admin::get_subcategories_by_category');
-
         $routes->get('getUnApproveRecharge', 'Admin::get_all_unapproved_deposite_history');
+        $routes->get('liveChat', 'Admin::live_chat_view_func');
 
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
@@ -55,7 +53,6 @@
         $routes->post('getWithdrawLog', 'Admin::get_withdraw_logs');
         $routes->post('withdrawApproved', 'Admin::withdraw_approval_system_fun');
         $routes->post('withdrawRejects', 'Admin::withdraw_reject_fun_system_fun');
-
         $routes->post('approveDepositeAmount', 'Admin::approveDepositeAmount');
         $routes->post('rejectRechargeAmount', 'Admin::rejected_recharge_amount');
     });
@@ -64,9 +61,7 @@
         $routes->get('dashboard', 'User::dashboard');
         $routes->get('profile', 'User::profile');
         $routes->get('allProduct', 'User::show_product_by_cats');
-
         $routes->get('withdraw/history', 'Customer::get_withdraw_history');
-
         $routes->get('singleProduct', 'Customer::get_single_products_by_id');
         $routes->get('myWallet', 'Customer::my_wallet_view');
         $routes->get('fullTeams', 'Customer::view_my_full_teams');
@@ -90,13 +85,13 @@
         $routes->get('allPackage', 'Customer::all_package_show_here');
         $routes->get('myPackage', 'Customer::my_invest_package_show_here');
         $routes->get('mySinglePackage/(:num)', 'Customer::my_invest_package_show_here_single_package/$1');
+        $routes->get('getAllChats', 'Customer::get_all_live_chats');
 
         $routes->get('incomePage', 'Faucet::index');
         $routes->get('autoIncomePage', 'Faucet::auto_income_page_view_fun');
         $routes->get('autoIncomePageTwo', 'Faucet::auto_income_second_page_fun');
 
         $routes->post('edit-profile','User::editProfile');
-
         $routes->post('buySingleProduct', 'Customer::buy_a_single_product');
         $routes->post('getRefferById', 'Customer::get_person_reffer_details_by_person_id');
         $routes->post('getUserByPhone', 'Customer::get_person_details_by_person_phone_email');
@@ -121,7 +116,7 @@
         $routes->post('pamentRequestSubmit', 'Customer::pament_request_submit_fun');
         $routes->post('rechargeHistoryGetting', 'Customer::recharge_history_getting_fun');
         $routes->post('withdrawRCNbal', 'Faucet::withdraw_my_rcn_balance');
-
+        $routes->post('livechat_sendmsg', 'Customer::live_chat_send_msgs');
     });
 
 

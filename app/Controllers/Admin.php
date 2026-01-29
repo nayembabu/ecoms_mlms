@@ -566,7 +566,11 @@ class Admin extends BaseController
                     ]);
         }
     }
-    
+
+    public function live_chat_view_func()
+    {
+        return view('admin/live_chat_view_file'); 
+    }
 
     public function rejected_recharge_amount()
     {

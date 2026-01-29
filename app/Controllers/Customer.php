@@ -185,7 +185,6 @@ class Customer extends BaseController
             ->get()
             ->getRowArray();
 
-
         $data['my_info'] = $this->db->table('user_full_info')
                                     ->where('user_full_info_idd', $user_id)
                                     ->get()
@@ -831,6 +830,31 @@ class Customer extends BaseController
                                         ->get()
                                         ->getResult();
         return $this->template->front('user/my_inactive_referrals_file', $data);
+    }
+
+    public function live_chat_send_msgs()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $msg = $this->request->getPost('msg');
+        $this->db->table('user_live_chat_table')
+                ->insert([
+                    'user_id_id'        => $userInfoId,
+                    'admin_user'        => 0,
+                    'msg_typing'        => $msg,
+                    'this_time'         => date('h:i a', time()),
+                    'this_time_stamp'   => time(),
+                    'this_dates'        => date('Y-m-d', time()),
+                ]);
+    }
+
+    public function get_all_live_chats()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $all_chdata = $this->db->table('user_live_chat_table')
+                                        ->where('user_id_id', $userInfoId)
+                                        ->get()
+                                        ->getResult();
+        return $this->response->setJSON($all_chdata);
     }
 
 

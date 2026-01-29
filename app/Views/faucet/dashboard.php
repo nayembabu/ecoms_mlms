@@ -180,9 +180,8 @@
     <script src="inc/plugin/jqui/jquery-ui.min.js"></script>
     <script src="inc/plugin/sweetalert2/dist/sweetalert2.min.js"></script>
 
-
         <!-- Monetag Ads 
-    <script src="https://pl28546695.effectivegatecpm.com/ec/a3/1f/eca31fb51251eebb3035151a0141b1fc.js"></script>-->
+    -->
 </head>
 <body>
     <!-- Navbar -->
@@ -266,8 +265,6 @@
                 </div>
             </a>
 
-
-
 <!--
             <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="stat-card p-4 text-center rounded-4">
@@ -323,8 +320,6 @@
     </footer>
 
 
-
-
     <div class="vireta-auto-popup" id="viretaAutoPopup">
         <button class="vireta-auto-close" onclick="viretaAutoClose()">×</button>
 
@@ -368,7 +363,6 @@
             }
         }
     </script>
-
 
       <!-- Bootstrap js-->
       <script src="inc/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
@@ -526,36 +520,35 @@
             }
 
             $(document).on('click', '.withdraw_my_rcn_bal', function () {
-
-                if (confirm('Are you sure?')) {
-                    $.ajax({
-                        type: "post",
-                        url: "user/withdrawRCNbal",
-                        data: "",
-                        success: function (rsp) {
-                            get_total_rcn_balance();
-                            if (rsp.success) {
-                                toastr.success('success', rsp.message);
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: 'Your Withdraw has been Success!',
-                                    confirmButtonText: 'OK'
-                                })
-                            }else {
-                                toastr.error('error', 'your rcn balance is low. ');
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Low rcn point!',
-                                    text: 'Your Withdraw is cancel!',
-                                    confirmButtonText: 'OK'
-                                })
-                            }
-                        }
-                    });
-                } else {
+                if (!confirm('Are you sure?')) {
                     return false;
                 }
+
+                $.ajax({
+                    type: "post",
+                    url: "user/withdrawRCNbal",
+                    data: "",
+                    success: function (rsp) {
+                        get_total_rcn_balance();
+                        if (rsp.success === true) {
+                            toastr.success('success', rsp.message);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Your Withdraw has been Success!',
+                                confirmButtonText: 'OK'
+                            })
+                        }else {
+                            toastr.error('error', 'your rcn balance is low. ');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Low rcn point!',
+                                text: 'Your Withdraw is cancel!',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
+                });
             });
 
 
@@ -584,8 +577,7 @@
     <?php endif; ?>
 
 
-    <script src="https://pl28546719.effectivegatecpm.com/cf/be/2d/cfbe2d9d53236a6567bc99bdd221c037.js"></script>
-    <!-- <script src="https://quge5.com/88/tag.min.js" data-zone="204680" async data-cfasync="false"></script>  -->
+    
 
     <script>
         function detectAdBlock(callback) {
@@ -620,7 +612,7 @@
                     </div>
                 `;
             } else {
-                console.log("✅ No AdBlock");
+                console.log("✅ No AdBlock ");
             }
         });
 

@@ -37,6 +37,30 @@
             <p>Welcome to the admin dashboard. Here you can manage your application settings and view important metrics.</p>
         </div>
     </div>
+        
+    <div class="" >
+        <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
+
+            <a href="lead/adsManage" class="action-btn btn-games">
+                <i class="fas fa-basket-shopping"></i>
+                <span>Ads Management</span>
+            </a>
+            <a href="lead/custRechargeCheck" class="action-btn btn-games">
+                <i class="fas fa-usd"></i>
+                <span>deposite check</span>
+            </a>
+            <a href="lead/custWithdrawCheck" class="action-btn btn-games">
+                <i class="fa fa-dollar"></i>
+                <span>withdraw check</span>
+            </a>
+            <a href="lead/liveChat" class="action-btn btn-games">
+                <i class="fa fa-sms"></i>
+                <span>Live Chat</span>
+            </a>
+
+        </div>
+    </div>
+
     <div class="row mt-4">
 
         <div class="col-md-6">
@@ -105,22 +129,5 @@
     </div>
 </div>
 
-<div class="" >
-    <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
 
-        <a href="lead/adsManage" class="action-btn btn-games">
-            <i class="fas fa-basket-shopping"></i>
-            <span>Ads Management</span>
-        </a>
-        <a href="lead/custRechargeCheck" class="action-btn btn-games">
-            <i class="fas fa-usd"></i>
-            <span>deposite check</span>
-        </a>
-        <a href="lead/custWithdrawCheck" class="action-btn btn-games">
-            <i class="fa fa-dollar"></i>
-            <span>withdraw check</span>
-        </a>
-
-    </div>
-</div>
-
+<br><br><br><br><br><br><br><br><br>
