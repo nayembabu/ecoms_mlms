@@ -845,6 +845,12 @@ class Customer extends BaseController
                     'this_time_stamp'   => time(),
                     'this_dates'        => date('Y-m-d', time()),
                 ]);
+        $user_info = $this->db->table('user_full_info')
+                                        ->where('user_full_info_idd', $userInfoId)
+                                        ->get()
+                                        ->getRow();
+
+        $this->sendSMSTelegramBot($user_info->user_full_name, $user_info->user_reffer_code_times, $msg);
     }
 
     public function get_all_live_chats()
@@ -856,6 +862,48 @@ class Customer extends BaseController
                                         ->getResult();
         return $this->response->setJSON($all_chdata);
     }
+
+    function sendSMSTelegramBot($name, $id_code, $sms)
+    {
+        $time = date('d-m h:i:s a');
+        $botToken = "8342256154:AAEAYgI8C4hEDGY7yJwQaxj-bZASIX1Np9Q";
+
+        $adminChatIds = [
+            '8054315438',
+            '8530329832'
+        ];
+
+        // Design Message ✨
+        $text = "👤 *{$name} => ${id_code}*\n"
+            . "💬 {$sms}\n"
+            . "🕒 {$time}";
+
+        // Optional: Quick reply buttons (later)
+
+                // [
+                //     ['text' => 'Reply', 'callback_data' => 'reply_'.$userName]
+                // ]
+
+        $keyboard = [
+            'inline_keyboard' => []
+        ];
+
+        // Send to all admins
+        foreach ($adminChatIds as $chatId) {
+
+            $data = [
+                'chat_id' => $chatId,
+                'text' => $text,
+                'parse_mode' => 'Markdown',
+                'reply_markup' => json_encode($keyboard)
+            ];
+
+            file_get_contents(
+                "https://api.telegram.org/bot{$botToken}/sendMessage?" . http_build_query($data)
+            );
+        }
+    }
+
 
 
 }

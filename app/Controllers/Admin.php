@@ -567,11 +567,6 @@ class Admin extends BaseController
         }
     }
 
-    public function live_chat_view_func()
-    {
-        return view('admin/live_chat_view_file'); 
-    }
-
     public function rejected_recharge_amount()
     {
         $id = $this->request->getPost('id');
@@ -589,6 +584,43 @@ class Admin extends BaseController
                         'app_by' => $this->session->get('userInfoId'),
                     ]);
         }
+    }
+
+    public function live_chat_view_func()
+    {
+        return view('admin/live_chat_view_file'); 
+    }
+
+    public function get_live_chat_message_refresh()
+    {
+        $rows = $this->db->table('user_live_chat_table u')
+                        ->join(
+                            'user_full_info uf',
+                            'uf.user_full_info_idd = u.user_id_id',
+                            'left'
+                        )
+                        ->orderBy('u.this_time_stamp', 'ASC')
+                        ->get()
+                        ->getResultArray();
+
+        return $this->response->setJSON($rows);
+    }
+
+    public function admin_send_sms_in_user()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $user_id = $this->request->getPost('user_id');
+        $msg = $this->request->getPost('message');
+        $this->db->table('user_live_chat_table')
+                ->insert([
+                    'user_id_id'        => $user_id,
+                    'admin_id'          => $userInfoId,
+                    'admin_user'        => 1,
+                    'msg_typing'        => $msg,
+                    'this_time'         => date('h:i a', time()),
+                    'this_time_stamp'   => time(),
+                    'this_dates'        => date('Y-m-d', time()),
+                ]);
     }
 
 

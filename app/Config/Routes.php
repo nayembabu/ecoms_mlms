@@ -17,6 +17,7 @@
     $routes->post('check-unique', 'Home::checkUnique');
     $routes->post('telegram/webhook', 'TelegramWebhook::index');
 
+
     // Only allow users with session userRole == 'super' to access admin routes
     $routes->group('lead', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'Admin::index');
@@ -37,6 +38,8 @@
         $routes->get('getUnApproveRecharge', 'Admin::get_all_unapproved_deposite_history');
         $routes->get('liveChat', 'Admin::live_chat_view_func');
 
+        $routes->get('getLiveChatSMS', 'Admin::get_live_chat_message_refresh');
+
         $routes->post('search_user_info', 'Admin::search_user_info');
         $routes->post('single_user_profile', 'Admin::single_user_profile_info');
         $routes->post('add_user_wallet_amount', 'Admin::add_user_wallet_amount');
@@ -55,6 +58,7 @@
         $routes->post('withdrawRejects', 'Admin::withdraw_reject_fun_system_fun');
         $routes->post('approveDepositeAmount', 'Admin::approveDepositeAmount');
         $routes->post('rejectRechargeAmount', 'Admin::rejected_recharge_amount');
+        $routes->post('sendSMSForUser', 'Admin::admin_send_sms_in_user');
     });
 
     $routes->group('user', ['filter' => 'auth'], function($routes) {

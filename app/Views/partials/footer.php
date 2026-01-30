@@ -4,10 +4,10 @@
     <?php $session = $session ?? \Config\Services::session(); if ($session->get('isLoggedIn')) { ?>
       <!-- Floting chat section start -->
       <div class="floting_chat_section_ful">
-        <!-- ফ্লোটিং টগল বাটন  
+        <!-- ফ্লোটিং টগল বাটন  -->
         <div class="lc-floating-btn" id="lc-toggle-btn">
             <i class="bi bi-chat-dots-fill"></i>
-        </div> -->
+        </div>
 
         <!-- Chat Window -->
         <div class="lc-chat-window" id="lc-chat-window">
@@ -32,12 +32,12 @@
             <!-- Input -->
             <div class="lc-chat-input">
                 <div id="lc-chat-form">
-                    <div class="input-group">
+                    <form class="input-group send_msg_to_admin">
                         <input type="text" class="form-control border-0 shadow-none typing_messegesss" placeholder="টাইপ করুন..." required>
-                        <div class="btn bg-primary rounded text-white send_msg_to_admin ">
+                        <div class="btn bg-primary rounded text-white ">
                             <i class="bi bi-send-fill"></i>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -75,7 +75,8 @@
           };
           closeBtn.onclick = () => chatBox.classList.remove('lc-open');
 
-          $(document).on('click', '.send_msg_to_admin', function () {
+          $(document).on('submit', '.send_msg_to_admin', function (e) {
+            e.preventDefault();
             let typing_messegesss = $('.typing_messegesss').val();
             if (typing_messegesss == '') {
               toastr.error('Type Anything');
@@ -88,6 +89,7 @@
                 },
                 success: function (rsp) {
                   getAllLiveChat();
+                  $('.typing_messegesss').val('');
                   scrollToBottom(true);
                 }
               });
@@ -97,7 +99,7 @@
           getAllLiveChat();
           const chatInterval = setInterval(() => {
               getAllLiveChat();
-          }, 2000);
+          }, 5000);
           function stopChatPolling() {
               clearInterval(chatInterval);
               console.log('Live chat polling বন্ধ করা হয়েছে');
