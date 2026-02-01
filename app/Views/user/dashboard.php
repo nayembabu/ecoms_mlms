@@ -359,7 +359,7 @@
                         </a>
 
                         <!-- WhatsApp -->
-                        <a href="https://chat.whatsapp.com/B8BmwlfCr2t7ogo1ncv5Bm" target="_blank" class="btn bg-success text-white btn-lg rounded-circle p-3 shadow-sm" title="WhatsApp">
+                        <a href="https://chat.whatsapp.com/LU4ns0NdJa5DBQhvvEBmfi" target="_blank" class="btn bg-success text-white btn-lg rounded-circle p-3 shadow-sm" title="WhatsApp">
                             <i class="fa-brands fa-whatsapp fa-lg"></i>
                         </a>
 

@@ -34,9 +34,9 @@
                 <div id="lc-chat-form">
                     <form class="input-group send_msg_to_admin">
                         <input type="text" class="form-control border-0 shadow-none typing_messegesss" placeholder="টাইপ করুন..." required>
-                        <div class="btn bg-primary rounded text-white ">
+                        <button type="submit" class="btn bg-primary rounded text-white ">
                             <i class="bi bi-send-fill"></i>
-                        </div>
+                        </button>
                     </form>
                 </div>
             </div>

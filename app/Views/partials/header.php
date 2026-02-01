@@ -63,7 +63,7 @@
             /* Floating Button */
             .lc-floating-btn {
                 position: fixed;
-                bottom: 25px;
+                bottom: 80px;
                 right: 25px;
                 width: 60px;
                 height: 60px;
