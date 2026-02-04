@@ -120,6 +120,7 @@ class Admin extends BaseController
     {
         $data['total_pending_user'] = $this->db->table('user_full_info')
                                     ->where('sts', 0)
+                                    ->orderBy('user_full_info_idd', 'DESC')
                                     ->get()
                                     ->getResult();
         return $this->template->back('admin/total_pending_temp_user_display', $data);

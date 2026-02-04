@@ -32,6 +32,13 @@
                                     <i class="fas fa-money-bill-wave me-2"></i>Withdraw
                                 </a>
                             </div>
+                        <?php }else { ?>
+                            <div class="col-3 col-md-3">
+                                <label for="" class="text-white" >টাকা উত্তোলণ করতে, আগে একাউন্ট আপডেট করুন। </label>
+                                <a href="user/set_account_number" class="btn btn-lg casino-btn-withdraw w-100 py-3" style="background: #8B0000; color: white; font-weight: bold; border: 2px solid #FF4500;">
+                                    <i class="fas fa-user me-2"></i>Update
+                                </a>
+                            </div>
                         <?php } ?>
                     </div>
                 </div>
