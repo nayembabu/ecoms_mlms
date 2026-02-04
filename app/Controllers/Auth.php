@@ -102,7 +102,7 @@ class Auth extends BaseController
         }
 
         // ✅ Registration successful
-        return redirect()->to('/login')->with('success', 'Registration successful. Please log in.');
+        return redirect()->to('/reg_success')->with('success', 'Registration successful. Please log in.');
     }
 
     public function login_check()

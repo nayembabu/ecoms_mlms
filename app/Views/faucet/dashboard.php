@@ -196,13 +196,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link text-light" href="user/dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/allPackage">প্যাকেজ</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="user/incomeDetails">আয়</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
+                    <?php if (empty($my_info->user_withdraw_method) || empty($my_info->user_withdraw_nos) || empty($my_info->payments_names)) { ?>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/set_account_number">Update</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                    <?php } else { ?>
+                        <?php if ($my_info->sts == 1) { ?>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য-ক্রয়</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/allPackage">প্যাকেজ</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/referrals">রেফারেল</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/fullTeams">টিম</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                        <?php } else { ?>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য ক্রয়</a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
+                        <?php } ?>
+                    <?php } ?>
                     <!-- Logged-in User Info -->
                     <li class="nav-item ms-lg-4">
                         <div class="user-info">

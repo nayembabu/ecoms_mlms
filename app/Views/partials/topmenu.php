@@ -99,6 +99,7 @@
                     <li class="nav-item"><a class="nav-link active" style="font-size: 18px;" href="user/dashboard">ড্যাশবোর্ড</a></li>
                     <?php if (empty($my_info->user_withdraw_method) || empty($my_info->user_withdraw_nos) || empty($my_info->payments_names)) { ?>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/set_account_number">Update</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
                         <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                     <?php } else { ?>
                         <?php if ($my_info->sts == 1) { ?>
@@ -109,6 +110,7 @@
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                         <?php } else { ?>
+                            <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/incomePage">আয়</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="user/viewAllProducts">পন্য ক্রয়</a></li>
                             <li class="nav-item"><a class="nav-link" style="font-size: 18px;" href="logout">Logout</a></li>
                         <?php } ?>

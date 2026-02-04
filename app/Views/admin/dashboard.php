@@ -37,7 +37,7 @@
             <p>Welcome to the admin dashboard. Here you can manage your application settings and view important metrics.</p>
         </div>
     </div>
-        
+
     <div class="" >
         <div class="action-btn-group d-flex justify-content-center gap-4 mb-5 flex-wrap">
 
@@ -56,6 +56,14 @@
             <a href="lead/liveChat" class="action-btn btn-games">
                 <i class="fa fa-sms"></i>
                 <span>Live Chat</span>
+            </a>
+            <a href="lead/totalUsers" class="action-btn btn-games">
+                <i class="fa fa-users"></i>
+                <span>Total User</span>
+            </a>
+            <a href="lead/pandingUsers" class="action-btn btn-games">
+                <i class="fa fa-users"></i>
+                <span>Pending User</span>
             </a>
 
         </div>
@@ -113,18 +121,18 @@
 
     <div class="row mt-4">
         <div class="col-md-6">
-            <div class="card text-center">
+            <a href="lead/totalUsers" class="card text-center">
                 <div class="card-body">
-                    <h2 class="card-title ">মোট ইউজার<br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($total_user ?? []) - count($temp_user ?? []) - 4)); ?></h2>
+                    <h2 class="card-title ">মোট ইউজার<br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($total_approve_user ?? []) - 5 )); ?></h2>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-md-6">
-            <div class="card text-center">
+            <a href="lead/pandingUsers" class="card text-center">
                 <div class="card-body">
-                    <h2 class="card-title ">পেন্ডিং <br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($temp_user ?? []))); ?></h2>
+                    <h2 class="card-title ">পেন্ডিং <br><?= BanglaConverter::en2bn(BanglaConverter::bd_money(count($total_pending_user ?? []))); ?></h2>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>

@@ -354,12 +354,17 @@
                     <div class="d-flex justify-content-center gap-3 mt-3">
 
                         <!-- Telegram -->
-                        <a href="https://t.me/royalchainnet" target="_blank" class="btn bg-primary text-white btn-lg rounded-circle p-3 shadow-sm" title="Telegram">
+                        <a href="https://t.me/royal_chain_net" target="_blank" class="btn bg-primary text-white btn-lg rounded-circle p-3 shadow-sm" title="Telegram">
+                            <i class="fa-brands fa-telegram fa-lg"></i>
+                        </a>
+
+                        <!-- Telegram -->
+                        <a href="https://t.me/royalchainnets" target="_blank" class="btn bg-primary text-white btn-lg rounded-circle p-3 shadow-sm" title="Telegram">
                             <i class="fa-brands fa-telegram fa-lg"></i>
                         </a>
 
                         <!-- WhatsApp -->
-                        <a href="https://chat.whatsapp.com/LU4ns0NdJa5DBQhvvEBmfi" target="_blank" class="btn bg-success text-white btn-lg rounded-circle p-3 shadow-sm" title="WhatsApp">
+                        <a href="https://chat.whatsapp.com/HOTHzwt1I57LAjZ1bLpeVs" target="_blank" class="btn bg-success text-white btn-lg rounded-circle p-3 shadow-sm" title="WhatsApp">
                             <i class="fa-brands fa-whatsapp fa-lg"></i>
                         </a>
 

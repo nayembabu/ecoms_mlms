@@ -451,7 +451,7 @@ class Customer extends BaseController
                                     ->getRow()
                                     ->cutting_amounts;
         $current_wallet_balance = ($user_added_wallet - $user_used_wallet) - 2000;
-        if (count($allReffer) >= 4) {
+        if (count($allReffer) >= 2) {
             if ($current_wallet_balance > $withdraw_amount) {
                 $data = [
                     'user_id_unp'       => $userInfoId,
@@ -479,7 +479,7 @@ class Customer extends BaseController
                 return redirect()->to('/user/withdraw')->with('error', 'Your withdrawal balance is low. Your account value is ৳2,000 .');
             }
         }else {
-            return redirect()->to('/user/withdraw')->with('error', 'টাকা তুলতে হলে 4 জন রেফার করা লাগবে. ');
+            return redirect()->to('/user/withdraw')->with('error', 'টাকা তুলতে হলে 2 জন রেফার করা লাগবে. ');
         }
     }
 

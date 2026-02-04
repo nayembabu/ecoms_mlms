@@ -65,12 +65,24 @@ class Admin extends BaseController
                                     ->get()
                                     ->getRow()
                                     ->invested_amount;
+
         $data['total_user'] = $this->db->table('user_full_info')
-                        ->get()
-                        ->getResult();
+                                    ->get()
+                                    ->getResult();
+
+        $data['total_approve_user'] = $this->db->table('user_full_info')
+                                    ->where('sts', 1)
+                                    ->get()
+                                    ->getResult();
+
         $data['temp_user'] = $this->db->table('temp_user_reffer')
                         ->get()
                         ->getResult();
+
+        $data['total_pending_user'] = $this->db->table('user_full_info')
+                                    ->where('sts', 0)
+                                    ->get()
+                                    ->getResult();
 
         $data['admin_add_money_total'] = $this->db->table('add_money_in_number')
                                         ->orderBy('add_money_in_number', 'DESC')
@@ -94,6 +106,25 @@ class Admin extends BaseController
 
         return $this->template->back('admin/dashboard', $data);
     }
+
+    public function get_total_approved_users()
+    {
+        $data['total_approve_user'] = $this->db->table('user_full_info')
+                                    ->where('sts', 1)
+                                    ->get()
+                                    ->getResult();
+        return $this->template->back('admin/total_approved_user_display', $data);
+    }
+
+    public function get_total_pending_temp_users()
+    {
+        $data['total_pending_user'] = $this->db->table('user_full_info')
+                                    ->where('sts', 0)
+                                    ->get()
+                                    ->getResult();
+        return $this->template->back('admin/total_pending_temp_user_display', $data);
+    }
+
     public function user_management()
     {
         return $this->template->back('admin/user_management');

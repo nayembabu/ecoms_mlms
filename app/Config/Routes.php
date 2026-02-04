@@ -17,6 +17,8 @@
     $routes->post('check-unique', 'Home::checkUnique');
     $routes->post('telegram/webhook', 'TelegramWebhook::index');
 
+    $routes->get('reg_success', 'Home::reg_success_fully');
+    $routes->get('privacy-policy', 'Home::privacy_policy');
 
     // Only allow users with session userRole == 'super' to access admin routes
     $routes->group('lead', ['filter' => 'auth'], function($routes) {
@@ -37,6 +39,8 @@
         $routes->get('getSubcategories', 'Admin::get_subcategories_by_category');
         $routes->get('getUnApproveRecharge', 'Admin::get_all_unapproved_deposite_history');
         $routes->get('liveChat', 'Admin::live_chat_view_func');
+        $routes->get('totalUsers', 'Admin::get_total_approved_users');
+        $routes->get('pandingUsers', 'Admin::get_total_pending_temp_users');
 
         $routes->get('getLiveChatSMS', 'Admin::get_live_chat_message_refresh');
 

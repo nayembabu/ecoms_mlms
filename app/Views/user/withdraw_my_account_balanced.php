@@ -184,7 +184,7 @@
                     <div class="card-body p-5">
                         <h2 class="text-center mb-5 royal-gold"><i class="fas fa-gem me-4"></i>Cashout Request</h2>
 
-                        <?php if (count($allReffer) == 4) { ?>
+                        <?php if (count($allReffer) == 2) { ?>
                             <?php if ($my_info->sts == 1) { ?>
                                 <?php if ($my_info->user_withdraw_nos) { ?>
                                     <form id="withdrawForm" action="/user/withdraw_req" method="post" novalidate>
@@ -243,7 +243,7 @@
                             <div class="alert alert-warning text-center py-6">
                                 <i class="fas fa-lock fa-5x mb-4"></i>
                                 <h2>আপনার একটিভ রেফার <span style="font-size: 36px; " > <?= count($allReffer); ?></span> </h2>
-                                <p>উইথড্র করতে চাইলে 4 জন রেফার করুন। </p>
+                                <p>উইথড্র করতে চাইলে 2 জন রেফার করুন। </p>
                             </div>
                         <?php } ?>
                     </div>

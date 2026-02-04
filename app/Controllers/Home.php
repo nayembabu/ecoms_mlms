@@ -155,6 +155,16 @@ class Home extends BaseController
         }
     }
 
+    public function privacy_policy()
+    {
+        return $this->template->front('front/privacy_policy_view_file');
+    }
+
+    public function reg_success_fully()
+    {
+        return view('front/registration_success_fully');
+    }
+
     public function checkUnique()
     {
         $field = $this->request->getPost('field');
