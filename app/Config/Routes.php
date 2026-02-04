@@ -125,6 +125,7 @@
         $routes->post('rechargeHistoryGetting', 'Customer::recharge_history_getting_fun');
         $routes->post('withdrawRCNbal', 'Faucet::withdraw_my_rcn_balance');
         $routes->post('livechat_sendmsg', 'Customer::live_chat_send_msgs');
+        $routes->post('addSpinPrice', 'Customer::add_balance_for_spin_wheel');
     });
 
 

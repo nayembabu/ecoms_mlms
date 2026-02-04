@@ -118,6 +118,29 @@ class User extends BaseController
                                             ->get()
                                             ->getRow();
 
+        $all_chdata = $this->db->table('user_spin_to_win')
+                                        ->where('user_id', $userId)
+                                        ->get()
+                                        ->getResult();
+
+        $ref_users_data = $this->db->table('user_reffer')
+                                    ->where('reffer_main_idd', $userId)
+                                    ->join('user_full_info', 'user_reffer.reffer_ref_user_idd = user_full_info.user_full_info_idd', 'left')
+                                    ->get()
+                                    ->getResult();
+
+        if ((count($all_chdata)) <= count($ref_users_data)) {
+            $data['spin_wheel_style'] = '<div class="floating-btn" id="openModal">
+                                            <div class="glow-ring"></div>
+                                            <div class="btn-inner">
+                                                <span class="wheel-icon">🎡</span>
+                                            </div>
+                                            <span class="badge">জিতুন!</span>
+                                        </div>';
+        }else{
+            $data['spin_wheel_style'] = '000000';
+        }
+
         return $this->template->front('user/dashboard', $data);
     }
 

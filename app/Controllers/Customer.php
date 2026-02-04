@@ -904,6 +904,43 @@ class Customer extends BaseController
         }
     }
 
+    public function add_balance_for_spin_wheel()
+    {
+        $userInfoId = $this->session->get('userInfoId');
+        $amount_taka = $this->request->getPost('taka');
+
+        $all_chdata = $this->db->table('user_spin_to_win')
+                                        ->where('user_id', $userInfoId)
+                                        ->get()
+                                        ->getResult();
+
+        $ref_users_data = $this->db->table('user_reffer')
+                                    ->where('reffer_main_idd', $userInfoId)
+                                    ->join('user_full_info', 'user_reffer.reffer_ref_user_idd = user_full_info.user_full_info_idd', 'left')
+                                    ->get()
+                                    ->getResult();
+
+        if ((count($all_chdata)) <= count($ref_users_data)) {
+            $this->db->table('user_added_amounts')->insert([
+                'added_amount'               => $amount_taka,
+                'user_info_id_addeds'        => $userInfoId,
+                'amount_perpose'             => 'Spin Wheel Price',
+                'payment_description'        => 'Spin Wheel Price money added: ' . $amount_taka,
+                'times_stamps'               => time(),
+                'any_id_here'                => '',
+            ]);
+            $this->db->table('user_spin_to_win')->insert([
+                'user_id'              => $userInfoId,
+                'amount_price'         => $amount_taka,
+                'date_assign'          => date('Y-m-d', time()),
+                'timming'              => date('h:i:s a', time()),
+                'timess'               => time(),
+            ]);
+        }
+
+
+    }
+
 
 
 }
