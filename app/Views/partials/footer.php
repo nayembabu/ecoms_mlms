@@ -3,130 +3,19 @@
 
     <?php $session = $session ?? \Config\Services::session(); if ($session->get('isLoggedIn')) { ?>
       <!-- Floting chat section start -->
-      <div class="floting_chat_section_ful">
-        <!-- ফ্লোটিং টগল বাটন  -->
-        <div class="lc-floating-btn" id="lc-toggle-btn">
-            <i class="bi bi-chat-dots-fill"></i>
-        </div>
-
-        <!-- Chat Window -->
-        <div class="lc-chat-window" id="lc-chat-window">
-
-            <!-- Header -->
-            <div class="lc-chat-header">
-                <div class="d-flex align-items-center gap-2">
-                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width:42px;height:42px;">
-                        <i class="bi bi-person-fill text-primary fs-4"></i>
-                    </div>
-                    <div>
-                        <strong>Admin</strong><br>
-                        <small>মেসেজ পাঠান</small>
-                    </div>
-                </div>
-                <button class="btn-close btn-close-white" id="lc-close-btn"></button>
-            </div>
-
-            <!-- Messages -->
-            <div class="lc-chat-messages show_all_masseges " id="lc-messages"></div>
-
-            <!-- Input -->
-            <div class="lc-chat-input">
-                <div id="lc-chat-form">
-                    <form class="input-group send_msg_to_admin">
-                        <input type="text" class="form-control border-0 shadow-none typing_messegesss" placeholder="টাইপ করুন..." required>
-                        <button type="submit" class="btn bg-primary rounded text-white ">
-                            <i class="bi bi-send-fill"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-      </div>
-      <!-- Floting chat section end -->
-       <script>
-          // Mobile VH fix
-          const setVH = () => {
-              document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-          };
-          setVH();
-          window.addEventListener('resize', setVH);
-
-          const toggleBtn = document.getElementById('lc-toggle-btn');
-          const closeBtn  = document.getElementById('lc-close-btn');
-          const chatBox   = document.getElementById('lc-chat-window');
-          const form      = document.getElementById('lc-chat-form');
-          const messages  = document.getElementById('lc-messages');
-          const input     = form.querySelector('input');
-
-          function scrollToBottom(force = false) {
-              const isNearBottom =
-                  messages.scrollHeight - messages.scrollTop - messages.clientHeight < 100;
-
-              if (force || isNearBottom) {
-                  messages.scrollTop = messages.scrollHeight;
-              }
-          }
-          scrollToBottom(true); // force scroll on own message
-
-
-          toggleBtn.onclick = () => {
-              chatBox.classList.toggle('lc-open');
-              setTimeout(() => input.focus(), 400);
-          };
-          closeBtn.onclick = () => chatBox.classList.remove('lc-open');
-
-          $(document).on('submit', '.send_msg_to_admin', function (e) {
-            e.preventDefault();
-            let typing_messegesss = $('.typing_messegesss').val();
-            if (typing_messegesss == '') {
-              toastr.error('Type Anything');
-            }else {
-              $.ajax({
-                type: "post",
-                url: "user/livechat_sendmsg",
-                data: {
-                  msg: typing_messegesss
-                },
-                success: function (rsp) {
-                  getAllLiveChat();
-                  $('.typing_messegesss').val('');
-                  scrollToBottom(true);
-                }
-              });
-            }
-          });
-
-          getAllLiveChat();
-          const chatInterval = setInterval(() => {
-              getAllLiveChat();
-          }, 5000);
-          function stopChatPolling() {
-              clearInterval(chatInterval);
-              console.log('Live chat polling বন্ধ করা হয়েছে');
-          }
-          window.addEventListener('beforeunload', stopChatPolling);
-
-          function getAllLiveChat() {
-            $.ajax({
-              type: "get",
-              url: "user/getAllChats",
-              data: "",
-              dataType: "json",
-              success: function (chats) {
-                let html_view = '';
-                for (let nn = 0; nn < chats.length; nn++) {
-                  html_view += `<div class="lc-message ${chats[nn].admin_user == 0 ? 'sent' : 'received' }">
-                                    ${chats[nn].msg_typing}
-                                    <div class="lc-message-time">${chats[nn].this_time} - ${chats[nn].this_dates}</div>
-                                </div>`;
-                }
-                $('.show_all_masseges').html(html_view);
-                scrollToBottom(true);
-              }
-            });
-          }
-
-       </script>
+      <!--Start of Tawk.to Script-->
+      <script type="text/javascript">
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/635ffd56daff0e1306d4f2ab/1ggnfb70a';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+      })();
+      </script>
+      <!--End of Tawk.to Script-->
     <?php } ?>
 
 
