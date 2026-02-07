@@ -668,9 +668,9 @@
 
               <!-- Welcome Section Start -->
                 <div class="glass p-5 rounded-4 mb-5 text-center col-6 col-md-6 col-lg-6  ">
-                  <h1 class="display-4 mb-3">স্বাগতম, <strong style="background: linear-gradient(135deg,#ff9a9e,#fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><?= $my_info->user_full_name; ?></strong> <img width="80px" height="80px" src="<?= $user_batch->batch_img_path; ?>" alt="">✨</h1>
+                  <h1 class="display-4 mb-3"><a href="http://www.fiverr.com/s/0bLjlZv" target="_blank" rel="noopener noreferrer" class="text-white "> স্বাগতম, </a><strong style="background: linear-gradient(135deg,#ff9a9e,#fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><?= $my_info->user_full_name; ?></strong> <img width="80px" height="80px" src="<?= $user_batch->batch_img_path; ?>" alt="">✨</h1>
                   <p class="lead opacity-90">তারিখ: <?= date('d F, Y'); ?></p>
-                  <span class="badge-premium fs-5"> <?= strtoupper($user_batch->batch_name.' Member'); ?> </span>
+                  <span class="badge-premium fs-5"><a href="http://www.fiverr.com/s/0bLjlZv" target="_blank" rel="noopener noreferrer" class=" "> <?= strtoupper($user_batch->batch_name.' Member'); ?>  </a></span>
 
                     <!-- Social Buttons -->
                     <div class="d-flex justify-content-center gap-3 mt-3">

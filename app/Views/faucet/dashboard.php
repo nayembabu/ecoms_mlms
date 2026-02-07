@@ -352,12 +352,12 @@
     <script>
         let viretaPopupInterval = null;
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                showViretaPopup();
-                viretaPopupInterval = setInterval(() => {
-                    showViretaPopup();
-                }, 30000);
-            }, 1500);
+            // setTimeout(() => {
+            //     showViretaPopup();
+            //     viretaPopupInterval = setInterval(() => {
+            //         showViretaPopup();
+            //     }, 30000);
+            // }, 1500);
         });
 
         function showViretaPopup() {
@@ -588,7 +588,7 @@
     <?php endif; ?>
 
 
-    
+
 
     <script>
         function detectAdBlock(callback) {

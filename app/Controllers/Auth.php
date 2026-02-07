@@ -151,7 +151,7 @@ class Auth extends BaseController
                     return redirect()->to('/lead/dashboard');
                 }elseif ($user['role_names'] === 'cust') {
                     $session->setFlashdata('success', 'Login successful');
-                    return redirect()->to('/user/dashboard');
+                    return redirect()->to('/user/incomePage');
                 }
             } else {
                 $session->setFlashdata('error', 'Invalid email or password');
